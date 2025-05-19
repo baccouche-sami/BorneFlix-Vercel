@@ -5,6 +5,10 @@ import evchargingImage from "@/assets/evcharging.svg";
 import featuresGridImage from "@/assets/features-grid.svg";
 import readyToPlugImage from "@/assets/readytoplug.svg";
 import circularImage from "@/assets/circular-image.svg";
+import infrastructureImage from "@/assets/images/gallery/pexels-kindelmedia-9800030.jpg";
+import individualImage from "@/assets/images/gallery/images-4.png";
+import anticipationImage from "@/assets/images/gallery/images-1.png";
+import infrastructureImage2 from "@/assets/images/gallery/images-13.png";
 
 const Solutions = () => {
   return (
@@ -31,7 +35,7 @@ const Solutions = () => {
             <div className="h-56 overflow-hidden bg-primary/5 relative">
               <div className="absolute inset-0 bg-gradient-to-t from-[#003566]/20 to-transparent z-10"></div>
               <img 
-                src="/src/assets/images/gallery/pexels-kindelmedia-9800030.jpg" 
+                src={infrastructureImage} 
                 alt="Infrastructure de recharge collective en copropriété"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
               />
@@ -68,7 +72,7 @@ const Solutions = () => {
             <div className="h-56 overflow-hidden bg-secondary/5 relative">
               <div className="absolute inset-0 bg-gradient-to-t from-[#8dc63f]/20 to-transparent z-10"></div>
               <img 
-                src="/src/assets/images/gallery/images-4.png" 
+                src={individualImage} 
                 alt="Solution individuelle de recharge en copropriété"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
               />
@@ -105,7 +109,7 @@ const Solutions = () => {
             <div className="h-56 overflow-hidden bg-accent/5 relative">
               <div className="absolute inset-0 bg-gradient-to-t from-accent/20 to-transparent z-10"></div>
               <img 
-                src="/src/assets/images/gallery/images-1.png" 
+                src={anticipationImage} 
                 alt="Pré-équipement pour bornes de recharge"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
               />
@@ -210,7 +214,7 @@ const Solutions = () => {
               <div className="relative flex items-center justify-center h-full overflow-hidden">
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-primary/20 to-secondary/30 rounded-lg blur-xl animate-pulse"></div>
                 <img 
-                  src="/src/assets/images/gallery/images-13.png" 
+                  src={infrastructureImage2} 
                   alt="Infrastructure de recharge collective en copropriété" 
                   className="relative max-w-full h-auto object-contain rounded-lg transform hover:scale-102 transition-transform duration-700"
                   style={{ maxHeight: '400px' }}

@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-
 const Process = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });

@@ -27,13 +27,13 @@ const GalleryImages = () => {
       description: 'Système pour parking sous-terrain'
     },
     {
-      src: import.meta.env.DEV ? '/client/src/assets/station-solaire.jpg' : '/images/reelles/station-solaire.jpg',
+      src: import.meta.env.DEV ? '/client@/assets/station-solaire.jpg' : '/images/reelles/station-solaire.jpg',
       alt: 'Bornes de recharge en réseau',
       title: 'Les Jardins de Mérignac',
       description: 'Infrastructure collective intelligente'
     },
     {
-      src: import.meta.env.DEV ? '/client/src/assets/borne-recharge.jpg' : '/images/reelles/borne-recharge.jpg',
+      src: import.meta.env.DEV ? '/client@/assets/borne-recharge.jpg' : '/images/reelles/borne-recharge.jpg',
       alt: 'Chargeur pour copropriété',
       title: 'Les Terrasses du Parc',
       description: 'Solution complète avec gestion multi-utilisateurs'

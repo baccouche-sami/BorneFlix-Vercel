@@ -83,7 +83,7 @@ const CreativeHeroSection = () => {
                 
                 {/* Image principale */}
                 <img 
-                  src="/src/assets/images/hero/recharge-img01.jpeg" 
+                  src="@/assets/images/hero/recharge-img01.jpeg" 
                   alt="Personne utilisant une borne de recharge pour véhicule électrique" 
                   className="w-full h-full object-cover scale-110 z-10 relative"
                 />

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="600px" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>EV Charging Station</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3a86ff" offset="0%"></stop>
+            <stop stop-color="#0460D9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#4cc417" offset="0%"></stop>
+            <stop stop-color="#38b000" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#F5F7FA" x="0" y="0" width="800" height="600"></rect>
+        
+        <!-- Background decoration -->
+        <circle fill="#E3F2FD" cx="700" cy="100" r="80"></circle>
+        <circle fill="#E3F2FD" cx="50" cy="520" r="180"></circle>
+        
+        <!-- Electric Car -->
+        <g transform="translate(450, 350)">
+            <!-- Car Body -->
+            <path d="M30,120 L50,70 L160,70 L190,120 L30,120 Z" fill="#F5F7FA" stroke="#333333" stroke-width="3"></path>
+            <path d="M50,70 L70,30 L150,30 L160,70 L50,70 Z" fill="#F5F7FA" stroke="#333333" stroke-width="3"></path>
+            
+            <!-- Windows -->
+            <path d="M75,35 L75,65 L145,65 L145,35 L75,35 Z" fill="#81D4FA" stroke="#333333" stroke-width="2"></path>
+            
+            <!-- Wheels -->
+            <circle cx="70" cy="120" r="20" fill="#333333"></circle>
+            <circle cx="70" cy="120" r="10" fill="#666666"></circle>
+            <circle cx="150" cy="120" r="20" fill="#333333"></circle>
+            <circle cx="150" cy="120" r="10" fill="#666666"></circle>
+            
+            <!-- Charging Port -->
+            <rect x="170" y="85" width="10" height="15" rx="2" fill="url(#linearGradient-2)"></rect>
+        </g>
+        
+        <!-- Charging Station -->
+        <g transform="translate(280, 280)">
+            <!-- Station Body -->
+            <rect x="0" y="0" width="80" height="190" rx="10" fill="#F5F7FA" stroke="#333333" stroke-width="3"></rect>
+            
+            <!-- Screen -->
+            <rect x="10" y="20" width="60" height="40" rx="5" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            
+            <!-- Charging Cable -->
+            <path d="M80,120 C150,120 180,200 280,220" stroke="#333333" stroke-width="4" stroke-linecap="round"></path>
+            
+            <!-- Charging Gun -->
+            <rect x="260" y="210" width="30" height="20" rx="5" fill="#333333"></rect>
+            
+            <!-- Status Indicator -->
+            <circle cx="40" cy="80" r="10" fill="url(#linearGradient-2)"></circle>
+            
+            <!-- Payment Terminal -->
+            <rect x="15" y="100" width="50" height="30" rx="5" fill="#E0E0E0" stroke="#333333" stroke-width="2"></rect>
+            
+            <!-- Buttons -->
+            <circle cx="25" cy="115" r="5" fill="url(#linearGradient-1)"></circle>
+            <circle cx="40" cy="115" r="5" fill="url(#linearGradient-1)"></circle>
+            <circle cx="55" cy="115" r="5" fill="url(#linearGradient-1)"></circle>
+        </g>
+        
+        <!-- Building -->
+        <g transform="translate(50, 100)">
+            <!-- Building Structure -->
+            <rect x="0" y="0" width="200" height="350" fill="#F5F7FA" stroke="#333333" stroke-width="3"></rect>
+            
+            <!-- Windows -->
+            <rect x="20" y="30" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="80" y="30" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="140" y="30" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            
+            <rect x="20" y="90" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="80" y="90" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="140" y="90" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            
+            <rect x="20" y="150" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="80" y="150" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="140" y="150" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            
+            <rect x="20" y="210" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="80" y="210" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            <rect x="140" y="210" width="40" height="40" fill="#81D4FA" stroke="#333333" stroke-width="2"></rect>
+            
+            <!-- Door -->
+            <rect x="80" y="290" width="40" height="60" fill="#E0E0E0" stroke="#333333" stroke-width="2"></rect>
+            <circle cx="110" cy="320" r="3" fill="#333333"></circle>
+        </g>
+        
+        <!-- Electric Symbols -->
+        <g transform="translate(650, 280)">
+            <circle cx="0" cy="0" r="30" fill="url(#linearGradient-2)" opacity="0.7"></circle>
+            <path d="M-10,-15 L5,0 L-5,0 L10,15 L0,5 L10,5 L-10,-15" fill="white" stroke="white" stroke-width="2"></path>
+        </g>
+        
+        <!-- Logo Text -->
+        <g transform="translate(400, 100)" text-anchor="middle">
+            <text font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="url(#linearGradient-1)">
+                Borne<tspan fill="url(#linearGradient-2)">Flix</tspan>
+            </text>
+            <text font-family="Arial, sans-serif" font-size="16" fill="#333333" y="30">
+                Solutions de recharge pour copropriétés
+            </text>
+        </g>
+    </g>
+</svg>

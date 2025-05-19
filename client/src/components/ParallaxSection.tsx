@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
+import infrastructureImage from "@/assets/images/gallery/pexels-kindelmedia-9800030.jpg";
 const ParallaxSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -20,7 +20,7 @@ const ParallaxSection = () => {
       >
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <img 
-          src="/src/assets/images/gallery/pexels-kindelmedia-9800030.jpg"
+          src={infrastructureImage}
           alt="Station de recharge de véhicules électriques" 
           className="w-full h-full object-cover"
         />

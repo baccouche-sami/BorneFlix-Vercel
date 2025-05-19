@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import rechargeImg from '@/assets/images/hero/recharge-img01.jpeg';
 
 const NewHeroSection = () => {
   const sectionRef = useRef(null);
@@ -70,6 +71,7 @@ const NewHeroSection = () => {
             </motion.div>
           </div>
           
+          
           {/* Right image column */}
           <div className="col-span-12 lg:col-span-6 z-10 relative">
             <motion.div
@@ -83,7 +85,7 @@ const NewHeroSection = () => {
                 <div className="relative w-full max-w-[550px] mx-auto">
                   <div className="rounded-full overflow-hidden border-[15px] border-white shadow-2xl aspect-square">
                     <img 
-                      src="/src/assets/images/hero/recharge-img01.jpeg" 
+                      src={rechargeImg} 
                       alt="Personne chargeant un véhicule électrique" 
                       className="w-full h-full object-cover"
                     />

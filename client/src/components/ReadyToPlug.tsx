@@ -73,7 +73,7 @@ const ReadyToPlug = () => {
               <div className="absolute inset-0 bg-secondary/5 transform rotate-3 rounded-lg"></div>
               <div className="relative bg-white p-4 rounded-lg shadow-lg border border-gray-100">
                 <img 
-                  src={import.meta.env.DEV ? '/src/assets/borne-recharge.jpg' : '/images/reelles/borne-recharge.jpg'} 
+                  src={import.meta.env.DEV ? '@/assets/borne-recharge.jpg' : '/images/reelles/borne-recharge.jpg'} 
                   alt="Solution Ready-to-plug pour copropriété" 
                   className="w-full h-auto rounded-lg"
                 />

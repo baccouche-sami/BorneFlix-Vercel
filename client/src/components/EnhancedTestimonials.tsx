@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PartnerLogos from './PartnerLogos';
-
+import userImage from '@/assets/user.png';
 interface Testimonial {
   id: number;
   name: string;
@@ -20,7 +20,7 @@ const testimonialData: Testimonial[] = [
     company: "Copropriété",
     text: "Nous avons installé une solution collective avec Borne Flix dans notre immeuble. Très bon accompagnement, présentation claire en AG, et aucun stress pour la gestion des démarches.",
     rating: 5,
-    image: "/src/assets/user.png"
+    image: userImage
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const testimonialData: Testimonial[] = [
     company: "Copropriétés",
     text: "Borne Flix nous fait gagner un temps précieux. Ils s’occupent de tout : étude, installation, relation avec les copropriétaires... Un vrai service clé en main que je recommande.",
     rating: 5,
-    image: "/src/assets/user.png"
+    image: userImage
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const testimonialData: Testimonial[] = [
     company: "Propriétaire",
     text: "Je suis pleinement satisfait de l’installation de ma borne de recharge pour V.E par BORNE FLIX. Mr BEN MAATOUK et son équipe ont fait preuve d’un grand professionnalisme. Je recommande vivement !!",
     rating: 4,
-    image: "/src/assets/user.png"
+    image: userImage
   }
 ];
 
