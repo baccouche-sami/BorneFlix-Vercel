@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import ChatbotFAQ from "./components/ChatbotFAQ";
 
 function Router() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Header />
         <Router />
         <Footer />
+        <ChatbotFAQ />
         <ScrollToTop />
       </TooltipProvider>
     </QueryClientProvider>

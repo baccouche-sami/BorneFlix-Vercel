@@ -12,6 +12,7 @@ import Gallery from "@/components/EnhancedGallery";
 import Contact from "@/components/Contact";
 import { useEffect } from "react";
 import CalendlyScheduler from "@/components/CalendlyScheduler";
+import PartnerLogos from "@/components/PartnerLogos";
 
 const Home = () => {
   // Handle smooth scrolling for anchor links
@@ -47,10 +48,11 @@ const Home = () => {
       <Process />
       <ParallaxSection />
       <Testimonials />
-      {/* <Gallery /> */}
+      <Gallery /> 
+      <PartnerLogos />
       <FAQ />
       <QuoteForm />
-      {/* <CalendlyScheduler url="https://calendly.com/sami-baccouche1998/30min" className="h-[650px]" /> */}
+      <CalendlyScheduler url="https://calendly.com/sami-baccouche1998/30min" className="h-[650px]" />
       <Contact />
     </main>
   );
