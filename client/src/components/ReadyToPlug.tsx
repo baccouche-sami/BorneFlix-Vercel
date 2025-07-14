@@ -9,9 +9,15 @@ const ReadyToPlug = () => {
           <div className="inline-block bg-secondary/10 text-secondary px-4 py-1 rounded-full text-sm font-medium mb-4">
             NOTRE SOLUTION
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Une solution de recharge "Ready-to-plug"</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Solution <span className="text-[#8dc63f]">"Ready-to-plug"</span> intelligente</h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Nous proposons une approche clé en main pour équiper votre copropriété avec une infrastructure de recharge adaptée à vos besoins.
+            <span className="font-semibold text-[#003566]">BorneFlix</span> propose une approche 
+            <span className="text-[#8dc63f] font-medium"> intelligente et connectée </span> 
+            pour équiper votre copropriété avec une infrastructure IRVE optimisée. 
+            <span className="text-[#8dc63f] font-medium"> Installation en 24h </span> 
+            et 
+            <span className="text-[#8dc63f] font-medium"> économies jusqu'à 50% </span> 
+            sur votre facture d'énergie.
           </p>
         </div>
         

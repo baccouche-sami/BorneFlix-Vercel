@@ -2,426 +2,655 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { MessageCircle, Phone, Mail, Calendar, X, Send, HelpCircle } from 'lucide-react';
 
-// Type pour les messages du chat
+// Types améliorés
 interface ChatMessage {
   id: string;
   sender: 'user' | 'bot';
   text: string;
   timestamp: Date;
+  type?: 'text' | 'card' | 'stats' | 'action' | 'contact';
+  data?: any;
 }
 
-// Type pour les suggestions rapides
 interface QuickSuggestion {
   id: string;
   text: string;
   query: string;
+  category?: string;
+  icon?: string;
 }
 
-// Base de connaissances du chatbot pour les FAQ
-const faqData = {
-  // Questions générales
+interface FAQCategory {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  questions: string[];
+}
+
+interface FAQData {
+  question?: string;
+  answer: string;
+  followup?: string[];
+  category?: string;
+  stats?: Record<string, string | number>;
+}
+
+interface FAQDatabase {
+  [key: string]: FAQData;
+}
+
+// Base de connaissances étendue et intelligente
+const faqData: FAQDatabase = {
+  // Installation et Processus
   "installation": {
-    question: "Comment se déroule l'installation d'une borne de recharge en copropriété ?",
-    answer: "L'installation se déroule en plusieurs étapes : 1️⃣ Étude technique gratuite de votre copropriété, 2️⃣ Proposition personnalisée, 3️⃣ Validation en assemblée générale, 4️⃣ Installation de l'infrastructure, 5️⃣ Pose des bornes individuelles. Notre équipe vous accompagne à chaque étape pour une transition sans stress ! 🔌✨",
-    followup: ["Combien de temps prend l'installation ?", "Quelles sont les aides financières ?", "Dois-je contacter le syndic ?"]
+    question: "Comment se déroule l'installation d'une borne de recharge ?",
+    answer: "L'installation BorneFlix se déroule en 5 étapes simples :\n\n1️⃣ **Étude technique gratuite** (1-2 semaines)\n2️⃣ **Proposition personnalisée** avec devis détaillé\n3️⃣ **Validation en assemblée générale** (nous vous accompagnons)\n4️⃣ **Installation de l'infrastructure** (1-3 semaines)\n5️⃣ **Pose des bornes individuelles** (1-2 jours)\n\n💡 **Avantage BorneFlix** : Notre équipe gère 100% des démarches administratives !",
+    followup: ["Combien de temps prend l'installation ?", "Quelles sont les aides financières ?", "Dois-je contacter le syndic ?"],
+    category: "installation",
+    stats: { time: "2-3 mois", success_rate: "98%", satisfaction: "4.9/5" }
   },
   "délai": {
-    question: "Quel est le délai pour installer une borne en copropriété ?",
-    answer: "Le délai moyen est de 2 à 3 mois, incluant l'étude technique (1-2 semaines), le vote en assemblée générale (dépend du calendrier de la copropriété), et l'installation (1-3 semaines selon la complexité). Nous pouvons accélérer certaines phases si nécessaire pour les projets urgents ! ⏱️💨",
-    followup: ["Comment se passe l'étude technique ?", "Peut-on installer sans attendre l'assemblée générale ?"]
+    question: "Quel est le délai pour installer une borne ?",
+    answer: "⏱️ **Délai total : 2 à 3 mois**\n\n📅 **Détail des étapes :**\n• Étude technique : 1-2 semaines\n• Vote AG : selon calendrier copropriété\n• Installation : 1-3 semaines\n• Mise en service : 1-2 jours\n\n🚀 **Accélération possible** pour projets urgents\n💡 **Conseil** : Commencez 6 mois avant votre besoin",
+    followup: ["Comment se passe l'étude technique ?", "Peut-on installer sans attendre l'AG ?", "Que faire si c'est urgent ?"],
+    category: "installation"
   },
   "prix": {
-    question: "Combien coûte l'installation d'une borne de recharge ?",
-    answer: "Le coût varie selon la configuration de votre copropriété, mais bonne nouvelle : jusqu'à 50% est pris en charge par les aides ADVENIR ! Pour une installation standard, comptez entre 1000€ et 2000€ par borne après déduction des aides. Nous vous proposons aussi des solutions de financement mensuel à partir de 19,90€/mois. 💰✅",
-    followup: ["Quelles sont les aides disponibles ?", "Proposez-vous des financements ?"]
+    question: "Quels sont les tarifs d'installation ?",
+    answer: "📊 **Solutions BorneFlix accessibles :**\n\n🔋 **Nos gammes :**\n• **Infrastructure collective** : 1,299€\n• **Borne individuelle** : 1,499€\n• **Prise Green'up** : 299€\n\n🎯 **Avantages inclus :**\n• Étude technique gratuite\n• Installation clé en main\n• Maintenance incluse\n• Garantie étendue\n\n💡 **Devis personnalisé gratuit** selon vos besoins !",
+    followup: ["Quelles sont les aides disponibles ?", "Comment obtenir un devis ?", "Quelle solution me convient ?"],
+    category: "prix"
   },
   "aides": {
-    question: "Quelles sont les aides financières disponibles ?",
-    answer: "Vous pouvez bénéficier de plusieurs aides : 1️⃣ Programme ADVENIR (jusqu'à 50% du coût), 2️⃣ Crédit d'impôt pour les particuliers (jusqu'à 300€), 3️⃣ Aides locales variables selon les régions et municipalités. Notre équipe s'occupe de toutes les démarches administratives pour que vous obteniez le maximum d'aides possible ! 📝💶",
-    followup: ["Comment obtenir ces aides ?", "Ces aides sont-elles cumulables ?"]
+    question: "Quelles sont les aides disponibles ?",
+    answer: "🎁 **Aides et accompagnement BorneFlix :**\n\n1️⃣ **Programme ADVENIR**\n• Aide significative pour copropriétés\n• Gestion administrative incluse\n• Accompagnement complet\n\n2️⃣ **Crédit d'impôt**\n• Avantage fiscal pour particuliers\n• Cumulable avec les autres aides\n\n3️⃣ **Aides locales**\n• Soutien des collectivités\n• Variables selon votre région\n\n4️⃣ **Solutions de financement**\n• Options adaptées à votre budget\n• Accompagnement personnalisé\n\n📞 **Notre équipe vous guide dans toutes les démarches !**",
+    followup: ["Comment obtenir ces aides ?", "Ces aides sont-elles cumulables ?", "Quels documents faut-il ?"],
+    category: "prix"
   },
   
-  // Questions techniques
+  // Questions techniques avancées
   "puissance": {
     question: "Quelle puissance de borne me faut-il ?",
-    answer: "Tout dépend de votre véhicule et de vos besoins ! Pour un usage quotidien en copropriété, une borne de 7.4 kW est généralement idéale (recharge complète en 4-8h). Si vous avez besoin de recharges plus rapides, nous proposons des bornes jusqu'à 22 kW. Notre système de gestion intelligente optimise la distribution de puissance pour éviter toute surcharge du réseau ! ⚡🔋",
-    followup: ["Différence entre 7.4 kW et 22 kW ?", "Faut-il modifier le tableau électrique ?"]
+    answer: "⚡ **Guide puissance BorneFlix :**\n\n🔋 **Recommandations par usage :**\n• **3.7 kW** : Recharge lente (8-12h)\n• **7.4 kW** : Recharge standard (4-8h) ⭐ **Recommandé**\n• **11 kW** : Recharge rapide (3-6h)\n• **22 kW** : Recharge très rapide (2-4h)\n\n🚗 **Par type de véhicule :**\n• Citadine électrique : 7.4 kW\n• SUV/Berline : 11-22 kW\n• Flotte entreprise : 22 kW\n\n💡 **Notre système intelligent** optimise automatiquement la distribution !",
+    followup: ["Différence entre 7.4 kW et 22 kW ?", "Faut-il modifier le tableau électrique ?", "Quelle puissance pour ma voiture ?"],
+    category: "technique"
   },
   "type": {
     question: "Quels types de bornes proposez-vous ?",
-    answer: "Nous proposons une gamme complète adaptée à tous les besoins : 1️⃣ Bornes murales (wallbox) compactes et économiques, 2️⃣ Bornes sur pied pour les parkings extérieurs, 3️⃣ Bornes intelligentes connectées pilotables à distance. Toutes nos bornes sont compatibles avec tous les modèles de véhicules électriques du marché européen ! 🚗🔌",
-    followup: ["Les bornes sont-elles compatibles avec ma voiture ?", "Peut-on recharger plusieurs véhicules ?"]
+    answer: "🔌 **Gamme complète BorneFlix :**\n\n🏠 **Bornes murales (Wallbox)**\n• Compactes et discrètes\n• Installation intérieure/extérieure\n• Puissance : 3.7 à 22 kW\n• Idéales pour usage personnel\n\n🏢 **Bornes sur pied**\n• Pour parkings extérieurs\n• Résistance aux intempéries\n• Puissance : 7.4 à 22 kW\n• Parfaites pour usage collectif\n\n🤖 **Bornes intelligentes**\n• Pilotage à distance\n• Gestion énergétique optimisée\n• Compatible tous véhicules\n• Solution premium connectée\n\n💡 **Toutes compatibles** avec le marché européen !",
+    followup: ["Les bornes sont-elles compatibles avec ma voiture ?", "Peut-on recharger plusieurs véhicules ?", "Quelle borne pour mon usage ?"],
+    category: "technique"
   },
   "maintenance": {
     question: "Comment fonctionne la maintenance des bornes ?",
-    answer: "Nos contrats incluent une maintenance complète : 1️⃣ Supervision à distance 24/7, 2️⃣ Intervention sous 48h en cas de panne, 3️⃣ Mise à jour logicielle automatique. La durée de vie moyenne d'une borne est de 10 ans, et nos garanties couvrent pièces et main d'œuvre pendant 2 à 5 ans selon les modèles. Vous pouvez dormir tranquille ! 🔧🛡️",
-    followup: ["Que faire en cas de panne ?", "Combien coûte la maintenance ?"]
+    answer: "🛠️ **Maintenance BorneFlix incluse :**\n\n📊 **Supervision 24/7**\n• Monitoring à distance\n• Détection préventive des pannes\n• Mises à jour automatiques\n\n⚡ **Intervention rapide**\n• Délai : 48h maximum\n• Techniciens certifiés\n• Pièces garanties 2-5 ans\n\n📈 **Statistiques fiabilité :**\n• Durée de vie : 10+ ans\n• Taux de disponibilité : 99.5%\n• Satisfaction client : 4.9/5\n\n💡 **Vous pouvez dormir tranquille !**",
+    followup: ["Que faire en cas de panne ?", "Combien coûte la maintenance ?", "Garantie incluse ?"],
+    category: "technique",
+    stats: { uptime: "99.5%", lifespan: "10+ ans", response_time: "48h" }
   },
   
-  // Questions process
+  // Processus et démarches
   "syndic": {
-    question: "Comment procéder avec mon syndic de copropriété ?",
-    answer: "Pas d'inquiétude, nous nous occupons de tout ! Contactez-nous d'abord et nous : 1️⃣ Préparons un dossier technique complet, 2️⃣ Communiquons directement avec votre syndic, 3️⃣ Présentons le projet en assemblée générale si nécessaire. Notre expertise en copropriété nous permet de simplifier toutes les démarches administratives ! 📋✅",
-    followup: ["Le syndic peut-il refuser l'installation ?", "Faut-il un vote en assemblée générale ?"]
+    question: "Comment procéder avec mon syndic ?",
+    answer: "🤝 **BorneFlix s'occupe de tout !**\n\n📋 **Notre accompagnement complet :**\n\n1️⃣ **Préparation du dossier**\n• Étude technique détaillée\n• Dossier administratif complet\n• Présentation claire du projet\n\n2️⃣ **Communication avec le syndic**\n• Contact direct par nos experts\n• Réponses à toutes les questions\n• Négociation si nécessaire\n\n3️⃣ **Assemblée générale**\n• Présentation du projet\n• Réponses aux objections\n• Vote accompagné\n\n💡 **Taux de réussite : 98%** grâce à notre expertise !",
+    followup: ["Le syndic peut-il refuser ?", "Faut-il un vote en AG ?", "Que faire en cas de refus ?"],
+    category: "demarches",
+    stats: { success_rate: "98%", avg_ag_time: "15 min", expert_support: "100%" }
   },
   "droit": {
-    question: "Ai-je le droit d'installer une borne dans ma copropriété ?",
-    answer: "Absolument ! Depuis la loi d'orientation des mobilités (LOM), vous bénéficiez d'un « droit à la prise » : votre copropriété ne peut pas s'opposer à l'installation d'une borne à vos frais. Si vous rencontrez une résistance, nous pouvons intervenir avec notre service juridique spécialisé pour faire valoir vos droits. La transition énergétique est protégée par la loi ! ⚖️🔌",
-    followup: ["Comment fonctionne le droit à la prise ?", "Que faire si le syndic refuse ?"]
+    question: "Ai-je le droit d'installer une borne ?",
+    answer: "⚖️ **Droit à la prise garanti !**\n\n📜 **Cadre légal :**\n• **Loi d'orientation des mobilités (LOM)**\n• **Droit à la prise** depuis 2020\n• **Copropriété ne peut refuser** l'installation\n\n✅ **Vos droits :**\n• Installation à vos frais autorisée\n• Pas de vote en AG obligatoire\n• Syndic doit faciliter les démarches\n\n🛡️ **Protection BorneFlix :**\n• Service juridique spécialisé\n• Intervention en cas de blocage\n• Recours si nécessaire\n\n💡 **La transition énergétique est protégée par la loi !**",
+    followup: ["Comment fonctionne le droit à la prise ?", "Que faire si le syndic refuse ?", "Recours possibles ?"],
+    category: "demarches"
   },
   
-  // Fallback
+  // Questions spécifiques
+  "compatibilite": {
+    question: "Les bornes sont-elles compatibles avec ma voiture ?",
+    answer: "✅ **Compatibilité universelle BorneFlix !**\n\n🔌 **Standards supportés :**\n• **Type 2** (standard européen)\n• **CCS Combo** (recharge rapide)\n• **CHAdeMO** (Japon/Asie)\n\n🚗 **Véhicules compatibles :**\n• Toutes les marques européennes\n• Tesla (avec adaptateur)\n• Véhicules hybrides rechargeables\n• Véhicules 100% électriques\n\n📱 **Fonctionnalités intelligentes :**\n• Détection automatique du véhicule\n• Adaptation de la puissance\n• Gestion optimisée de la charge\n\n💡 **Testez la compatibilité** sur notre simulateur en ligne !",
+    followup: ["Comment tester la compatibilité ?", "Faut-il un adaptateur ?", "Quelle borne pour ma voiture ?"],
+    category: "technique"
+  },
+  "consommation": {
+    question: "Comment optimiser ma consommation électrique ?",
+    answer: "⚡ **Optimisation BorneFlix :**\n\n🔋 **Gestion intelligente :**\n• **Recharge optimisée** : Heures creuses\n• **Pilotage à distance** : Contrôle total\n• **Suivi en temps réel** : Consommation détaillée\n\n🚗 **Avantages concrets :**\n• **Économies énergétiques** significatives\n• **Recharge plus rapide** et efficace\n• **Réduction de l'empreinte carbone**\n• **Comfort d'utilisation** maximal\n\n💡 **Notre système intelligent** vous aide à optimiser votre consommation !",
+    followup: ["Comment fonctionne la gestion intelligente ?", "Puis-je revendre mon électricité ?", "Comment suivre ma consommation ?"],
+    category: "technique"
+  },
+  "securite": {
+    question: "Les bornes sont-elles sécurisées ?",
+    answer: "🔒 **Sécurité maximale BorneFlix !**\n\n🛡️ **Protections intégrées :**\n• **Surveillance 24/7** à distance\n• **Détection d'anomalies** automatique\n• **Arrêt d'urgence** en cas de problème\n• **Protection contre les surtensions**\n\n🔐 **Sécurité physique :**\n• **Câbles renforcés** anti-vandalisme\n• **Boîtiers IP65** (résistance eau/poussière)\n• **Verrouillage** optionnel\n• **Surveillance vidéo** possible\n\n📱 **Contrôle à distance :**\n• App mobile sécurisée\n• Notifications en temps réel\n• Historique des utilisations\n• Gestion des accès\n\n💡 **Aucun incident** en 5 ans d'exploitation !",
+    followup: ["Que faire en cas de problème ?", "Surveillance vidéo incluse ?", "Protection contre le vol ?"],
+    category: "technique",
+    stats: { incidents: "0", uptime: "99.9%", security_level: "Militaire" }
+  },
+  
+  // Questions business
+  "entreprise": {
+    question: "Solutions pour entreprises et flottes ?",
+    answer: "🏢 **Solutions entreprises BorneFlix :**\n\n🚗 **Gestion de flotte :**\n• **Bornes multiples** (jusqu'à 100+)\n• **Gestion centralisée** via dashboard\n• **Facturation automatique** par véhicule\n• **Rapports détaillés** de consommation\n\n🎯 **Avantages business :**\n• **Réduction des coûts** d'exploitation\n• **Avantages fiscaux** importants\n• **Image RSE** améliorée\n• **Conformité** réglementaire\n\n📊 **Solutions sur mesure :**\n• **Parking privé** : 10-50 bornes\n• **Parking public** : 50-200 bornes\n• **Logistique** : bornes rapides\n\n💡 **Accompagnement dédié** pour votre transition !",
+    followup: ["Devis pour ma flotte ?", "Gestion de la facturation ?", "Accompagnement transition ?"],
+    category: "business"
+  },
+  
+  // Contact et devis
+  "contact": {
+    question: "Comment contacter BorneFlix ?",
+    answer: "📞 **Contactez-nous facilement :**\n\n1️⃣ **Téléphone** : 01 80 91 90 80\n2️⃣ **Email** : contact@borneflix.fr\n3️⃣ **Devis en ligne** : borneflix.fr/devis\n4️⃣ **Rendez-vous** : Calendly intégré\n\n⏰ **Horaires :**\n• Lundi-Vendredi : 9h-18h\n• Samedi : 9h-12h\n• Support technique : 24/7\n\n💡 **Réponse garantie sous 2h** en heures ouvrables !",
+    followup: ["Demander un devis", "Prendre rendez-vous", "Support technique", "Voir nos réalisations"],
+    category: "contact"
+  },
+  "devis": {
+    question: "Comment obtenir un devis ?",
+    answer: "📋 **Devis gratuit en 2 minutes :**\n\n🚀 **Processus simple :**\n1. **Formulaire en ligne** (2 min)\n2. **Étude technique** gratuite (1-2 semaines)\n3. **Proposition personnalisée** avec prix détaillé\n4. **Accompagnement** jusqu'à l'installation\n\n🎯 **Inclus dans le devis :**\n• Étude technique complète\n• Prix détaillé par solution\n• Aides financières calculées\n• Planning d'installation\n• Garanties et maintenance\n\n💡 **Aucun engagement** - devis 100% gratuit !",
+    followup: ["Faire un devis maintenant", "Voir nos solutions", "Consulter les aides", "Parler à un expert"],
+    category: "contact"
+  },
+  
+  // Fallback intelligent
   "fallback": {
-    answer: "Je n'ai pas toutes les informations sur ce sujet spécifique, mais je serais ravi d'en discuter plus en détail. Pourriez-vous me donner plus de précisions sur votre question ? Ou préférez-vous être mis en relation avec l'un de nos experts ? 🤔",
-    followup: ["Parler à un expert", "Demander un devis", "Voir la FAQ complète"]
+    answer: "🤔 **Question intéressante !**\n\nJe n'ai pas toutes les informations sur ce sujet spécifique, mais je peux vous aider de plusieurs façons :\n\n1️⃣ **Parler à un expert** BorneFlix (gratuit)\n2️⃣ **Demander un devis** personnalisé\n3️⃣ **Consulter notre FAQ** complète\n4️⃣ **Tester notre simulateur** en ligne\n\n💡 **Notre équipe d'experts** est disponible 7j/7 pour répondre à toutes vos questions !",
+    followup: ["Parler à un expert", "Demander un devis", "Voir la FAQ complète", "Tester le simulateur"],
+    category: "general"
   }
 };
 
-// Suggestions rapides pour démarrer la conversation
-const initialSuggestions: QuickSuggestion[] = [
-  { id: "s1", text: "Comment installer une borne ?", query: "installation" },
-  { id: "s2", text: "Combien ça coûte ?", query: "prix" },
-  { id: "s3", text: "Aides financières", query: "aides" },
-  { id: "s4", text: "Démarches avec le syndic", query: "syndic" }
+// Catégories organisées
+const categories: FAQCategory[] = [
+  {
+    id: "installation",
+    name: "Installation",
+    icon: "fas fa-tools",
+    color: "#8dc63f",
+    questions: ["installation", "délai", "prix", "aides"]
+  },
+  {
+    id: "technique",
+    name: "Technique",
+    icon: "fas fa-cog",
+    color: "#003566",
+    questions: ["puissance", "type", "maintenance", "compatibilite", "securite"]
+  },
+  {
+    id: "demarches",
+    name: "Démarches",
+    icon: "fas fa-file-alt",
+    color: "#ff6b35",
+    questions: ["syndic", "droit"]
+  },
+  {
+    id: "business",
+    name: "Entreprise",
+    icon: "fas fa-building",
+    color: "#6c5ce7",
+    questions: ["entreprise"]
+  },
+  {
+    id: "contact",
+    name: "Contact",
+    icon: "fas fa-phone",
+    color: "#e17055",
+    questions: ["contact", "devis"]
+  }
 ];
 
-// Fonctions d'utilitaires
+// Suggestions rapides par catégorie
+const initialSuggestions: QuickSuggestion[] = [
+  { id: "s1", text: "Comment installer ?", query: "installation", category: "installation", icon: "fas fa-tools" },
+  { id: "s2", text: "Nos solutions", query: "prix", category: "prix", icon: "fas fa-star" },
+  { id: "s3", text: "Aides disponibles", query: "aides", category: "prix", icon: "fas fa-gift" },
+  { id: "s4", text: "Démarches syndic", query: "syndic", category: "demarches", icon: "fas fa-handshake" },
+  { id: "s5", text: "Quelle puissance ?", query: "puissance", category: "technique", icon: "fas fa-bolt" },
+  { id: "s6", text: "Sécurité", query: "securite", category: "technique", icon: "fas fa-shield-alt" },
+  { id: "s7", text: "Demander un devis", query: "devis", category: "contact", icon: "fas fa-calculator" },
+  { id: "s8", text: "Nous contacter", query: "contact", category: "contact", icon: "fas fa-phone" }
+];
+
+// Fonctions utilitaires améliorées
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
-const getBotResponse = (query: string): { answer: string, followup?: string[] } => {
-  // Convertir la requête en minuscules pour une recherche insensible à la casse
+const getBotResponse = (query: string): { answer: string, followup?: string[], category?: string, stats?: any } => {
   const normalizedQuery = query.toLowerCase();
   
-  // Rechercher des mots-clés dans la requête
-  for (const [key, data] of Object.entries(faqData)) {
-    if (normalizedQuery.includes(key) || (data as any).question?.toLowerCase().includes(normalizedQuery)) {
-      return data as { answer: string, followup?: string[] };
+  // Recherche intelligente avec mots-clés
+  const keywords = {
+    'installation': ['installer', 'installation', 'poser', 'mettre', 'équiper'],
+    'prix': ['tarif', 'solution', 'gamme', 'offre', 'proposition'],
+    'aides': ['aide', 'subvention', 'crédit', 'impôt', 'advenir'],
+    'délai': ['temps', 'délai', 'durée', 'quand', 'rapidement'],
+    'puissance': ['puissance', 'kw', 'rapide', 'lent', 'vitesse'],
+    'type': ['type', 'modèle', 'borne', 'wallbox', 'pied'],
+    'maintenance': ['maintenance', 'entretien', 'panne', 'réparation', 'garantie'],
+    'syndic': ['syndic', 'copropriété', 'assemblée', 'vote', 'autorisation'],
+    'droit': ['droit', 'légal', 'loi', 'autorisation', 'refus'],
+    'compatibilite': ['compatible', 'voiture', 'véhicule', 'modèle', 'marque'],
+    'consommation': ['consommation', 'électricité', 'kwh', 'optimisation', 'gestion'],
+    'securite': ['sécurité', 'sûr', 'protection', 'vol', 'vandalisme'],
+    'entreprise': ['entreprise', 'flotte', 'business', 'professionnel', 'commercial'],
+    'contact': ['contact', 'téléphone', 'email', 'appeler', 'contacter'],
+    'devis': ['devis', 'estimation', 'prix', 'calculer', 'budget']
+  };
+  
+  // Recherche par mots-clés
+  for (const [key, words] of Object.entries(keywords)) {
+    if (words.some(word => normalizedQuery.includes(word))) {
+      return faqData[key] || faqData.fallback;
     }
   }
   
-  // Réponse par défaut si aucune correspondance n'est trouvée
+  // Recherche directe
+  for (const [key, data] of Object.entries(faqData)) {
+    if (normalizedQuery.includes(key) || (data as any).question?.toLowerCase().includes(normalizedQuery)) {
+      return data as { answer: string, followup?: string[], category?: string, stats?: any };
+    }
+  }
+  
   return faqData.fallback;
 };
 
-// Composant du chatbot
+// Composant principal amélioré
 const ChatbotFAQ: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState<QuickSuggestion[]>(initialSuggestions);
   const [typingIndicator, setTypingIndicator] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState<string>('all');
+  const [showCategories, setShowCategories] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  // Effet pour faire défiler automatiquement vers le bas
+  // Auto-scroll
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
   
-  // Ajouter un message de bienvenue au chargement du chatbot
+  // Message de bienvenue amélioré
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      setTimeout(() => {
-        setMessages([
-          {
-            id: generateId(),
-            sender: 'bot',
-            text: "Bonjour ! 👋 Je suis Aicha, votre assistante virtuelle BorneFlix. Comment puis-je vous aider avec votre projet de recharge pour véhicule électrique en copropriété ?",
-            timestamp: new Date()
-          }
-        ]);
-      }, 600);
+      const welcomeMessage: ChatMessage = {
+        id: generateId(),
+        sender: 'bot',
+        text: "👋 **Bonjour ! Je suis l'assistant BorneFlix**\n\nJe peux vous aider avec :\n\n🔧 **Installation** et processus\n💰 **Tarifs** et aides financières\n⚡ **Questions techniques**\n📋 **Démarches** administratives\n🏢 **Solutions entreprises**\n\n💡 **Posez-moi votre question** ou choisissez une suggestion ci-dessous !",
+        timestamp: new Date(),
+        type: 'text'
+      };
+      setMessages([welcomeMessage]);
     }
   }, [isOpen, messages.length]);
-  
-  // Fonction pour envoyer un message
+
   const handleSendMessage = (text: string, isQuickReply = false) => {
-    if (!text.trim() && !isQuickReply) return;
-    
-    // Ajouter le message de l'utilisateur
+    // Ajouter le message utilisateur
     const userMessage: ChatMessage = {
       id: generateId(),
       sender: 'user',
-      text: text,
-      timestamp: new Date()
+      text,
+      timestamp: new Date(),
+      type: 'text'
     };
     
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
-    
-    // Simuler la saisie du bot
     setTypingIndicator(true);
     
-    // Traiter la réponse du bot
+    // Simuler le délai de réponse du bot
     setTimeout(() => {
-      const response = getBotResponse(text);
+      setTypingIndicator(false);
       
-      // Ajouter le message du bot
+      const response = getBotResponse(text);
       const botMessage: ChatMessage = {
         id: generateId(),
         sender: 'bot',
         text: response.answer,
-        timestamp: new Date()
+        timestamp: new Date(),
+        type: response.stats ? 'stats' : 'text',
+        data: response.stats
       };
       
       setMessages(prev => [...prev, botMessage]);
-      setTypingIndicator(false);
       
-      // Mettre à jour les suggestions de suivi
-      if (response.followup) {
-        setSuggestions(
-          response.followup.map((text, index) => ({
-            id: `f${index}`,
-            text,
-            query: text.toLowerCase()
-          }))
-        );
-      } else {
-        setSuggestions(initialSuggestions);
+      // Ajouter les suggestions de suivi si disponibles
+      if (response.followup && response.followup.length > 0) {
+        setTimeout(() => {
+          const followupMessage: ChatMessage = {
+            id: generateId(),
+            sender: 'bot',
+            text: "💡 **Autres questions qui pourraient vous intéresser :**",
+            timestamp: new Date(),
+            type: 'action',
+            data: {
+              suggestions: response.followup!.map((text, index) => ({
+                id: `followup-${index}`,
+                text,
+                query: text.toLowerCase()
+              }))
+            }
+          };
+          setMessages(prev => [...prev, followupMessage]);
+        }, 1000);
       }
-    }, 1000 + Math.random() * 1000); // Délai aléatoire pour simuler la saisie
+
+      // Proposer le contact après 3 échanges
+      if (messages.length >= 4) {
+        setTimeout(() => {
+          const contactMessage: ChatMessage = {
+            id: generateId(),
+            sender: 'bot',
+            text: "💬 **Besoin d'aide plus personnalisée ?**\n\nNotre équipe d'experts est disponible pour vous accompagner !",
+            timestamp: new Date(),
+            type: 'contact'
+          };
+          setMessages(prev => [...prev, contactMessage]);
+        }, 2000);
+      }
+    }, 1000 + Math.random() * 1000);
   };
-  
-  // Gérer la soumission du formulaire
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleSendMessage(inputValue);
+    if (inputValue.trim()) {
+      handleSendMessage(inputValue.trim());
+    }
   };
-  
-  // Ouvrir ou fermer le chatbot
+
   const toggleChat = () => {
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      setMessages([]);
+    }
   };
-  
-  // Générer un composant amélioré pour un message individuel
+
+  const handleContactAction = (action: string) => {
+    switch (action) {
+      case 'phone':
+        window.location.href = 'tel:0180919080';
+        break;
+      case 'email':
+        window.location.href = 'mailto:contact@borneflix.fr';
+        break;
+      case 'devis':
+        window.location.href = '/devis';
+        break;
+      case 'calendly':
+        // Ouvrir Calendly si disponible
+        const calendlyElement = document.querySelector('[data-calendly]');
+        if (calendlyElement) {
+          (calendlyElement as HTMLElement).click();
+        } else {
+          window.location.href = '/contact';
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const renderCategories = () => (
+    <div className="mb-4">
+      <div className="flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <motion.button
+            key={category.id}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              setCurrentCategory(category.id);
+              setShowCategories(false);
+              const categoryQuestions = category.questions.slice(0, 3);
+              setSuggestions(categoryQuestions.map((q, index) => ({
+                id: `cat-${index}`,
+                text: faqData[q]?.question || q,
+                query: q,
+                category: category.id
+              })));
+            }}
+            className="px-3 py-2 rounded-full text-sm font-medium transition-all duration-300"
+            style={{
+              backgroundColor: currentCategory === category.id ? category.color : '#f3f4f6',
+              color: currentCategory === category.id ? 'white' : '#374151'
+            }}
+          >
+            <i className={`${category.icon} mr-2`}></i>
+            {category.name}
+          </motion.button>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderStats = (stats: Record<string, string | number>) => (
+    <div className="mt-4 p-4 bg-gradient-to-r from-[#8dc63f]/10 to-[#003566]/10 rounded-lg">
+      <h4 className="font-semibold text-[#003566] mb-3">📊 Statistiques BorneFlix</h4>
+      <div className="grid grid-cols-2 gap-4">
+        {Object.entries(stats).map(([key, value]) => (
+          <div key={key} className="text-center">
+            <div className="text-2xl font-bold text-[#ff6b35]">{value}</div>
+            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderMessage = (message: ChatMessage) => {
-    const isBotMessage = message.sender === 'bot';
+    const isBot = message.sender === 'bot';
     
     return (
       <motion.div
         key={message.id}
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
-        className={`flex ${isBotMessage ? 'justify-start' : 'justify-end'} mb-4 items-end`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className={`flex ${isBot ? 'justify-start' : 'justify-end'} mb-4`}
       >
-        {/* Avatar pour les messages du bot */}
-        {isBotMessage && (
-          <div className="w-8 h-8 rounded-full bg-[#003566] flex-shrink-0 mr-2 flex items-center justify-center">
-            <span className="text-white text-xs font-bold">EB</span>
-          </div>
-        )}
-        
-        <motion.div 
-          className={`max-w-[80%] rounded-lg p-4 shadow-sm ${
-            isBotMessage 
-              ? 'bg-white text-gray-800 border-l-4 border-l-[#8dc63f] rounded-bl-none' 
-              : 'bg-gradient-to-r from-[#003566] to-[#00264d] text-white rounded-br-none'
-          }`}
-          whileHover={{ scale: 1.01 }}
-        >
-          <div className="whitespace-pre-wrap text-sm md:text-base leading-relaxed">{message.text}</div>
-          <div 
-            className={`text-xs mt-2 text-right flex items-center justify-end ${
-              isBotMessage ? 'text-gray-400' : 'text-white/70'
-            }`}
-          >
-            {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            {isBotMessage ? (
-              <i className="fas fa-check-circle ml-1 text-[#8dc63f]"></i>
-            ) : (
-              <i className="fas fa-check ml-1"></i>
-            )}
-          </div>
-        </motion.div>
-        
-        {/* Avatar pour les messages de l'utilisateur */}
-        {!isBotMessage && (
-          <div className="w-8 h-8 rounded-full bg-[#8dc63f] flex-shrink-0 ml-2 flex items-center justify-center">
-            <i className="fas fa-user text-white text-xs"></i>
-          </div>
-        )}
+        <div className={`max-w-[80%] ${isBot ? 'bg-white' : 'bg-[#ff6b35] text-white'} rounded-2xl px-4 py-3 shadow-md`}>
+          {message.type === 'contact' ? (
+            <div className="space-y-3">
+              <div className="whitespace-pre-line text-sm">{message.text}</div>
+              <div className="flex flex-wrap gap-2">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleContactAction('phone')}
+                  className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                >
+                  <Phone className="w-4 h-4" />
+                  Appeler
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleContactAction('email')}
+                  className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                >
+                  <Mail className="w-4 h-4" />
+                  Envoyer un email
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleContactAction('devis')}
+                  className="flex items-center gap-2 bg-[#8dc63f] hover:bg-[#7db52f] text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                >
+                  <HelpCircle className="w-4 h-4" />
+                  Demander un devis
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleContactAction('calendly')}
+                  className="flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Prendre rendez-vous
+                </motion.button>
+              </div>
+            </div>
+          ) : message.type === 'action' && message.data?.suggestions ? (
+            <div className="space-y-3">
+              <div className="whitespace-pre-line text-sm">{message.text}</div>
+              <div className="flex flex-wrap gap-2">
+                {message.data.suggestions.map((suggestion: any) => (
+                  <motion.button
+                    key={suggestion.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleSendMessage(suggestion.query, true)}
+                    className="bg-[#003566] hover:bg-[#00264d] text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300"
+                  >
+                    {suggestion.text}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className="whitespace-pre-line text-sm">{message.text}</div>
+              {message.data && message.type === 'stats' && renderStats(message.data)}
+            </div>
+          )}
+        </div>
       </motion.div>
     );
   };
-  
+
   return (
     <>
-      {/* Bouton flottant pour ouvrir le chatbot avec animation pulse pour attirer l'attention */}
-      <motion.div
-        className="fixed bottom-8 right-8 sm:bottom-6 sm:right-6 z-40"
-        initial={{ scale: 1 }}
-        animate={{ 
-          scale: [1, 1.05, 1],
-        }}
-        transition={{ 
-          duration: 2, 
-          repeat: Infinity,
-          repeatType: "reverse" 
-        }}
+      {/* Bouton flottant du chatbot */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={toggleChat}
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#ff6b35] hover:bg-[#ff8c42] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+        aria-label="Ouvrir le chat"
       >
-        <motion.button
-          className={`w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
-            isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-[#8dc63f] hover:bg-[#75a630]'
-          }`}
-          onClick={toggleChat}
-          whileHover={{ scale: 1.1, boxShadow: "0 0 15px rgba(141, 198, 63, 0.6)" }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <i className={`fas ${isOpen ? 'fa-times' : 'fa-comments'} text-white text-xl`}></i>
-          
-          {/* Badge qui indique un nouveau message */}
-          {!isOpen && messages.length === 0 && (
-            <motion.span 
-              className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 500, damping: 20 }}
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              1
-            </motion.span>
+              <X className="w-6 h-6" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="chat"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MessageCircle className="w-6 h-6" />
+            </motion.div>
           )}
-        </motion.button>
-      </motion.div>
-      
+        </AnimatePresence>
+      </motion.button>
+
       {/* Interface du chatbot */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-4 sm:right-6 w-[90vw] max-w-md h-[500px] z-40 rounded-lg shadow-2xl overflow-hidden bg-gray-50 border border-gray-200"
+            className="fixed bottom-24 right-6 z-40 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
           >
-            {/* Entête du chatbot amélioré */}
-            <div className="bg-gradient-to-r from-[#003566] to-[#002548] text-white p-4 flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-white/90 mr-3 flex items-center justify-center shadow-md overflow-hidden">
-                  <img src="/images/logo-small.svg" alt="Logo BorneFlix" className="w-10 h-10" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Elia, votre assistante</h3>
-                  <div className="flex items-center text-sm">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                    <span className="text-green-200">En ligne et prête à vous aider</span>
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[#ff6b35] to-[#ff8c42] text-white p-4 rounded-t-2xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Assistant BorneFlix</h3>
+                    <p className="text-xs opacity-90">En ligne • Réponse instantanée</p>
                   </div>
                 </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={toggleChat}
+                  className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300"
+                >
+                  <X className="w-4 h-4" />
+                </motion.button>
               </div>
-              <motion.button 
-                onClick={toggleChat} 
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors duration-200"
-                whileHover={{ rotate: 90 }}
-                transition={{ duration: 0.2 }}
-              >
-                <i className="fas fa-times"></i>
-              </motion.button>
             </div>
-            
-            {/* Corps du chatbot */}
-            <div className="h-[calc(100%-130px)] overflow-y-auto p-4 bg-gray-100">
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map(renderMessage)}
               
               {typingIndicator && (
-                <div className="flex justify-start mb-3">
-                  <div className="bg-white text-gray-800 rounded-lg rounded-bl-none p-3 max-w-[80%]">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex justify-start mb-4"
+                >
+                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
                     <div className="flex space-x-1">
-                      <motion.div
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-                      />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
               
               <div ref={messagesEndRef} />
             </div>
-            
-            {/* Suggestions rapides améliorées */}
-            {suggestions.length > 0 && (
-              <div className="bg-gradient-to-r from-white to-gray-50 border-t border-gray-200 p-3 overflow-x-auto">
-                <div className="flex space-x-3 pb-1">
-                  {suggestions.map((suggestion, index) => (
+
+            {/* Suggestions rapides */}
+            {messages.length === 1 && (
+              <div className="p-4 border-t border-gray-100">
+                <p className="text-xs text-gray-500 mb-3">💡 Suggestions rapides :</p>
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.slice(0, 3).map((suggestion) => (
                     <motion.button
                       key={suggestion.id}
-                      onClick={() => handleSendMessage(suggestion.text, true)}
-                      className="px-4 py-2 bg-white hover:bg-[#f0f9e8] rounded-lg text-sm border border-gray-200 shadow-sm transition-all duration-200 flex-shrink-0 text-[#003566]"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ 
-                        duration: 0.3, 
-                        delay: index * 0.1,
-                        type: "spring",
-                        stiffness: 400, 
-                        damping: 15
-                      }}
-                      whileHover={{ 
-                        scale: 1.05, 
-                        borderColor: '#8dc63f',
-                        boxShadow: '0 4px 12px rgba(141, 198, 63, 0.15)'
-                      }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleSendMessage(suggestion.query, true)}
+                      className="bg-[#003566] hover:bg-[#00264d] text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300"
                     >
-                      <div className="flex items-center">
-                        <i className="fas fa-lightbulb text-[#8dc63f] mr-2"></i>
-                        <span>{suggestion.text}</span>
-                      </div>
+                      {suggestion.text}
                     </motion.button>
                   ))}
                 </div>
               </div>
             )}
-            
-            {/* Zone de saisie améliorée avec animations et meilleure interface */}
-            <form onSubmit={handleSubmit} className="bg-white border-t border-gray-200 p-4 flex items-center space-x-2">
-              <div className="flex-1 relative">
+
+            {/* Input */}
+            <div className="p-4 border-t border-gray-100">
+              <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Posez votre question sur les bornes de recharge..."
-                  className="w-full px-4 py-3 bg-gray-50 rounded-full focus:outline-none focus:ring-2 focus:ring-[#8dc63f] border border-gray-200 pr-10 transition-all duration-300 shadow-sm hover:shadow"
-                  autoFocus={isOpen}
+                  placeholder="Posez votre question..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff6b35] focus:border-transparent transition-all duration-300 text-sm"
+                  disabled={typingIndicator}
                 />
-                {inputValue && (
-                  <button
-                    type="button"
-                    onClick={() => setInputValue('')}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-                  >
-                    <i className="fas fa-times-circle"></i>
-                  </button>
-                )}
-              </div>
-              
-              <motion.button
-                type="submit"
-                disabled={!inputValue.trim()}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm ${
-                  inputValue.trim() 
-                    ? 'bg-[#8dc63f] hover:bg-[#75a630] text-white cursor-pointer' 
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
-                whileHover={inputValue.trim() ? { scale: 1.05, rotate: 5 } : {}}
-                whileTap={inputValue.trim() ? { scale: 0.95 } : {}}
-              >
-                <i className="fas fa-paper-plane"></i>
-              </motion.button>
-            </form>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={!inputValue.trim() || typingIndicator}
+                  className="bg-[#ff6b35] hover:bg-[#ff8c42] disabled:bg-gray-300 text-white px-4 py-2 rounded-lg transition-all duration-300 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-4 h-4" />
+                </motion.button>
+              </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

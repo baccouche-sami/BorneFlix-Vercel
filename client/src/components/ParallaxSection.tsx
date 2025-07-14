@@ -36,10 +36,13 @@ const ParallaxSection = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Prêt à électrifier votre copropriété ?
+            Prêt à électrifier votre copropriété <span className="text-[#8dc63f]">intelligemment</span> ?
           </h2>
           <p className="text-xl md:text-2xl mb-8 font-light">
-            Le futur de la mobilité est électrique. Préparez votre copropriété dès aujourd'hui.
+            Le futur de la mobilité est électrique. Équipez votre copropriété 
+            <span className="text-[#8dc63f] font-medium"> dès aujourd'hui </span> 
+            avec nos solutions IRVE intelligentes et 
+            <span className="text-[#8dc63f] font-medium"> économies jusqu'à 50% </span>.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a 

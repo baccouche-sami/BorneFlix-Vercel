@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import rechargeImg from '@/assets/images/hero/recharge-img01.jpeg';
+import rechargeImg from '@/assets/images/hero/hero2.jpg';
 
 const NewHeroSection = () => {
   const sectionRef = useRef(null);
@@ -29,26 +29,26 @@ const NewHeroSection = () => {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#003566]">
-                La recharge en <span className="text-[#8dc63f]">copropriété</span> n'aura jamais été aussi simple
+                Rechargez votre véhicule électrique <span className="text-[#8dc63f]">dès 299€</span>
               </h1>
               
               <p className="text-lg md:text-xl text-gray-600 mb-8">
-                <span className="font-semibold text-[#003566]">BorneFlix</span> propose des installations de bornes de recharge pour véhicules électriques (IRVE), adaptées aux besoins de chaque client. Une solution 
-                <span className="text-[#8dc63f] font-medium"> clé en main </span> 
-                à moindre coût et 
-                <span className="text-[#8dc63f] font-medium"> sans reste à charge </span>
-                pour les copropriétés.
+                <span className="font-semibold text-[#003566]">BorneFlix</span> révolutionne la recharge en copropriété avec des solutions IRVE intelligentes et connectées. Installation en 24h, 
+                <span className="text-[#8dc63f] font-medium"> économies jusqu'à 50% </span> 
+                sur votre facture d'énergie et 
+                <span className="text-[#8dc63f] font-medium"> gestion intelligente </span> 
+                pour une recharge optimale.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <a href="#devis">
-                  <Button size="lg" className="w-full sm:w-auto bg-[#8dc63f] hover:bg-[#7ab42f] text-white font-medium py-6 px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px]">
-                    Contactez-nous
+                  <Button size="lg" className="w-full sm:w-auto bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-4 md:py-6 px-6 md:px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px] text-base md:text-lg">
+                    Devis gratuit en 2 min
                   </Button>
                 </a>
                 <a href="#solutions">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-[#003566] hover:bg-[#003566]/5 text-[#003566] font-medium py-6 px-8 rounded-full transition-all duration-300">
-                    En savoir plus
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto border-2 border-[#003566] hover:bg-[#003566]/5 text-[#003566] font-medium py-4 md:py-6 px-6 md:px-8 rounded-full transition-all duration-300 text-base md:text-lg">
+                    Découvrir nos solutions
                   </Button>
                 </a>
               </div>
@@ -87,7 +87,7 @@ const NewHeroSection = () => {
                     <img 
                       src={rechargeImg} 
                       alt="Personne chargeant un véhicule électrique" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-right"
                     />
                   </div>
                   
@@ -105,8 +105,8 @@ const NewHeroSection = () => {
                     }}
                   >
                     <div className="bg-[#8dc63f] rounded-lg px-4 py-3 text-white text-sm font-bold shadow-lg">
-                      <i className="fas fa-percentage mr-2"></i>
-                      Jusqu'à 50% d'aides
+                      <i className="fas fa-bolt mr-2"></i>
+                      Économies jusqu'à 50%
                     </div>
                   </motion.div>
                   
@@ -154,45 +154,7 @@ const NewHeroSection = () => {
         </div>
       </div>
       
-      {/* Bottom wave separator */}
-      <div className="absolute bottom-[18px] left-0 right-0 h-16 overflow-hidden">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-20 text-white">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="currentColor" opacity=".25"></path>
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="currentColor" opacity=".5"></path>
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="currentColor"></path>
-        </svg>
-      </div>
       
-      {/* Stats section */}
-      <div className="relative bg-white pt-20 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#003566]/5 text-[#003566] mb-4">
-                <i className="fas fa-plug text-2xl"></i>
-              </div>
-              <h3 className="text-3xl font-bold text-[#003566] mb-2">+2500</h3>
-              <p className="text-gray-600">Bornes installées en copropriété</p>
-            </div>
-            
-            <div className="flex flex-col items-center text-center">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#8dc63f]/10 text-[#8dc63f] mb-4">
-                <i className="fas fa-building text-2xl"></i>
-              </div>
-              <h3 className="text-3xl font-bold text-[#003566] mb-2">+150</h3>
-              <p className="text-gray-600">Copropriétés équipées</p>
-            </div>
-            
-            <div className="flex flex-col items-center text-center">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 text-yellow-600 mb-4">
-                <i className="fas fa-euro-sign text-2xl"></i>
-              </div>
-              <h3 className="text-3xl font-bold text-[#003566] mb-2">-50%</h3>
-              <p className="text-gray-600">Sur le coût d'installation grâce aux aides</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };

@@ -7,7 +7,8 @@ const Testimonials = () => {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Ce que disent nos clients</h2>
           <p className="text-lg">
-            Découvrez les retours d'expérience de copropriétés qui nous ont fait confiance.
+            Découvrez les retours d'expérience de copropriétés qui nous ont fait confiance pour leurs solutions IRVE intelligentes 
+            <span className="text-[#8dc63f] font-medium"> dès 299€ </span>.
           </p>
         </div>
         

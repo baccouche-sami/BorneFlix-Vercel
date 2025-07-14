@@ -1,0 +1,25 @@
+{
+  "name": "BorneFlix - Leader Installation Bornes Recharge IRVE",
+  "short_name": "BorneFlix",
+  "description": "Leader français de l'installation de bornes de recharge IRVE pour copropriétés",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#003566",
+  "theme_color": "#003566",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "utilities"],
+  "lang": "fr",
+  "dir": "ltr"
+} 

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.svg";
+import CookieManager from "./CookieManager";
 
 const Footer = () => {
   const { toast } = useToast();
@@ -75,19 +76,19 @@ const Footer = () => {
     <footer className="bg-[#003566] text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         {/* CTA Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-xl mb-12 relative -mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 md:p-8 shadow-xl mb-12 relative -mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
             <div className="md:col-span-2">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2">
                 Prêt à équiper votre copropriété ?
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-0">
+              <p className="text-gray-600 dark:text-gray-300 mb-0 text-sm md:text-base">
                 Contactez-nous dès maintenant pour obtenir une étude personnalisée et un devis gratuit.
               </p>
             </div>
             <div className="flex justify-center md:justify-end">
-              <a href="#devis">
-                <Button size="lg" className="bg-secondary hover:bg-green-600 text-white font-medium py-6 px-8 rounded-full shadow-lg shadow-secondary/30 transition-all duration-300 hover:translate-y-[-2px]">
+              <a href="/devis">
+                <Button size="lg" className="bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-4 md:py-6 px-6 md:px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px] text-sm md:text-base">
                   Demander un devis gratuit
                 </Button>
               </a>
@@ -107,16 +108,16 @@ const Footer = () => {
               Solutions de recharge pour véhicules électriques en copropriété. Installation, maintenance et services personnalisés adaptés à vos besoins.
             </p>
             <div className="flex space-x-4 mb-8">
-              <a href="#" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="https://linkedin.com/company/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="https://twitter.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="https://facebook.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
+              <a href="https://instagram.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
                 <i className="fab fa-instagram"></i>
               </a>
             </div>
@@ -139,27 +140,27 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Infrastructure collective
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Solution individuelle
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Pré-équipement
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Supervision
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Maintenance
                 </a>
               </li>
@@ -173,28 +174,33 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="hover:text-secondary transition-colors inline-block">
+                <a href="/" className="hover:text-secondary transition-colors inline-block">
                   Accueil
                 </a>
               </li>
               <li>
-                <a href="#solutions" className="hover:text-secondary transition-colors inline-block">
+                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
                   Solutions
                 </a>
               </li>
               <li>
-                <a href="#avantages" className="hover:text-secondary transition-colors inline-block">
+                <a href="/avantages" className="hover:text-secondary transition-colors inline-block">
                   Avantages
                 </a>
               </li>
               <li>
-                <a href="#processus" className="hover:text-secondary transition-colors inline-block">
-                  Processus
+                <a href="/realisations" className="hover:text-secondary transition-colors inline-block">
+                  Réalisations
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-secondary transition-colors inline-block">
+                <a href="/contact" className="hover:text-secondary transition-colors inline-block">
                   Contact
+                </a>
+              </li>
+              <li>
+                <a href="/faq" className="hover:text-secondary transition-colors inline-block">
+                  FAQ
                 </a>
               </li>
             </ul>
@@ -212,11 +218,15 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <i className="fas fa-phone-alt mt-1 mr-3 w-5 text-center text-secondary"></i>
-                <span>01 80 91 90 80</span>
+                <a href="tel:0180919080" className="hover:text-secondary transition-colors">
+                  01 80 91 90 80
+                </a>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-envelope mt-1 mr-3 w-5 text-center text-secondary"></i>
-                <span>contact@borneflix.fr</span>
+                <a href="mailto:contact@borneflix.fr" className="hover:text-secondary transition-colors">
+                  contact@borneflix.fr
+                </a>
               </li>
             </ul>
             
@@ -256,11 +266,13 @@ const Footer = () => {
             <p>&copy; {new Date().getFullYear()} BorneFlix. Tous droits réservés.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
+            <a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a>
             <span className="hidden md:inline">|</span>
-            <a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a>
+            <a href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</a>
             <span className="hidden md:inline">|</span>
-            <a href="#" className="hover:text-white transition-colors">Conditions d'utilisation</a>
+            <a href="/conditions-utilisation" className="hover:text-white transition-colors">Conditions d'utilisation</a>
+            <span className="hidden md:inline">|</span>
+            <CookieManager />
           </div>
         </div>
       </div>

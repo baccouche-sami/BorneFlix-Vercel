@@ -12,9 +12,13 @@ const Introduction = () => {
           <div className="inline-block bg-secondary/10 text-secondary px-4 py-1 rounded-full text-sm font-medium mb-4">
             NOTRE EXPERTISE
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">La recharge en copropriété simplifiée</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">La recharge en copropriété <span className="text-[#8dc63f]">intelligente</span></h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Spécialiste des infrastructures de recharge pour véhicules électriques, Borne Flix propose une solution clé en main pour équiper votre copropriété, facilitant la mobilité électrique pour tous les résidents.
+            <span className="font-semibold text-[#003566]">BorneFlix</span> est le spécialiste français des infrastructures IRVE intelligentes pour copropriétés. Nous proposons des solutions 
+            <span className="text-[#8dc63f] font-medium"> connectées et optimisées </span> 
+            à partir de 
+            <span className="text-[#8dc63f] font-medium"> 299€ </span> 
+            pour équiper votre copropriété et maximiser les économies d'énergie.
           </p>
         </div>
         

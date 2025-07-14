@@ -5,7 +5,9 @@ const FAQ = () => {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Questions fréquentes</h2>
           <p className="text-lg">
-            Tout ce que vous devez savoir sur l'installation de bornes de recharge en copropriété.
+            Tout ce que vous devez savoir sur l'installation de bornes IRVE intelligentes 
+            <span className="text-[#8dc63f] font-medium"> dès 299€ </span> 
+            en copropriété.
           </p>
         </div>
         

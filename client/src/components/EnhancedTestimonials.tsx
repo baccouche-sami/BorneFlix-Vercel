@@ -115,8 +115,12 @@ const EnhancedTestimonials = () => {
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#003566]">Témoignages clients</h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Découvrez comment nous aidons les copropriétés à s'équiper en bornes de recharge et comment
-            nos clients apprécient nos services et solutions.
+            Découvrez comment nous aidons les copropriétés à s'équiper en bornes IRVE intelligentes 
+            <span className="text-[#8dc63f] font-medium"> dès 299€ </span> 
+            et comment nos clients apprécient nos solutions 
+            <span className="text-[#8dc63f] font-medium"> connectées et optimisées </span> 
+            avec 
+            <span className="text-[#8dc63f] font-medium"> économies jusqu'à 50% </span>.
           </p>
         </div>
         

@@ -1,0 +1,45 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://borneflix.fr/sitemap.xml
+
+# Crawl-delay pour éviter de surcharger le serveur
+Crawl-delay: 1
+
+# Pages importantes à indexer en priorité
+Allow: /solutions
+Allow: /avantages
+Allow: /realisations
+Allow: /devis
+Allow: /contact
+
+# Pages légales
+Allow: /mentions-legales
+Allow: /politique-confidentialite
+Allow: /conditions-utilisation
+
+# Empêcher l'indexation des pages de développement
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Empêcher l'indexation des fichiers de développement
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.map$
+
+# Permettre l'indexation des images
+Allow: /images/
+Allow: /assets/
+
+# User-agent spécifique pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# User-agent spécifique pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1 

@@ -53,10 +53,18 @@ const Header = () => {
     };
   }, []);
 
-  // Force close mobile menu when clicking on a link
-  const handleMobileLinkClick = () => {
+  // Force close mobile menu and scroll to top when clicking on a link
+  const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
     document.body.style.overflow = '';
+    
+    // Scroll vers le haut immédiatement
+    window.scrollTo(0, 0);
+    
+    // Double vérification après un court délai
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
   };
 
   return (
@@ -66,9 +74,9 @@ const Header = () => {
         {/* Top bar with contact info and social icons */}
         <div className="w-full bg-gradient-to-r from-[#003566] to-[#1a4d85] text-white py-2 hidden md:block">
           <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm mr-6">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+              <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
+                <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-phone-alt mr-2"></i>
                   <span>01 23 45 67 89</span>
                 </a>
@@ -97,34 +105,39 @@ const Header = () => {
         
         {/* Main navigation bar - more attractive with better fonts */}
         <div className="w-full bg-white shadow-sm">
-          <div className="container mx-auto px-4 py-4">
+          <div className="container mx-auto px-4 py-3 md:py-4">
             <div className="flex justify-between items-center">
               {/* Logo with new font style */}
               <div className="flex-shrink-0">
-                <a href="#" className="flex items-center">
-                  <div className="h-8">
-                    <span className="text-[#003566] font-bold text-2xl tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>BORNE<span className="text-[#8dc63f]">FLIX</span></span>
+                <Link href="/" className="flex items-center" onClick={handleLinkClick}>
+                  <div className="h-6 md:h-8">
+                    <span className="text-[#003566] font-bold text-xl md:text-2xl tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                      BORNE<span className="text-[#8dc63f]">FLIX</span>
+                    </span>
                   </div>
-                </a>
+                </Link>
               </div>
 
               {/* Desktop Nav - clean and attractive */}
-              <nav className="hidden md:flex items-center space-x-8">
-                <a href="#solutions" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1">
+              <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+                <Link href="/solutions" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Solutions
-                </a>
-                <a href="#avantages" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1">
+                </Link>
+                <Link href="/avantages" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Avantages
-                </a>
-                <a href="#processus" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1">
-                  Processus
-                </a>
-                <a href="#contact" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1">
+                </Link>
+                <Link href="/realisations" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
+                  Réalisations
+                </Link>
+                <Link href="/faq" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
+                  FAQ
+                </Link>
+                <Link href="/contact" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Contact
-                </a>
-                <a href="#devis" className="text-sm font-medium bg-[#8dc63f] hover:bg-[#7db52f] text-white px-5 py-2 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
-                  Demander un devis
-                </a>
+                </Link>
+                <Link href="/devis" className="text-sm font-medium bg-[#8dc63f] hover:bg-[#7db52f] text-white px-4 md:px-5 py-2 md:py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md" onClick={handleLinkClick}>
+                  Devis gratuit
+                </Link>
               </nav>
 
               {/* Mobile menu button with improved style */}
@@ -143,11 +156,22 @@ const Header = () => {
         </div>
 
         {/* Simplified banner that looks more elegant */}
-        <div className="w-full bg-gradient-to-r from-[#003566] to-[#0056a8] text-white py-3">
+        <div className="w-full bg-gradient-to-r from-[#003566] to-[#0056a8] text-white py-2 md:py-3">
           <div className="container mx-auto px-4">
-            <p className="text-sm md:text-base font-medium text-center">
-              Profitez des aides financières ADVENIR jusqu'à 50% pour l'installation de bornes en copropriété
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+              <p className="text-sm md:text-base font-medium text-center sm:text-left">
+                Équipez votre copropriété avec des bornes IRVE intelligentes et économisez jusqu'à 50% sur votre facture d'énergie
+              </p>
+              <div className="flex items-center space-x-3">
+                <Link href="/devis" className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300" onClick={handleLinkClick}>
+                  Devis gratuit
+                </Link>
+                <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-xs md:text-sm transition-colors">
+                  <i className="fas fa-phone-alt mr-1"></i>
+                  Appeler
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -158,48 +182,56 @@ const Header = () => {
           }`}
         >
           <nav className="flex flex-col space-y-4">
-            <a 
-              href="#solutions" 
+            <Link 
+              href="/solutions" 
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
-              onClick={handleMobileLinkClick}
+              onClick={handleLinkClick}
             >
               <i className="fas fa-plug text-[#8dc63f] mr-3"></i>
               <span>Solutions</span>
-            </a>
-            <a 
-              href="#avantages" 
+            </Link>
+            <Link 
+              href="/avantages" 
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
-              onClick={handleMobileLinkClick}
+              onClick={handleLinkClick}
             >
               <i className="fas fa-star text-[#8dc63f] mr-3"></i>
               <span>Avantages</span>
-            </a>
-            <a 
-              href="#processus" 
+            </Link>
+            <Link 
+              href="/realisations" 
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
-              onClick={handleMobileLinkClick}
+              onClick={handleLinkClick}
             >
-              <i className="fas fa-tasks text-[#8dc63f] mr-3"></i>
-              <span>Processus</span>
-            </a>
-            <a 
-              href="#contact" 
+              <i className="fas fa-images text-[#8dc63f] mr-3"></i>
+              <span>Réalisations</span>
+            </Link>
+            <Link 
+              href="/faq" 
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
-              onClick={handleMobileLinkClick}
+              onClick={handleLinkClick}
+            >
+              <i className="fas fa-question-circle text-[#8dc63f] mr-3"></i>
+              <span>FAQ</span>
+            </Link>
+            <Link 
+              href="/contact" 
+              className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
+              onClick={handleLinkClick}
             >
               <i className="fas fa-envelope text-[#8dc63f] mr-3"></i>
               <span>Contact</span>
-            </a>
+            </Link>
           </nav>
           
           <div className="mt-8">
-            <a 
-              href="#devis" 
+            <Link 
+              href="/devis" 
               className="bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-3 px-6 rounded-full text-center transition-all duration-300 w-full block shadow-sm hover:shadow-md"
-              onClick={handleMobileLinkClick}
+              onClick={handleLinkClick}
             >
-              Demander un devis
-            </a>
+              Devis gratuit
+            </Link>
           </div>
         </div>
       </header>

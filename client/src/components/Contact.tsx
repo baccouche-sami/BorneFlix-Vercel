@@ -64,14 +64,16 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
         >
-          <div className="inline-block bg-[#003566]/10 text-[#003566] px-6 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="inline-block bg-[#003566]/10 text-[#003566] px-4 md:px-6 py-1 md:py-2 rounded-full text-sm font-medium mb-4 md:mb-6">
             CONTACTEZ-NOUS
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#003566]">Besoin d'informations ?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-[#003566]">Besoin d'informations ?</h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Notre équipe d'experts est à votre disposition pour répondre à toutes vos questions sur l'installation de bornes de recharge en copropriété.
+            Notre équipe d'experts est à votre disposition pour répondre à toutes vos questions sur l'installation de bornes IRVE intelligentes 
+            <span className="text-[#8dc63f] font-medium"> dès 299€ </span> 
+            en copropriété.
           </p>
         </motion.div>
         

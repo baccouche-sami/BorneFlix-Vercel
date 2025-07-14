@@ -126,8 +126,11 @@ const ModernFAQ = () => {
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#003566]">Questions fréquentes</h2>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Tout ce que vous devez savoir sur l'installation de bornes de recharge pour véhicules électriques en copropriété.
-            Nous répondons à vos interrogations les plus courantes.
+            Tout ce que vous devez savoir sur l'installation de bornes IRVE intelligentes 
+            <span className="text-[#8dc63f] font-medium"> dès 299€ </span> 
+            en copropriété. Nous répondons à vos interrogations sur les 
+            <span className="text-[#8dc63f] font-medium"> économies d'énergie </span> 
+            et l'installation en 24h.
           </p>
         </motion.div>
         
