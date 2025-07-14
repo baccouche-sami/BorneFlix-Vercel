@@ -1,9 +1,9 @@
-import chargingStation1 from "@assets/images-1.png";
-import chargingStation2 from "@assets/images-4.png";
-import chargingStation3 from "@assets/pexels-kindelmedia-9800030.jpg";
-import chargingStation4 from "@assets/images-13.png";
-import chargingStation5 from "@assets/image-newsletter-ok.jpeg";
-import chargingStation6 from "@assets/screenshot-1747485121313.png";
+import chargingStation1 from "@/assets/images/gallery/images-1.png";
+import chargingStation2 from "@/assets/images/gallery/images-4.png";
+import chargingStation3 from "@/assets/images/gallery/pexels-kindelmedia-9800030.jpg";
+import chargingStation4 from "@/assets/images/gallery/images-13.png";
+import chargingStation5 from "@/assets/images/gallery/image-newsletter-ok.jpeg";
+// import chargingStation6 from "@/assets/images/reelles/screenshot-1747485121313.png"; // Image supprimée
 
 const Gallery = () => {
   return (

@@ -7,14 +7,11 @@ import { Star, CheckCircle, Users, Award, Phone, Calculator, ArrowRight, Shield,
 import FabricantsSlider from '@/components/FabricantsSlider';
 import AppointmentScheduler from '@/components/AppointmentScheduler';
 // Import des images
-import rechargeImg1 from '@/assets/images/hero/recharge-img01.jpeg';
-import rechargeImg2 from '@/assets/images/hero/recharge-img02.jpeg';
-import rechargeImg3 from '@/assets/images/hero/recharge-img03.jpeg';
-import borneRecharge from '@/assets/images/reelles/borne-recharge.jpg';
-import installation from '@/assets/images/reelles/installation.jpg';
+import borneRecharge from '@/assets/images/reelles/borne-recharge.webp';
+import installation from '@/assets/images/reelles/EV_Ultra-white.webp';
 import stationSolaire from '@/assets/images/reelles/station-solaire.jpg';
 import signatureContrat from '@/assets/images/reelles/signature-contrat.jpg';
-import images1 from '@/assets/images/reelles/images-1.png';
+import images1 from '@/assets/images/reelles/real.webp';
 import images4 from '@/assets/images/reelles/images-4.png';
 import images13 from '@/assets/images/reelles/images-13.png';
 import newsletterImg from '@/assets/images/gallery/image-newsletter-ok.jpeg';
