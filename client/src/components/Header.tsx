@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.svg";
+import { Button } from "@/components/ui/button-unified";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { components } from "@/lib/design-system";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -73,9 +73,9 @@ const Header = () => {
       <header className="fixed w-full z-50 top-0">
         {/* Top bar with contact info and social icons */}
         <div className="w-full bg-gradient-to-r from-[#003566] to-[#1a4d85] text-white py-2 hidden md:block">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-              <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
+          <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-6">
                 <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-phone-alt mr-2"></i>
                   <span>01 23 45 67 89</span>
@@ -103,23 +103,23 @@ const Header = () => {
           </div>
         </div>
         
-        {/* Main navigation bar - more attractive with better fonts */}
-        <div className="w-full bg-white shadow-sm">
-          <div className="container mx-auto px-4 py-3 md:py-4">
+        {/* Main navigation bar */}
+        <div className={`w-full bg-white shadow-sm transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
+          <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-4">
             <div className="flex justify-between items-center">
-              {/* Logo with new font style */}
+              {/* Logo */}
               <div className="flex-shrink-0">
                 <Link href="/" className="flex items-center" onClick={handleLinkClick}>
-                  <div className="h-6 md:h-8">
-                    <span className="text-[#003566] font-bold text-xl md:text-2xl tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                  <div className="h-8">
+                    <span className="text-[#003566] font-bold text-2xl tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                       BORNE<span className="text-[#8dc63f]">FLIX</span>
                     </span>
                   </div>
                 </Link>
               </div>
 
-              {/* Desktop Nav - clean and attractive */}
-              <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center space-x-8">
                 <Link href="/solutions" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Solutions
                 </Link>
@@ -135,12 +135,14 @@ const Header = () => {
                 <Link href="/contact" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Contact
                 </Link>
-                <Link href="/devis" className="text-sm font-medium bg-[#8dc63f] hover:bg-[#7db52f] text-white px-4 md:px-5 py-2 md:py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md" onClick={handleLinkClick}>
-                  Devis gratuit
-                </Link>
+                <Button variant="secondary" size="md" asChild>
+                  <Link href="/devis" onClick={handleLinkClick}>
+                    Devis gratuit
+                  </Link>
+                </Button>
               </nav>
 
-              {/* Mobile menu button with improved style */}
+              {/* Mobile menu button */}
               <div className="md:hidden">
                 <button
                   onClick={toggleMobileMenu}
@@ -155,18 +157,20 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Simplified banner that looks more elegant */}
-        <div className="w-full bg-gradient-to-r from-[#003566] to-[#0056a8] text-white py-2 md:py-3">
-          <div className="container mx-auto px-4">
+        {/* Banner */}
+        <div className="w-full bg-gradient-to-r from-[#003566] to-[#0056a8] text-white py-3">
+          <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
             <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-              <p className="text-sm md:text-base font-medium text-center sm:text-left">
+              <p className="text-sm font-medium text-center sm:text-left">
                 Équipez votre copropriété avec des bornes IRVE intelligentes et économisez jusqu'à 50% sur votre facture d'énergie
               </p>
               <div className="flex items-center space-x-3">
-                <Link href="/devis" className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300" onClick={handleLinkClick}>
-                  Devis gratuit
-                </Link>
-                <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-xs md:text-sm transition-colors">
+                <Button variant="secondary" size="sm" asChild>
+                  <Link href="/devis" onClick={handleLinkClick}>
+                    Devis gratuit
+                  </Link>
+                </Button>
+                <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
                   <i className="fas fa-phone-alt mr-1"></i>
                   Appeler
                 </a>
@@ -175,9 +179,9 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown - Minimalist and attractive */}
+        {/* Mobile Navigation */}
         <div 
-          className={`md:hidden fixed top-[84px] left-0 right-0 bottom-0 bg-white shadow-lg px-6 pt-6 pb-32 overflow-y-auto transition-transform duration-300 z-40 ${
+          className={`md:hidden fixed top-[120px] left-0 right-0 bottom-0 bg-white shadow-lg px-6 pt-6 pb-32 overflow-y-auto transition-transform duration-300 z-40 ${
             isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full pointer-events-none'
           }`}
         >
@@ -203,7 +207,7 @@ const Header = () => {
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
-              <i className="fas fa-images text-[#8dc63f] mr-3"></i>
+              <i className="fas fa-trophy text-[#8dc63f] mr-3"></i>
               <span>Réalisations</span>
             </Link>
             <Link 
@@ -222,31 +226,19 @@ const Header = () => {
               <i className="fas fa-envelope text-[#8dc63f] mr-3"></i>
               <span>Contact</span>
             </Link>
+            <div className="pt-4">
+              <Button variant="secondary" size="lg" fullWidth asChild>
+                <Link href="/devis" onClick={handleLinkClick}>
+                  Devis gratuit
+                </Link>
+              </Button>
+            </div>
           </nav>
-          
-          <div className="mt-8">
-            <Link 
-              href="/devis" 
-              className="bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-3 px-6 rounded-full text-center transition-all duration-300 w-full block shadow-sm hover:shadow-md"
-              onClick={handleLinkClick}
-            >
-              Devis gratuit
-            </Link>
-          </div>
         </div>
       </header>
-
-      {/* Empty space to offset the fixed header */}
-      <div className="h-[140px]"></div>
       
-      {/* Overlay when mobile menu is open */}
-      {isMobileMenuOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
-          onClick={toggleMobileMenu}
-          aria-hidden="true"
-        ></div>
-      )}
+      {/* Spacer to prevent content from being hidden behind fixed header */}
+      <div className="h-[120px]"></div>
     </>
   );
 };

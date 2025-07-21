@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import CTA from "@/components/CTA";
 import SEOHead from "@/components/SEOHead";
 
 // Import des images
@@ -14,7 +13,6 @@ import signatureContratImage from "@/assets/images/reelles/signature-contrat.jpg
 import capture1 from "@/assets/images/reelles/images-1.png";
 import capture2 from "@/assets/images/reelles/images-4.png";
 import capture3 from "@/assets/images/reelles/images-13.png";
-import capture4 from "@/assets/images/reelles/borne-recharge.jpg";
 
 const keyBenefits = [
   {
@@ -157,49 +155,45 @@ const AvantagesPage = () => {
         }}
       />
 
-      {/* Hero Section - Promesse globale */}
-      <section className="relative bg-gradient-to-br from-[#003566] via-[#1a4d85] to-[#2d5a8f] text-white py-16 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+<main className="">
+
+      {/* Hero Section */}
+      <section className="bg-[#003566] text-white py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Économisez jusqu'à
               <span className="block text-[#8dc63f]">50% sur votre recharge</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-200 mb-8">
               La solution IRVE la plus rentable du marché
               <br className="hidden md:block" />
               Installation rapide • Garantie 2 ans • Support 24/7
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-                onClick={() => document.getElementById('benefits')?.scrollIntoView({ behavior: 'smooth' })}
+              <button
+                className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
+                onClick={() =>
+                  document
+                    .getElementById("solutions")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                Découvrir les avantages
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-[#003566]"
-                onClick={() => window.location.href = '/devis'}
+                Découvrir nos solutions
+              </button>
+              <button
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors hover:bg-white hover:text-[#003566]"
+                onClick={() =>
+                  document
+                    .getElementById("quote-form")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                Devis gratuit en 2 min
-              </motion.button>
+                Demander un devis
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
-        
-        {/* Éléments décoratifs */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-[#8dc63f]/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-[#8dc63f]/10 rounded-full blur-2xl"></div>
       </section>
 
       {/* Section Avantages clés - Grille optimisée */}
@@ -237,7 +231,6 @@ const AvantagesPage = () => {
                       alt={benefit.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center mb-4">
@@ -295,7 +288,6 @@ const AvantagesPage = () => {
                       alt={point.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center mb-3">
@@ -405,7 +397,7 @@ const AvantagesPage = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-[#003566] px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300"
+                  className="border-2 border-white text-[#003566] hover:bg-white hover:text-[#003566] px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300"
                   onClick={() => window.location.href = 'tel:0123456789'}
                 >
                   <i className="fas fa-phone-alt mr-3"></i>
@@ -416,6 +408,7 @@ const AvantagesPage = () => {
           </div>
         </div>
       </section>
+      </main>
     </>
   );
 };

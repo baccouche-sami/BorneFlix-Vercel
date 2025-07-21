@@ -1022,75 +1022,6 @@ const SolutionsPage = () => {
               </div>
             </motion.div>
 
-            {/* Section Avantages */}
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#003566]">
-                  Pourquoi choisir{" "}
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    BorneFlix
-                  </span>{" "}
-                  ?
-                </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Découvrez les avantages qui font de BorneFlix le leader des
-                  solutions IRVE intelligentes
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                {advantages.map((advantage, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="text-center p-8 bg-white rounded-2xl shadow-xl border-0 hover:shadow-2xl transition-all duration-500 hover:translate-y-[-5px] group"
-                  >
-                    <div
-                      className={`w-20 h-20 bg-gradient-to-r from-${
-                        advantage.color
-                      }/10 to-${
-                        advantage.color === "secondary"
-                          ? "green-600"
-                          : advantage.color === "primary"
-                          ? "secondary"
-                          : "orange-500"
-                      }/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <i
-                        className={`${advantage.icon} text-${advantage.color} text-3xl`}
-                      ></i>
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 text-[#003566] group-hover:text-secondary transition-colors">
-                      {advantage.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed mb-6">
-                      {advantage.description}
-                    </p>
-                    <div
-                      className={`bg-gradient-to-r from-${
-                        advantage.color
-                      }/5 to-${
-                        advantage.color === "secondary"
-                          ? "green-600"
-                          : advantage.color === "primary"
-                          ? "secondary"
-                          : "orange-500"
-                      }/5 p-4 rounded-xl`}
-                    >
-                      <p className="text-sm text-gray-600">
-                        Temps d'installation
-                      </p>
-                      <p className="text-2xl font-bold text-secondary">
-                        {advantage.metric}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
             {/* Section Fonctionnalités */}
             <div className="mb-20">
               <div className="text-center mb-12">
@@ -1103,7 +1034,7 @@ const SolutionsPage = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
@@ -1170,123 +1101,6 @@ const SolutionsPage = () => {
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section Témoignages visuels */}
-        <section className="py-16 lg:py-24 bg-gradient-to-br from-[#003566]/5 to-[#8dc63f]/5">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#003566]">
-                Nos <span className="text-[#8dc63f]">réalisations</span> en
-                images
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Découvrez la qualité de nos installations et la satisfaction de
-                nos clients
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={stationSolaireImage}
-                      alt="Station de recharge solaire BorneFlix"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#003566] mb-2">
-                      Station solaire
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      Installation de station de recharge alimentée par panneaux
-                      solaires pour une solution 100% verte.
-                    </p>
-                    <div className="flex items-center text-[#8dc63f] text-sm font-medium">
-                      <i className="fas fa-leaf mr-2"></i>
-                      Solution écologique
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={signatureContratImage}
-                      alt="Signature de contrat BorneFlix"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#003566] mb-2">
-                      Accompagnement client
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      Notre équipe vous accompagne de la signature du contrat
-                      jusqu'à la mise en service.
-                    </p>
-                    <div className="flex items-center text-[#8dc63f] text-sm font-medium">
-                      <i className="fas fa-handshake mr-2"></i>
-                      Service personnalisé
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
-                  <div className="h-48 overflow-hidden">
-                    <img
-                      src={rechargeImage3}
-                      alt="Borne de recharge moderne"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#003566] mb-2">
-                      Technologie moderne
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      Bornes de recharge intelligentes avec connectivité et
-                      gestion optimisée de l'énergie.
-                    </p>
-                    <div className="flex items-center text-[#8dc63f] text-sm font-medium">
-                      <i className="fas fa-bolt mr-2"></i>
-                      Recharge intelligente
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
         </section>

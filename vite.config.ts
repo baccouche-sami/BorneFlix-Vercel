@@ -24,6 +24,21 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['framer-motion', 'lucide-react'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          animations: ['@react-three/fiber', '@react-three/drei', 'three'],
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/woff2?|eot|ttf|otf/i.test(ext)) {
+            return `assets/fonts/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
         },
       },
     },
@@ -33,10 +48,32 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },
+      mangle: {
+        safari10: true,
       },
     },
+    sourcemap: false,
+    target: 'es2015',
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
+    include: [
+      'react', 
+      'react-dom', 
+      'framer-motion', 
+      'lucide-react',
+      'react-hook-form',
+      '@hookform/resolvers',
+      'zod'
+    ],
+  },
+  server: {
+    port: 3000,
+    host: true,
+  },
+  preview: {
+    port: 4173,
+    host: true,
   },
 });

@@ -90,49 +90,34 @@ const ContactPage = () => {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#ff6b35] via-[#ff8c42] to-[#ffa726] text-white py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+      <section className="bg-[#003566] text-white py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Contactez
-              <span className="block text-[#003566]">BorneFlix</span>
+              <span className="block text-[#8dc63f]">BorneFlix</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-200 mb-8">
               Notre équipe d'experts est là pour vous accompagner 
               <br className="hidden md:block" />
               dans votre projet de borne de recharge
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#003566] hover:bg-[#00264d] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              <button
+                className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Nous contacter
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-[#ff6b35]"
+              </button>
+              <button
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors hover:bg-white hover:text-[#003566]"
                 onClick={() => window.location.href = '/devis'}
               >
                 Demander un devis
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
-        
-        {/* Éléments décoratifs */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#003566]/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-20 left-20 w-32 h-32 bg-[#003566]/10 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 right-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
       </section>
 
       {/* Contact Section */}
@@ -173,8 +158,8 @@ const ContactPage = () => {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="flex items-start group"
                     >
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#ff6b35]/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                        <info.icon className="w-6 h-6 text-[#ff6b35]" />
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#003566]/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                        <info.icon className="w-6 h-6 text-[#003566]" />
                       </div>
                       <div>
                         <p className="font-semibold text-[#003566] mb-1">{info.title}</p>
@@ -302,7 +287,7 @@ const ContactPage = () => {
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[#ff6b35] hover:bg-[#ff8c42] text-white py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    className="w-full bg-[#003566] hover:bg-[#1a4d85] text-white py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                   >
                     {isSubmitting ? (
                       "Envoi en cours..."
@@ -339,7 +324,7 @@ const ContactPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-[#ff6b35] hover:bg-[#ff8c42] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-[#003566] hover:bg-[#1a4d85] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                 onClick={() => window.location.href = '/devis'}
               >
                 Demander un devis gratuit

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Settings, X, Shield, BarChart, Target, Info } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-unified";
 import { useCookies, CookiePreferences } from "@/hooks/useCookies";
 
 const CookieManager = () => {
@@ -193,8 +193,8 @@ const CookieManager = () => {
                     Annuler
                   </Button>
                   <Button
+                    variant="secondary"
                     onClick={handleSave}
-                    className="bg-[#8dc63f] hover:bg-[#7db52f] text-white"
                   >
                     Sauvegarder
                   </Button>

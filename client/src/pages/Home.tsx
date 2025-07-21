@@ -80,22 +80,22 @@ const Home = () => {
       <NewHeroSection />
       
       {/* Solutions Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-12 lg:mb-16"
           >
-            <div className="inline-flex items-center bg-[#8dc63f]/10 text-[#8dc63f] px-4 py-2 rounded-full text-sm font-medium mb-4 md:mb-6">
+            <div className="inline-flex items-center bg-[#8dc63f]/10 text-[#8dc63f] px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6">
               <Zap className="w-4 h-4 mr-2" />
               NOS SOLUTIONS
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#003566] mb-4 md:mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#003566] mb-4 lg:mb-6 leading-tight">
               Solutions IRVE <span className="text-[#8dc63f]">intelligentes</span> pour copropriétés
             </h2>
-            <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Des bornes de recharge connectées et optimisées, installation rapide en 24h, 
               maintenance incluse et économies garanties sur votre facture d'énergie.
             </p>
@@ -122,7 +122,7 @@ const Home = () => {
             </div>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: <Zap className="w-6 h-6 md:w-8 md:h-8" />,
@@ -153,22 +153,22 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Card className="h-full group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/50 backdrop-blur-sm">
-                  <CardContent className="p-6 md:p-8">
-                    <div className={`${solution.color} text-white w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <CardContent className="p-8">
+                    <div className={`${solution.color} text-white w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       {solution.icon}
                     </div>
                     
-                    <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-center text-[#003566]">
+                    <h3 className="text-xl font-bold mb-4 text-center text-[#003566]">
                       {solution.title}
                     </h3>
                     
-                    <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 text-center leading-relaxed">
+                    <p className="text-base text-gray-600 mb-6 text-center leading-relaxed">
                       {solution.description}
                     </p>
                     
-                    <div className="space-y-2 md:space-y-3">
+                    <div className="space-y-3">
                       {solution.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center text-sm md:text-base text-gray-600">
+                        <div key={featureIndex} className="flex items-center text-base text-gray-600">
                           <CheckCircle className="w-4 h-4 text-[#8dc63f] mr-3 flex-shrink-0" />
                           {feature}
                         </div>
@@ -482,86 +482,28 @@ const Home = () => {
             </p>
           </motion.div>
           
-          {/* Slider Fabricants */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-12 md:mb-16"
-          >
-            <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 shadow-xl border border-gray-100">
-              <h3 className="text-lg md:text-xl font-semibold text-[#003566] mb-6 md:mb-8 text-center">
-                Nos fabricants partenaires
-              </h3>
-              
-              <FabricantsSlider />
-            </div>
-          </motion.div>
-          
-          {/* Avantages Fabricants */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            {[
-              {
-                title: "Qualité Premium",
-                description: "Bornes certifiées et testées",
-                icon: "fas fa-award",
-                color: "bg-[#8dc63f]"
-              },
-              {
-                title: "Garantie Étendue",
-                description: "2 à 5 ans selon les fabricants",
-                icon: "fas fa-shield-alt",
-                color: "bg-[#003566]"
-              },
-              {
-                title: "SAV Réactif",
-                description: "Support technique dédié",
-                icon: "fas fa-headset",
-                color: "bg-[#ff6b35]"
-              }
-            ].map((avantage, index) => (
-              <Card key={index} className="text-center hover:shadow-xl transition-shadow duration-300 border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <div className={`${avantage.color} text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                    <i className={`${avantage.icon} text-xl`}></i>
-                  </div>
-                  
-                  <h3 className="text-lg font-bold text-[#003566] mb-3">
-                    {avantage.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm">
-                    {avantage.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </motion.div>
+          {/* Fabricants Section */}
+          <FabricantsSlider />
         </div>
       </section>
       
       {/* Avis Clients Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[#003566] to-[#1a4d85] text-white">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-[#003566] to-[#1a4d85] text-white">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-12 lg:mb-16"
           >
-            <div className="inline-flex items-center bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 md:mb-6">
+            <div className="inline-flex items-center bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6">
               <Users className="w-4 h-4 mr-2" />
               TÉMOIGNAGES CLIENTS
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-tight">
               Ce que disent nos <span className="text-[#8dc63f]">clients</span>
             </h2>
-            <p className="text-base md:text-lg lg:text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg lg:text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
               Découvrez les retours d'expérience de nos clients satisfaits 
               qui ont transformé leur copropriété avec nos solutions.
             </p>
@@ -572,18 +514,18 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-12 md:mb-16"
+            className="mb-12 lg:mb-16"
           >
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src={images1} 
                 alt="Réalisation BorneFlix - Installation de bornes en copropriété" 
-                className="w-full h-48 md:h-64 lg:h-80 object-cover"
+                className="w-full h-64 lg:h-80 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#003566]/90 to-transparent"></div>
-              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 text-white">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1 md:mb-2">Nos réalisations</h3>
-                <p className="text-sm md:text-base text-white/90">Découvrez nos installations et témoignages clients</p>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-xl lg:text-2xl font-bold mb-2">Nos réalisations</h3>
+                <p className="text-base text-white/90">Découvrez nos installations et témoignages clients</p>
               </div>
             </div>
           </motion.div>

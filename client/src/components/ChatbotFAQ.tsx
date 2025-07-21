@@ -525,7 +525,7 @@ const ChatbotFAQ: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#ff6b35] hover:bg-[#ff8c42] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+        className="fixed bottom-6 left-6 z-50 w-16 h-16 bg-[#ff6b35] hover:bg-[#ff8c42] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
         aria-label="Ouvrir le chat"
       >
         <AnimatePresence mode="wait">
@@ -561,7 +561,7 @@ const ChatbotFAQ: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-6 z-40 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
+            className="fixed bottom-24 left-6 z-40 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#ff6b35] to-[#ff8c42] text-white p-4 rounded-t-2xl">

@@ -159,49 +159,34 @@ const RealisationsPage = () => {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#ff6b35] via-[#ff8c42] to-[#ffa726] text-white py-20 lg:py-32 overflow-hidden">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+        <section className="bg-[#003566] text-white py-20 lg:py-32">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 Nos Réalisations
-                <span className="block text-[#003566]">& Témoignages</span>
+                <span className="block text-[#8dc63f]">& Témoignages</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-200 mb-8">
                 Découvrez nos installations et l'expérience 
                 <br className="hidden md:block" />
                 de nos clients satisfaits
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-[#003566] hover:bg-[#00264d] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                <button
+                  className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
                   onClick={() => document.getElementById('installations')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Voir nos installations
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-[#ff6b35]"
+                </button>
+                <button
+                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors hover:bg-white hover:text-[#003566]"
                   onClick={() => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Lire les témoignages
-                </motion.button>
+                </button>
               </div>
-            </motion.div>
+            </div>
           </div>
-          
-          {/* Éléments décoratifs */}
-          <div className="absolute top-10 left-10 w-20 h-20 bg-[#003566]/20 rounded-full blur-xl"></div>
-          <div className="absolute bottom-20 right-20 w-32 h-32 bg-[#003566]/10 rounded-full blur-2xl"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
         </section>
 
         {/* Stats Section */}
@@ -216,7 +201,7 @@ const RealisationsPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="text-center group"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#ff6b35] to-[#ff8c42] rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-[#003566] rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-3xl lg:text-4xl font-bold text-[#003566] mb-2">{stat.number}</div>
@@ -227,7 +212,8 @@ const RealisationsPage = () => {
           </div>
         </section>
 
-        {/* Installations Section */}
+        {/* Installations Section - Commenté pour le moment */}
+        {/* 
         <section id="installations" className="py-16 lg:py-24 bg-gray-50">
           <div className="container mx-auto px-4">
             <motion.div
@@ -261,7 +247,7 @@ const RealisationsPage = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-4 left-4 bg-[#ff6b35] text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute top-4 left-4 bg-[#003566] text-white px-3 py-1 rounded-full text-sm font-medium">
                       {installation.type}
                     </div>
                     <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -292,6 +278,7 @@ const RealisationsPage = () => {
             </div>
           </div>
         </section>
+        */}
 
         {/* Testimonials Section */}
         <section id="testimonials" className="py-16 lg:py-24 bg-white">
@@ -310,21 +297,21 @@ const RealisationsPage = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={testimonial.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-[#8dc63f]"
                 >
-                  <div className="flex items-start mb-4">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-[#003566] rounded-full flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">
+                        {testimonial.name.charAt(0)}
+                      </span>
+                    </div>
                     <div>
                       <h3 className="font-bold text-[#003566]">{testimonial.name}</h3>
                       <p className="text-sm text-gray-600">{testimonial.position}</p>
@@ -339,7 +326,7 @@ const RealisationsPage = () => {
                       />
                     ))}
                   </div>
-                  <p className="text-gray-700 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-700 italic text-base leading-relaxed">"{testimonial.text}"</p>
                 </motion.div>
               ))}
             </div>

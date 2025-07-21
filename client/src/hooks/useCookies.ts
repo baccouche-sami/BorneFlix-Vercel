@@ -15,25 +15,46 @@ export const useCookies = () => {
     preferences: false,
   });
   const [hasConsented, setHasConsented] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Charger les préférences depuis localStorage
     const savedConsent = localStorage.getItem('cookieConsent');
-    if (savedConsent) {
+    const savedDate = localStorage.getItem('cookieConsentDate');
+    
+    if (savedConsent && savedDate) {
       try {
         const parsedConsent = JSON.parse(savedConsent);
-        setPreferences(parsedConsent);
-        setHasConsented(true);
+        const consentDate = new Date(savedDate);
+        
+        // Vérifier si le consentement n'a pas expiré (13 mois)
+        const expirationDate = new Date(consentDate);
+        expirationDate.setMonth(expirationDate.getMonth() + 13);
+        
+        if (new Date() <= expirationDate) {
+          setPreferences(parsedConsent);
+          setHasConsented(true);
+        } else {
+          // Consentement expiré, supprimer les données
+          localStorage.removeItem('cookieConsent');
+          localStorage.removeItem('cookieConsentDate');
+        }
       } catch (error) {
         console.error('Erreur lors du chargement des préférences cookies:', error);
+        // En cas d'erreur, supprimer les données corrompues
+        localStorage.removeItem('cookieConsent');
+        localStorage.removeItem('cookieConsentDate');
       }
     }
+    
+    setIsLoaded(true);
   }, []);
 
   const savePreferences = (newPreferences: CookiePreferences) => {
     setPreferences(newPreferences);
     setHasConsented(true);
     
+    // Sauvegarder dans localStorage
     localStorage.setItem('cookieConsent', JSON.stringify(newPreferences));
     localStorage.setItem('cookieConsentDate', new Date().toISOString());
     
@@ -108,13 +129,23 @@ export const useCookies = () => {
     return new Date() > expirationDate;
   };
 
+  const shouldShowConsent = () => {
+    // Ne pas afficher si les données ne sont pas encore chargées
+    if (!isLoaded) return false;
+    
+    // Afficher si l'utilisateur n'a jamais consenti OU si le consentement a expiré
+    return !hasConsented || isConsentExpired();
+  };
+
   return {
     preferences,
     hasConsented,
+    isLoaded,
     savePreferences,
     resetPreferences,
     getConsentDate,
     isConsentExpired,
+    shouldShowConsent,
     applyCookiePreferences,
   };
 }; 

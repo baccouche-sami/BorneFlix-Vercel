@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-unified";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/logo.svg";
 import CookieManager from "./CookieManager";
 
 const Footer = () => {
@@ -74,208 +73,182 @@ const Footer = () => {
   
   return (
     <footer className="bg-[#003566] text-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         {/* CTA Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 md:p-8 shadow-xl mb-12 relative -mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
+        <div className="bg-white rounded-xl p-8 shadow-xl mb-12 relative -mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div className="md:col-span-2">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              <h3 className="text-2xl font-bold text-[#003566] mb-2">
                 Prêt à équiper votre copropriété ?
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-0 text-sm md:text-base">
+              <p className="text-gray-600 text-base">
                 Contactez-nous dès maintenant pour obtenir une étude personnalisée et un devis gratuit.
               </p>
             </div>
             <div className="flex justify-center md:justify-end">
-              <a href="/devis">
-                <Button size="lg" className="bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-4 md:py-6 px-6 md:px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px] text-sm md:text-base">
+              <Button variant="secondary" size="lg" asChild>
+                <a href="/devis">
                   Demander un devis gratuit
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
           </div>
         </div>
         
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          {/* Company Info */}
           <div className="md:col-span-4">
             <div className="mb-6">
-              <div className="h-10">
-                <span className="text-white font-bold text-2xl tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>BORNE<span className="text-[#8dc63f]">FLIX</span></span>
+              <span className="text-[#003566] font-bold text-2xl tracking-tight bg-white px-3 py-1 rounded">
+                BORNE<span className="text-[#8dc63f]">FLIX</span>
+              </span>
+            </div>
+            <p className="text-gray-300 mb-6 leading-relaxed">
+              Leader français de l'installation de bornes de recharge IRVE pour copropriétés. 
+              Solutions intelligentes et connectées dès 299€.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center text-gray-300">
+                <i className="fas fa-map-marker-alt text-[#8dc63f] mr-3 w-5"></i>
+                <span>3 Av. des Orangers, 94380 Bonneuil-sur-Marne</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <i className="fas fa-phone text-[#8dc63f] mr-3 w-5"></i>
+                <span>01 23 45 67 89</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <i className="fas fa-envelope text-[#8dc63f] mr-3 w-5"></i>
+                <span>contact@borneflix.fr</span>
               </div>
             </div>
-            <p className="mb-6 text-gray-300 max-w-md">
-              Solutions de recharge pour véhicules électriques en copropriété. Installation, maintenance et services personnalisés adaptés à vos besoins.
-            </p>
-            <div className="flex space-x-4 mb-8">
-              <a href="https://linkedin.com/company/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a href="https://twitter.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="https://facebook.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="https://instagram.com/borneflix" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white h-10 w-10 rounded-full flex items-center justify-center transition-colors">
-                <i className="fab fa-instagram"></i>
-              </a>
-            </div>
-            <div className="bg-[#004380] rounded-lg p-4">
-              <h4 className="font-semibold mb-2 flex items-center">
-                <i className="fas fa-headset mr-2 text-secondary"></i>
-                Support technique
-              </h4>
-              <p className="text-sm text-gray-300 mb-2">Assistance disponible 7j/7</p>
-              <a href="tel:0180919080" className="text-white text-lg font-bold hover:text-secondary transition-colors">
-                01 80 91 90 80
-              </a>
-            </div>
           </div>
-          
+
+          {/* Services */}
           <div className="md:col-span-2">
-            <h4 className="text-lg font-semibold mb-6 flex items-center">
-              <span className="w-8 h-1 bg-secondary rounded-full inline-block mr-2"></span>
-              Solutions
-            </h4>
+            <h4 className="text-lg font-semibold mb-6 text-white">Services</h4>
             <ul className="space-y-3">
               <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Infrastructure collective
+                <a href="/solutions" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                  Solutions IRVE
                 </a>
               </li>
               <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Solution individuelle
-                </a>
-              </li>
-              <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Pré-équipement
-                </a>
-              </li>
-              <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Supervision
-                </a>
-              </li>
-              <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Maintenance
-                </a>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="md:col-span-2">
-            <h4 className="text-lg font-semibold mb-6 flex items-center">
-              <span className="w-8 h-1 bg-secondary rounded-full inline-block mr-2"></span>
-              Navigation
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="/" className="hover:text-secondary transition-colors inline-block">
-                  Accueil
-                </a>
-              </li>
-              <li>
-                <a href="/solutions" className="hover:text-secondary transition-colors inline-block">
-                  Solutions
-                </a>
-              </li>
-              <li>
-                <a href="/avantages" className="hover:text-secondary transition-colors inline-block">
+                <a href="/avantages" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
                   Avantages
                 </a>
               </li>
               <li>
-                <a href="/realisations" className="hover:text-secondary transition-colors inline-block">
+                <a href="/realisations" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
                   Réalisations
                 </a>
               </li>
               <li>
-                <a href="/contact" className="hover:text-secondary transition-colors inline-block">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="/faq" className="hover:text-secondary transition-colors inline-block">
+                <a href="/faq" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
                   FAQ
                 </a>
               </li>
             </ul>
           </div>
-          
-          <div className="md:col-span-4">
-            <h4 className="text-lg font-semibold mb-6 flex items-center">
-              <span className="w-8 h-1 bg-secondary rounded-full inline-block mr-2"></span>
-              Contact
-            </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <i className="fas fa-map-marker-alt mt-1 mr-3 w-5 text-center text-secondary"></i>
-                <span>3 Av. des Orangers<br/>94380 Bonneuil-sur-Marne, France</span>
-              </li>
-              <li className="flex items-start">
-                <i className="fas fa-phone-alt mt-1 mr-3 w-5 text-center text-secondary"></i>
-                <a href="tel:0180919080" className="hover:text-secondary transition-colors">
-                  01 80 91 90 80
+
+          {/* Support */}
+          <div className="md:col-span-2">
+            <h4 className="text-lg font-semibold mb-6 text-white">Support</h4>
+            <ul className="space-y-3">
+              <li>
+                <a href="/contact" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                  Contact
                 </a>
               </li>
-              <li className="flex items-start">
-                <i className="fas fa-envelope mt-1 mr-3 w-5 text-center text-secondary"></i>
-                <a href="mailto:contact@borneflix.fr" className="hover:text-secondary transition-colors">
-                  contact@borneflix.fr
+              <li>
+                <a href="/devis" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                  Devis gratuit
+                </a>
+              </li>
+              <li>
+                <a href="/mentions-legales" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                  Mentions légales
+                </a>
+              </li>
+              <li>
+                <a href="/politique-confidentialite" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                  Politique de confidentialité
                 </a>
               </li>
             </ul>
-            
-            <div className="mt-8">
-              <h4 className="font-semibold mb-3">Newsletter</h4>
-              <form onSubmit={handleNewsletterSubmit} className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Votre email" 
-                  className="px-4 py-2 bg-white/10 text-white rounded-l-md focus:outline-none w-full"
+          </div>
+
+          {/* Newsletter */}
+          <div className="md:col-span-4">
+            <h4 className="text-lg font-semibold mb-6 text-white">Newsletter</h4>
+            <p className="text-gray-300 mb-4">
+              Restez informé des dernières actualités et offres spéciales.
+            </p>
+            <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+              <div className="flex">
+                <input
+                  type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Votre adresse email"
+                  className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-l-lg focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20 transition-all duration-300 bg-white text-gray-800"
                   disabled={isSubmitting}
                 />
-                <button 
+                <Button
                   type="submit"
-                  className="bg-secondary hover:bg-green-600 text-white py-2 px-4 rounded-r-md transition-colors flex items-center justify-center min-w-[48px]"
+                  variant="secondary"
+                  size="md"
+                  className="rounded-l-none"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <i className="fas fa-spinner fa-spin"></i>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <i className="fas fa-paper-plane"></i>
                   )}
-                </button>
-              </form>
-              <p className="text-xs text-gray-400 mt-2">
-                Recevez nos conseils et actualités sur la mobilité électrique
-              </p>
+                </Button>
+              </div>
+            </form>
+            <div className="flex space-x-4 mt-6">
+              <a href="#" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                <i className="fab fa-facebook-f text-xl"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                <i className="fab fa-linkedin-in text-xl"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                <i className="fab fa-twitter text-xl"></i>
+              </a>
+              <a href="#" className="text-gray-300 hover:text-[#8dc63f] transition-colors">
+                <i className="fab fa-instagram text-xl"></i>
+              </a>
             </div>
           </div>
         </div>
-        
-        {/* Footer Bottom */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <div className="mb-4 md:mb-0">
-            <p>&copy; {new Date().getFullYear()} BorneFlix. Tous droits réservés.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a>
-            <span className="hidden md:inline">|</span>
-            <a href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</a>
-            <span className="hidden md:inline">|</span>
-            <a href="/conditions-utilisation" className="hover:text-white transition-colors">Conditions d'utilisation</a>
-            <span className="hidden md:inline">|</span>
-            <CookieManager />
+
+        {/* Bottom Footer */}
+        <div className="border-t border-gray-700 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-gray-300 text-sm">
+              © 2024 BorneFlix. Tous droits réservés.
+            </p>
+            <div className="flex items-center space-x-6">
+              <a href="/mentions-legales" className="text-gray-300 hover:text-[#8dc63f] text-sm transition-colors">
+                Mentions légales
+              </a>
+              <a href="/politique-confidentialite" className="text-gray-300 hover:text-[#8dc63f] text-sm transition-colors">
+                Politique de confidentialité
+              </a>
+              <a href="/conditions-utilisation" className="text-gray-300 hover:text-[#8dc63f] text-sm transition-colors">
+                Conditions d'utilisation
+              </a>
+            </div>
           </div>
         </div>
       </div>
+      
+      {/* Cookie Manager */}
+      <CookieManager />
     </footer>
   );
 };

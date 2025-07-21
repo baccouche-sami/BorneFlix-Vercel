@@ -80,7 +80,7 @@ export const designSystem = {
     }
   },
 
-  // Espacements
+  // Espacements unifiés
   spacing: {
     xs: '0.25rem',   // 4px
     sm: '0.5rem',    // 8px
@@ -129,9 +129,21 @@ export const designSystem = {
   }
 };
 
-// Composants de base
+// Composants de base unifiés
 export const components = {
-  // Boutons
+  // Sections unifiées
+  section: {
+    base: 'py-16 lg:py-24',
+    container: 'container mx-auto px-4 lg:px-8 max-w-7xl',
+    header: {
+      base: 'text-center mb-12 lg:mb-16',
+      badge: 'inline-flex items-center bg-[#8dc63f]/10 text-[#8dc63f] px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6',
+      title: 'text-3xl md:text-4xl lg:text-5xl font-bold text-[#003566] mb-4 lg:mb-6 leading-tight',
+      subtitle: 'text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed',
+    }
+  },
+
+  // Boutons unifiés
   button: {
     base: 'inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
     sizes: {
@@ -141,54 +153,128 @@ export const components = {
       xl: 'px-8 py-4 text-xl rounded-xl',
     },
     variants: {
-      primary: 'bg-primary-500 hover:bg-primary-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5',
-      secondary: 'bg-secondary-500 hover:bg-secondary-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5',
-      outline: 'border-2 border-primary-500 text-primary-500 hover:bg-primary-50 hover:border-primary-600',
-      ghost: 'text-primary-500 hover:bg-primary-50',
+      primary: 'bg-[#003566] hover:bg-[#00264d] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus:ring-[#003566]/20',
+      secondary: 'bg-[#8dc63f] hover:bg-[#7db52f] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus:ring-[#8dc63f]/20',
+      accent: 'bg-[#ff6b35] hover:bg-[#ea580c] text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus:ring-[#ff6b35]/20',
+      outline: 'border-2 border-[#003566] text-[#003566] hover:bg-[#003566]/5 hover:border-[#00264d] focus:ring-[#003566]/20',
+      ghost: 'text-[#003566] hover:bg-[#003566]/5 focus:ring-[#003566]/20',
     }
   },
 
-  // Cards
+  // Cards unifiées
   card: {
-    base: 'bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300',
+    base: 'bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100',
     sizes: {
       sm: 'p-4',
       md: 'p-6',
       lg: 'p-8',
+    },
+    variants: {
+      default: 'bg-white',
+      elevated: 'bg-white shadow-xl',
+      outlined: 'bg-white border-2 border-gray-200',
+      gradient: 'bg-gradient-to-br from-white to-gray-50',
     }
   },
 
-  // Inputs
+  // Inputs unifiés
   input: {
-    base: 'w-full px-4 py-3 border-2 border-neutral-200 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-300',
+    base: 'w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#003566] focus:ring-2 focus:ring-[#003566]/20 transition-all duration-300',
     error: 'border-red-500 focus:border-red-500 focus:ring-red-200',
   },
 
-  // Sections
-  section: {
-    base: 'py-16 lg:py-24',
-    container: 'container mx-auto px-4 lg:px-8',
+  // Grilles unifiées
+  grid: {
+    container: 'grid gap-6 lg:gap-8',
+    cols: {
+      1: 'grid-cols-1',
+      2: 'grid-cols-1 md:grid-cols-2',
+      3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+      4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+    }
+  },
+
+  // Animations unifiées
+  animations: {
+    fadeIn: {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.6 }
+    },
+    slideIn: {
+      initial: { opacity: 0, x: -30 },
+      animate: { opacity: 1, x: 0 },
+      transition: { duration: 0.6 }
+    },
+    scaleIn: {
+      initial: { opacity: 0, scale: 0.9 },
+      animate: { opacity: 1, scale: 1 },
+      transition: { duration: 0.6 }
+    }
   }
 };
 
-// Classes utilitaires
-export const utilityClasses = {
-  // Textes
-  heading1: 'text-4xl md:text-5xl lg:text-6xl font-bold text-primary-500 leading-tight',
-  heading2: 'text-3xl md:text-4xl font-bold text-primary-500 leading-tight',
-  heading3: 'text-2xl md:text-3xl font-semibold text-primary-500 leading-tight',
-  body: 'text-base md:text-lg text-neutral-700 leading-relaxed',
+// Classes utilitaires unifiées
+export const utilities = {
+  // Espacements
+  spacing: {
+    section: 'py-16 lg:py-24',
+    container: 'container mx-auto px-4 lg:px-8 max-w-7xl',
+    content: 'mb-12 lg:mb-16',
+  },
   
-  // Gradients
-  gradientPrimary: 'bg-gradient-to-r from-primary-500 to-primary-600',
-  gradientSecondary: 'bg-gradient-to-r from-secondary-500 to-secondary-600',
-  gradientAccent: 'bg-gradient-to-r from-accent-500 to-accent-600',
+  // Typographie
+  text: {
+    heading: 'text-3xl md:text-4xl lg:text-5xl font-bold text-[#003566] leading-tight',
+    subheading: 'text-xl md:text-2xl font-semibold text-[#003566]',
+    body: 'text-base lg:text-lg text-gray-600 leading-relaxed',
+    caption: 'text-sm text-gray-500',
+  },
   
-  // Animations
-  hoverScale: 'transition-transform duration-300 hover:scale-105',
-  hoverLift: 'transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+  // Couleurs
+  colors: {
+    primary: 'text-[#003566]',
+    secondary: 'text-[#8dc63f]',
+    accent: 'text-[#ff6b35]',
+    muted: 'text-gray-600',
+  },
   
-  // Layout
-  readableText: 'max-w-4xl mx-auto',
-  centered: 'flex items-center justify-center',
+  // Bordures
+  borders: {
+    default: 'border border-gray-200',
+    rounded: 'rounded-xl',
+    roundedLg: 'rounded-2xl',
+  },
+  
+  // Ombres
+  shadows: {
+    default: 'shadow-lg',
+    hover: 'hover:shadow-xl',
+    large: 'shadow-2xl',
+  }
+};
+
+// Configuration globale
+export const config = {
+  // Espacements de section cohérents
+  sectionSpacing: {
+    small: 'py-12 lg:py-16',
+    medium: 'py-16 lg:py-24',
+    large: 'py-20 lg:py-32',
+  },
+  
+  // Marges de contenu cohérentes
+  contentSpacing: {
+    small: 'mb-8 lg:mb-12',
+    medium: 'mb-12 lg:mb-16',
+    large: 'mb-16 lg:mb-24',
+  },
+  
+  // Tailles de conteneur cohérentes
+  containerSizes: {
+    small: 'max-w-4xl',
+    medium: 'max-w-6xl',
+    large: 'max-w-7xl',
+    full: 'max-w-none',
+  }
 }; 

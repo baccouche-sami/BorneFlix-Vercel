@@ -14,7 +14,7 @@ const FAQPage = () => {
   }, []);
 
   const faqItems = [
-    {
+    { 
       question: "Comment se déroule le processus d'installation en copropriété ?",
       answer: "Le processus commence par une étude technique gratuite, suivie d'une proposition adaptée à votre copropriété. Après approbation en assemblée générale, nous procédons à l'installation de l'infrastructure puis des bornes individuelles selon les besoins des résidents. Notre équipe vous accompagne à chaque étape, de l'étude initiale jusqu'à la mise en service.",
       icon: Building,
@@ -92,49 +92,34 @@ const FAQPage = () => {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#ff6b35] via-[#ff8c42] to-[#ffa726] text-white py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+      <section className="bg-[#003566] text-white py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Questions
-              <span className="block text-[#003566]">Fréquentes</span>
+              <span className="block text-[#8dc63f]">Fréquentes</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-200 mb-8">
               Trouvez rapidement toutes les réponses à vos questions 
               <br className="hidden md:block" />
               sur les bornes de recharge BorneFlix
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#003566] hover:bg-[#00264d] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              <button
+                className="bg-[#8dc63f] hover:bg-[#7db52f] text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
                 onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Consulter la FAQ
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-[#ff6b35]"
+              </button>
+              <button
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors hover:bg-white hover:text-[#003566]"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Nous contacter
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
-        
-        {/* Éléments décoratifs */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-[#003566]/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-[#003566]/10 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
       </section>
 
       {/* FAQ Section */}

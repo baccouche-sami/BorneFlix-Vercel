@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Settings, Shield, BarChart, Target, Info } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button-unified";
 import { useCookies, CookiePreferences } from "@/hooks/useCookies";
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const { preferences, hasConsented, savePreferences, isConsentExpired } = useCookies();
+  const { preferences, hasConsented, savePreferences, shouldShowConsent } = useCookies();
   const [localPreferences, setLocalPreferences] = useState<CookiePreferences>(preferences);
 
   useEffect(() => {
-    // Vérifier si l'utilisateur a déjà donné son consentement et s'il n'a pas expiré
-    if (!hasConsented || isConsentExpired()) {
-      setShowConsent(true);
-    }
-  }, [hasConsented, isConsentExpired]);
+    // Utiliser la fonction shouldShowConsent du hook pour déterminer si on doit afficher le consentement
+    setShowConsent(shouldShowConsent());
+  }, [shouldShowConsent]);
 
   useEffect(() => {
     setLocalPreferences(preferences);
@@ -91,6 +89,7 @@ const CookieConsent = () => {
     }
   ];
 
+  // Ne rien afficher si l'utilisateur a déjà fait son choix
   if (!showConsent) return null;
 
   return (
@@ -101,7 +100,7 @@ const CookieConsent = () => {
         exit={{ opacity: 0, y: 100 }}
         className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl"
       >
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-6">
           {!showSettings ? (
             // Vue principale du consentement
             <div className="max-w-4xl mx-auto">
@@ -148,8 +147,8 @@ const CookieConsent = () => {
                     Refuser tout
                   </Button>
                   <Button
+                    variant="secondary"
                     onClick={handleAcceptAll}
-                    className="bg-[#8dc63f] hover:bg-[#7db52f] text-white"
                   >
                     Accepter tout
                   </Button>
@@ -202,19 +201,19 @@ const CookieConsent = () => {
                     
                     <div className="flex items-center ml-4">
                       <label className="relative inline-flex items-center cursor-pointer">
-                                                 <input
-                           type="checkbox"
-                           checked={localPreferences[cookieType.key]}
-                           onChange={() => handlePreferenceChange(cookieType.key)}
-                           disabled={cookieType.required}
-                           className="sr-only peer"
-                         />
-                         <div className={`
-                           w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 
-                           peer-focus:ring-[#ff6b35]/20 rounded-full peer 
-                           ${localPreferences[cookieType.key] ? 'bg-[#8dc63f]' : 'bg-gray-200'}
-                           ${cookieType.required ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-                         `}>
+                        <input
+                          type="checkbox"
+                          checked={localPreferences[cookieType.key]}
+                          onChange={() => handlePreferenceChange(cookieType.key)}
+                          disabled={cookieType.required}
+                          className="sr-only peer"
+                        />
+                        <div className={`
+                          w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 
+                          peer-focus:ring-[#ff6b35]/20 rounded-full peer 
+                          ${localPreferences[cookieType.key] ? 'bg-[#8dc63f]' : 'bg-gray-200'}
+                          ${cookieType.required ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+                        `}>
                           <div className={`
                             peer-checked:translate-x-full peer-checked:border-white 
                             after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
@@ -237,8 +236,8 @@ const CookieConsent = () => {
                   Annuler
                 </Button>
                 <Button
+                  variant="secondary"
                   onClick={handleSavePreferences}
-                  className="bg-[#8dc63f] hover:bg-[#7db52f] text-white"
                 >
                   Sauvegarder mes choix
                 </Button>
