@@ -30,7 +30,8 @@ export default defineConfig({
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.');
+          const name = assetInfo.name || 'asset';
+          const info = name.split('.');
           const ext = info[info.length - 1];
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
             return `assets/images/[name]-[hash][extname]`;
@@ -67,6 +68,7 @@ export default defineConfig({
       '@hookform/resolvers',
       'zod'
     ],
+    exclude: ['@replit/vite-plugin-runtime-error-modal']
   },
   server: {
     port: 3000,
@@ -76,4 +78,6 @@ export default defineConfig({
     port: 4173,
     host: true,
   },
+  clearScreen: false,
+  logLevel: 'info'
 });
