@@ -36,9 +36,12 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
-  const server = await registerRoutes(app);
+// Vercel Serverless Function handler
+export default async function handler(req: Request, res: Response) {
+  // Register routes
+  await registerRoutes(app);
 
+  // Error handling middleware
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -47,23 +50,41 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
-
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5005;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-  }, () => {
-    log(`serving on port ${port}`);
+  // Handle the request
+  return new Promise((resolve, reject) => {
+    app(req, res, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(undefined);
+      }
+    });
   });
-})();
+}
+
+// Development server (only runs locally)
+if (process.env.NODE_ENV === "development" && !process.env.VERCEL) {
+  (async () => {
+    const server = await registerRoutes(app);
+
+    app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+      const status = err.status || err.statusCode || 500;
+      const message = err.message || "Internal Server Error";
+
+      res.status(status).json({ message });
+      throw err;
+    });
+
+    // Setup Vite in development
+    await setupVite(app, server);
+
+    // Start development server
+    const port = process.env.PORT || 5005;
+    server.listen({
+      port: Number(port),
+      host: "0.0.0.0",
+    }, () => {
+      log(`Development server running on port ${port}`);
+    });
+  })();
+}

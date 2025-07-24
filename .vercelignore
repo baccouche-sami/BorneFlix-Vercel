@@ -44,12 +44,15 @@ pids/
 *.seed
 *.pid.lock
 
-# Coverage directory
+# Coverage directory used by tools like istanbul
 coverage/
 *.lcov
 
 # nyc test coverage
 .nyc_output/
+
+# Dependency directories
+jspm_packages/
 
 # Optional npm cache directory
 .npm
@@ -72,12 +75,15 @@ coverage/
 # Yarn Integrity file
 .yarn-integrity
 
-# parcel-bundler cache
+# parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
 
 # Vite
 .vite/
+
+# Vercel
+.vercel/
 
 # TypeScript
 *.tsbuildinfo
@@ -106,4 +112,8 @@ cleanup_script.sh
 scripts/
 *.md
 !README.md
-!DEPLOYMENT.md 
+!DEPLOYMENT.md
+
+# Development server (not needed for Vercel)
+server/index.ts
+server/vite.ts 

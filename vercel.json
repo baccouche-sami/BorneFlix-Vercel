@@ -4,7 +4,7 @@
   "installCommand": "npm install",
   "framework": "vite",
   "functions": {
-    "server/index.ts": {
+    "api/server.ts": {
       "runtime": "nodejs18.x",
       "maxDuration": 30
     }
@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/index.ts"
+      "dest": "/api/server.ts"
     },
     {
       "src": "/(.*)",
