@@ -135,11 +135,11 @@ const Header = () => {
                 <Link href="/contact" className="text-sm font-medium text-[#003566] hover:text-[#8dc63f] transition-colors border-b-2 border-transparent hover:border-[#8dc63f] pb-1" onClick={handleLinkClick}>
                   Contact
                 </Link>
-                <Button variant="secondary" size="md" asChild>
-                  <Link href="/devis">
+                <Link href="/devis">
+                  <Button variant="secondary" size="md">
                     Devis gratuit
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
               </nav>
 
               {/* Mobile menu button */}
@@ -227,11 +227,11 @@ const Header = () => {
               <span>Contact</span>
             </Link>
             <div className="pt-4">
-              <Button variant="secondary" size="lg" fullWidth asChild>
-                <Link href="/devis" onClick={handleLinkClick}>
+              <Link href="/devis">
+                <Button variant="secondary" size="lg" fullWidth>
                   Devis gratuit
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
