@@ -1,6 +1,13 @@
-RewriteEngine On
+# Configuration Phusion Passenger pour O2switch
+# Basé sur la documentation officielle O2switch
 
-# Proxy API requests to Node.js
+# Configuration Passenger
+PassengerAppEnv production
+PassengerFriendlyErrorPages off
+PassengerAppLogFile "/home/gofa2011/borneflix/logs/passenger.log"
+
+# Proxy API requests to Node.js (si nécessaire)
+RewriteEngine On
 RewriteCond %{REQUEST_URI} ^/api/
 RewriteRule ^api/(.*) http://localhost:3000/api/$1 [P,L]
 

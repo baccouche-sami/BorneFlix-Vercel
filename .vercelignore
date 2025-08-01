@@ -116,4 +116,7 @@ scripts/
 
 # Development server (not needed for Vercel)
 server/index.ts
-server/vite.ts 
+server/vite.ts
+
+# CloudLinux NodeJS Selector - ne pas inclure node_modules
+node_modules/ 
