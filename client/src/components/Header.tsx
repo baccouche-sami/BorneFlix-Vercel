@@ -136,7 +136,7 @@ const Header = () => {
                   Contact
                 </Link>
                 <Button variant="secondary" size="md" asChild>
-                  <Link href="/devis" onClick={handleLinkClick}>
+                  <Link href="/devis">
                     Devis gratuit
                   </Link>
                 </Button>
@@ -165,11 +165,11 @@ const Header = () => {
                 Équipez votre copropriété avec des bornes IRVE intelligentes et économisez jusqu'à 50% sur votre facture d'énergie
               </p>
               <div className="flex items-center space-x-3">
-                <Button variant="secondary" size="sm" asChild>
-                  <Link href="/devis" onClick={handleLinkClick}>
+                <Link href="/devis">
+                  <Button variant="secondary" size="sm">
                     Devis gratuit
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
                 <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
                   <i className="fas fa-phone-alt mr-1"></i>
                   Appeler

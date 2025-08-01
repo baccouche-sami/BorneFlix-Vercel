@@ -37,7 +37,7 @@ const HeroSection = () => {
               </h2>
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-10">
-                <a href="#devis" className="w-full sm:w-auto">
+                <a href="/devis" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-[#8dc63f] hover:bg-[#7ab42f] text-white font-medium py-6 px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px]">
                     Contactez-nous
                   </Button>

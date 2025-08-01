@@ -358,7 +358,7 @@ const SolutionsPage = () => {
                 className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center items-center"
               >
                 <motion.a
-                  href="#devis"
+                  href="/devis"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative overflow-hidden bg-gradient-to-r from-[#8dc63f] to-[#7db52f] text-white font-semibold py-4 px-8 lg:px-10 rounded-full transition-all duration-300 shadow-lg shadow-[#8dc63f]/30 hover:shadow-xl hover:shadow-[#8dc63f]/40"
@@ -509,7 +509,7 @@ const SolutionsPage = () => {
 
                       {/* CTA moderne */}
                       <motion.a
-                        href="#devis"
+                        href="/devis"
                         className="mt-auto"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -777,7 +777,7 @@ const SolutionsPage = () => {
                     vos besoins et votre budget
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#devis">
+                    <a href="/devis">
                       <Button className="bg-gradient-to-r from-[#8dc63f] to-[#7db52f] hover:from-[#7db52f] hover:to-[#6ca41e] text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:translate-y-[-2px] shadow-lg shadow-[#8dc63f]/25">
                         <i className="fas fa-calculator mr-2"></i>
                         Devis personnalisé
@@ -991,7 +991,7 @@ const SolutionsPage = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-4">
-                      <a href="#devis">
+                      <a href="/devis">
                         <Button className="bg-[#8dc63f] hover:bg-[#7ab42f] text-white font-medium py-3 px-6 rounded-full transition-all duration-300 hover:translate-y-[-2px]">
                           <i className="fas fa-calculator mr-2"></i>
                           Devis gratuit
@@ -1084,7 +1084,7 @@ const SolutionsPage = () => {
                   BorneFlix pour leurs solutions IRVE intelligentes
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="#devis">
+                  <a href="/devis">
                     <Button className="bg-gradient-to-r from-secondary to-green-600 hover:from-green-600 hover:to-secondary text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:translate-y-[-2px] shadow-lg shadow-green-500/25">
                       <i className="fas fa-calculator mr-2"></i>
                       Devis gratuit en 2 min

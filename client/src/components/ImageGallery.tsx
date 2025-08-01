@@ -101,7 +101,7 @@ const ImageGallery = () => {
                   <p className="text-gray-600 flex-grow">{item.description}</p>
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <a 
-                      href="#devis" 
+                      href="/devis" 
                       className="inline-flex items-center text-[#003566] hover:text-[#8dc63f] transition-colors duration-200 font-medium text-sm"
                     >
                       Découvrir ce projet
@@ -119,7 +119,7 @@ const ImageGallery = () => {
         <AnimateOnScroll animation="fade" threshold={0.1} delay={0.3}>
           <div className="text-center mt-12">
             <a 
-              href="#devis" 
+              href="/devis" 
               className="inline-flex items-center bg-[#003566] text-white hover:bg-[#1a4d85] py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium"
             >
               Devis gratuit dès 299€

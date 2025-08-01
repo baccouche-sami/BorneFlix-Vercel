@@ -41,7 +41,7 @@ const NewHeroSection = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <a href="#devis">
+                <a href="/devis">
                   <Button size="lg" className="w-full sm:w-auto bg-[#8dc63f] hover:bg-[#7db52f] text-white font-medium py-4 md:py-6 px-6 md:px-8 rounded-full shadow-lg shadow-[#8dc63f]/30 transition-all duration-300 hover:translate-y-[-2px] text-base md:text-lg">
                     Devis gratuit en 2 min
                   </Button>

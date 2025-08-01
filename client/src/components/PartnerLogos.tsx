@@ -114,7 +114,7 @@ const PartnerLogos = () => {
           transition={{ duration: 0.5 }}
         >
           <a 
-            href="#devis" 
+            href="/devis" 
             className="inline-flex items-center bg-[#003566] text-white hover:bg-[#002a4f] py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
           >
             Rejoignez nos clients satisfaits

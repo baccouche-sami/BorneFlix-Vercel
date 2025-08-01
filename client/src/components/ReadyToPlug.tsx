@@ -66,7 +66,7 @@ const ReadyToPlug = () => {
             </div>
             
             <div className="mt-8">
-              <a href="#devis">
+              <a href="/devis">
                 <Button className="bg-secondary hover:bg-green-600 text-white font-medium py-3 px-8 rounded-full shadow-lg shadow-secondary/20 transition-all duration-300 hover:translate-y-[-2px]">
                   Demander un devis
                 </Button>

@@ -96,7 +96,7 @@ const Advantages = () => {
               Installation en 24h et garantie complète incluse.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#devis">
+              <a href="/devis">
                 <Button className="bg-gradient-to-r from-secondary to-green-600 hover:from-green-600 hover:to-secondary text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:translate-y-[-2px] shadow-lg shadow-green-500/25">
                   <i className="fas fa-calculator mr-2"></i>
                   Devis gratuit en 2 min

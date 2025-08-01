@@ -46,7 +46,7 @@ const ParallaxSection = () => {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a 
-              href="#devis" 
+              href="/devis" 
               className="bg-[#8dc63f] hover:bg-[#7ab42f] text-white py-3 px-8 rounded-full shadow-lg transition-all duration-300 font-medium"
             >
               Obtenir un devis gratuit

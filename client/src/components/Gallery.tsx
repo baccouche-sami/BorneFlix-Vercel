@@ -119,7 +119,7 @@ const Gallery = () => {
         </div>
         
         <div className="text-center mt-12">
-          <a href="#devis" className="inline-flex items-center bg-[#003566] text-white hover:bg-[#1a4d85] py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium">
+          <a href="/devis" className="inline-flex items-center bg-[#003566] text-white hover:bg-[#1a4d85] py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium">
             Demander un devis pour votre copropriété
             <i className="fas fa-arrow-right ml-3"></i>
           </a>
