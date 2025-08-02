@@ -1,6 +1,5 @@
 import { createServer as createViteServer } from "vite";
 import express from "express";
-import { createServer as createHttpServer } from "http";
 import path from "path";
 
 export const setupVite = async (app: express.Application, server: any) => {

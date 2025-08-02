@@ -38,8 +38,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Development server (only runs locally)
-if (process.env.NODE_ENV === "development" && !process.env.VERCEL) {
   (async () => {
     const server = await registerRoutes(app);
 
@@ -63,4 +61,3 @@ if (process.env.NODE_ENV === "development" && !process.env.VERCEL) {
       log(`Development server running on port ${port}`);
     });
   })();
-}
