@@ -19,6 +19,6 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    allowedHosts: ["localhost", "127.0.0.1", "0.0.0.0", "borneflix.onrender.com"],
+    allowedHosts: ["localhost", "127.0.0.1", "0.0.0.0", "borneflix.onrender.com", "borneflix.fr"],
   },
 });
