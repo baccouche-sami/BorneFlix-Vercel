@@ -37,7 +37,7 @@ interface DevisFormData {
 }
 
 const BREVO_CONFIG: BrevoConfig = {
-  apiKey: import.meta.env.VITE_BREVO_API_KEY || '***REMOVED***',
+  apiKey: import.meta.env.VITE_BREVO_API_KEY,
   senderEmail: import.meta.env.VITE_BREVO_SENDER_EMAIL || 'noreply@borneflix.fr',
   senderName: import.meta.env.VITE_BREVO_SENDER_NAME || 'BorneFlix',
   recipientEmail: import.meta.env.VITE_BREVO_RECIPIENT_EMAIL || 'sami.baccouche1998@gmail.com'
