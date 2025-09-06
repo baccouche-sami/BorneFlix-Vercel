@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Phone, Mail, MapPin, Clock, Send, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { sendContactEmail } from "@/lib/brevoService";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -70,21 +71,30 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simuler un envoi de données avec un délai
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Réinitialiser le formulaire
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      message: ""
-    });
-    
-    // Afficher une notification de succès (simulation)
-    alert("Message envoyé ! Nous vous contacterons dans les plus brefs délais.");
-    
-    setIsSubmitting(false);
+    try {
+      // Envoyer l'email via Brevo
+      const success = await sendContactEmail(formData);
+      
+      if (success) {
+        // Réinitialiser le formulaire
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: ""
+        });
+        
+        // Afficher une notification de succès
+        alert("Message envoyé avec succès ! Nous vous contacterons dans les plus brefs délais.");
+      } else {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message:', error);
+      alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement par téléphone.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
