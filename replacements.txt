@@ -1,0 +1,5 @@
+# Replace the EXACT leaked key if you know it:
+# EXACT_LEAKED_KEY ==> ***REMOVED***
+
+# Also remove any Brevo-style keys that match typical format:
+regex:xkeysib-[A-Za-z0-9_-]{20,}==>***REMOVED***
