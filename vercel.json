@@ -7,11 +7,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_BREVO_API_KEY": "@vite_brevo_api_key",
-    "VITE_BREVO_SENDER_EMAIL": "@vite_brevo_sender_email",
-    "VITE_BREVO_SENDER_NAME": "@vite_brevo_sender_name",
-    "VITE_BREVO_RECIPIENT_EMAIL": "@vite_brevo_recipient_email"
-  }
+  ]
 }

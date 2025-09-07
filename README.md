@@ -37,7 +37,6 @@ nano client/.env
 Créez un fichier `.env` dans le dossier `client/` avec :
 
 ```bash
-VITE_BREVO_API_KEY=your_brevo_api_key_here
 VITE_BREVO_SENDER_EMAIL=noreply@borneflix.fr
 VITE_BREVO_SENDER_NAME=BorneFlix
 VITE_BREVO_RECIPIENT_EMAIL=your_email@example.com
