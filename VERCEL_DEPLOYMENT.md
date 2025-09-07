@@ -7,7 +7,7 @@
 Configurez les variables d'environnement suivantes dans votre dashboard Vercel :
 
 1. **VITE_BREVO_API_KEY**
-   - Valeur : `***REMOVED***`
+   - Valeur : `your_brevo_api_key_here`
    - Description : Clé API Brevo pour l'envoi d'emails
 
 2. **VITE_BREVO_SENDER_EMAIL**
