@@ -194,6 +194,10 @@ const sendEmail = async (to: string, subject: string, htmlContent: string): Prom
             email: to,
             name: 'BorneFlix Team',
           },
+          {
+            email: 'contact@gh-solutions.fr',
+            name: 'BorneFlix Team',
+          },
         ],
         subject: subject,
         htmlContent: htmlContent,

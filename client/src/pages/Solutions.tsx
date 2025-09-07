@@ -41,7 +41,7 @@ const SolutionsPage = () => {
       subtitle: "SOLUTION RAPIDE",
       description:
         "Solution rapide et économique avec la prise renforcée Green'up de Legrand. Installation simple en 1h, idéale pour commencer la recharge électrique.",
-      image: rechargeImage1,
+      image: anticipationImage,
       icon: "fas fa-bolt",
       color: "#8dc63f",
       price: "299€",
@@ -92,7 +92,7 @@ const SolutionsPage = () => {
       subtitle: "ENTREPRISES",
       description:
         "Équipez votre entreprise avec des bornes de recharge intelligentes pour vos employés et clients. Gestion centralisée et optimisation des coûts.",
-      image: anticipationImage,
+      image: rechargeImage1,
       icon: "fas fa-briefcase",
       color: "#ff6b35",
       price: "Sur devis",
