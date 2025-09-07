@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Phone, Mail, MapPin, Clock, Send, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { sendContactEmail } from "@/lib/brevoService";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const ContactPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     document.title = "Contact BorneFlix - Nous contacter pour vos bornes de recharge";
@@ -85,13 +87,21 @@ const ContactPage = () => {
         });
         
         // Afficher une notification de succès
-        alert("Message envoyé avec succès ! Nous vous contacterons dans les plus brefs délais.");
+        toast({
+          title: "✅ Message envoyé avec succès !",
+          description: "Nous vous contacterons dans les plus brefs délais.",
+          variant: "default",
+        });
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }
     } catch (error) {
       console.error('Erreur lors de l\'envoi du message:', error);
-      alert("Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou nous contacter directement par téléphone.");
+      toast({
+        title: "❌ Erreur lors de l'envoi",
+        description: "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement par téléphone.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

@@ -60,6 +60,7 @@ const createDevisEmailTemplate = (data: DevisFormData): string => {
     'syndic': 'Syndic',
     'coproprietaire': 'Copropriétaire',
     'gestionnaire': 'Gestionnaire',
+    'demandeur-professionnel': 'Demandeur professionnel',
     'autre': 'Autre'
   };
 
