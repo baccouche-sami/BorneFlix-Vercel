@@ -12,6 +12,7 @@ Application web moderne pour BorneFlix, spécialisée dans les solutions de rech
 - **Wouter** - Routing
 - **Radix UI** - Composants accessibles
 - **Brevo** - Service d'email
+- **Vercel Functions** - API serverless pour l'envoi d'emails
 
 ## 📦 Installation
 
@@ -34,13 +35,28 @@ nano client/.env
 
 ### Variables d'environnement
 
-Créez un fichier `.env` dans le dossier `client/` avec :
+Créez un fichier `.env` à la racine du projet avec les variables suivantes (pour Vercel) :
 
 ```bash
-VITE_BREVO_SENDER_EMAIL=noreply@borneflix.fr
-VITE_BREVO_SENDER_NAME=BorneFlix
-VITE_BREVO_RECIPIENT_EMAIL=your_email@example.com
+BREVO_SENDER_EMAIL=noreply@borneflix.fr
+BREVO_SENDER_NAME=BorneFlix
+BREVO_RECIPIENT_EMAIL=your_email@example.com
 ```
+
+**Important** : Ces variables sont maintenant sécurisées côté serveur et ne sont plus exposées dans le navigateur.
+
+## 🏗️ Architecture
+
+### API Serverless
+L'application utilise maintenant des fonctions serverless Vercel pour l'envoi d'emails :
+
+- `/api/send-contact` - Envoi des emails de contact
+- `/api/send-devis` - Envoi des emails de devis
+
+### Sécurité
+- Les clés API Brevo sont maintenant stockées côté serveur
+- Aucune donnée sensible n'est exposée dans le navigateur
+- Validation des données côté serveur
 
 ## 🛠️ Scripts
 
