@@ -367,7 +367,7 @@ const ChatbotFAQ: React.FC = () => {
   const handleContactAction = (action: string) => {
     switch (action) {
       case 'phone':
-        window.location.href = 'tel:0180919080';
+        window.location.href = 'tel:0186041802';
         break;
       case 'email':
         window.location.href = 'mailto:contact@borneflix.fr';
