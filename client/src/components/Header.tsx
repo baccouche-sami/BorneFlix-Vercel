@@ -78,7 +78,7 @@ const Header = () => {
               <div className="flex items-center space-x-6">
                 <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-phone-alt mr-2"></i>
-                  <span>01 23 45 67 89</span>
+                  <span>01 86 04 18 02</span>
                 </a>
                 <a href="mailto:contact@borneflix.fr" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-envelope mr-2"></i>
@@ -170,7 +170,7 @@ const Header = () => {
                     Devis gratuit
                   </Button>
                 </Link>
-                <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
+                <a href="tel:0186041802" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
                   <i className="fas fa-phone-alt mr-1"></i>
                   Appeler
                 </a>
