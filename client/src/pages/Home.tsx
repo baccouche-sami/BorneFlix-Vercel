@@ -38,9 +38,9 @@ const Home = () => {
           "email": "contact@borneflix.fr",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "3 Av. des Orangers",
-            "addressLocality": "Bonneuil-sur-Marne",
-            "postalCode": "94380",
+            "streetAddress": "2 Rue Lavoisier",
+            "addressLocality": "Igny",
+            "postalCode": "91430",
             "addressCountry": "FR"
           },
           "geo": {
@@ -763,7 +763,7 @@ const Home = () => {
               {
                 icon: <Phone className="w-8 h-8" />,
                 title: "Téléphone",
-                content: "01 23 45 67 89",
+                content: "01 86 04 18 02",
                 description: "Lun-Ven 9h-18h",
                 action: "Appeler maintenant"
               },

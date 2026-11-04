@@ -139,7 +139,7 @@ const faqData: FAQDatabase = {
   // Contact et devis
   "contact": {
     question: "Comment contacter BorneFlix ?",
-    answer: "📞 **Contactez-nous facilement :**\n\n1️⃣ **Téléphone** : 01 80 91 90 80\n2️⃣ **Email** : contact@borneflix.fr\n3️⃣ **Devis en ligne** : borneflix.fr/devis\n4️⃣ **Rendez-vous** : Calendly intégré\n\n⏰ **Horaires :**\n• Lundi-Vendredi : 9h-18h\n• Samedi : 9h-12h\n• Support technique : 24/7\n\n💡 **Réponse garantie sous 2h** en heures ouvrables !",
+    answer: "📞 **Contactez-nous facilement :**\n\n1️⃣ **Téléphone** : 01 86 04 18 02\n2️⃣ **Email** : contact@borneflix.fr\n3️⃣ **Devis en ligne** : borneflix.fr/devis\n4️⃣ **Rendez-vous** : Calendly intégré\n\n⏰ **Horaires :**\n• Lundi-Vendredi : 9h-18h\n• Samedi : 9h-12h\n• Support technique : 24/7\n\n💡 **Réponse garantie sous 2h** en heures ouvrables !",
     followup: ["Demander un devis", "Prendre rendez-vous", "Support technique", "Voir nos réalisations"],
     category: "contact"
   },

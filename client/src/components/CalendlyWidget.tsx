@@ -147,7 +147,7 @@ const CalendlyWidget = ({
             <div className="p-4 bg-gray-50 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
                 <p className="text-sm text-gray-600">
-                  Besoin d'aide ? Contactez-nous au 01 80 91 90 80
+                  Besoin d'aide ? Contactez-nous au 01 86 04 18 02
                 </p>
                 <Button
                   variant="outline"

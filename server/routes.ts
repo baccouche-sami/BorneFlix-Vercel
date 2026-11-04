@@ -267,7 +267,7 @@ Ce message a été généré automatiquement. Merci de ne pas y répondre.
                 <p>Bonjour ${formData.prenom},</p>
                 <p>Nous avons bien reçu votre demande de devis pour l'installation de bornes de recharge de véhicules électriques.</p>
                 <p>Notre équipe va étudier votre projet et vous contactera dans les plus brefs délais pour discuter des détails et vous proposer une solution adaptée à vos besoins.</p>
-                <p>Si vous avez des questions en attendant, n'hésitez pas à nous contacter au 01 23 45 67 89.</p>
+                <p>Si vous avez des questions en attendant, n'hésitez pas à nous contacter au 01 86 04 18 02.</p>
                 <p>Cordialement,</p>
                 <p>L'équipe BorneFlix</p>
                 <div class="footer">
@@ -286,7 +286,7 @@ Nous avons bien reçu votre demande de devis pour l'installation de bornes de re
 
 Notre équipe va étudier votre projet et vous contactera dans les plus brefs délais pour discuter des détails et vous proposer une solution adaptée à vos besoins.
 
-Si vous avez des questions en attendant, n'hésitez pas à nous contacter au 01 23 45 67 89.
+Si vous avez des questions en attendant, n'hésitez pas à nous contacter au 01 86 04 18 02.
 
 Cordialement,
 L'équipe BorneFlix

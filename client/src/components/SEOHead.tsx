@@ -185,9 +185,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
         },
         address: {
           '@type': 'PostalAddress',
-          streetAddress: '3 Av. des Orangers',
-          addressLocality: 'Bonneuil-sur-Marne',
-          postalCode: '94380',
+          streetAddress: '2 Rue Lavoisier',
+          addressLocality: 'Igny',
+          postalCode: '91430',
           addressCountry: 'FR'
         }
       },

@@ -125,9 +125,9 @@ const PolitiqueConfidentialite = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#003566] mb-2">BorneFlix</h3>
-                    <p className="text-gray-700">3 Av. des Orangers, 94380 Bonneuil-sur-Marne, France</p>
+                    <p className="text-gray-700">2 Rue Lavoisier, 91430 Igny, France</p>
                     <p className="text-gray-700">Email : contact@borneflix.fr</p>
-                    <p className="text-gray-700">Téléphone : 01 80 91 90 80</p>
+                    <p className="text-gray-700">Téléphone : 01 86 04 18 02</p>
                   </div>
                 </div>
               </div>
@@ -368,8 +368,8 @@ const PolitiqueConfidentialite = () => {
                 </p>
                 <p className="text-gray-700">
                   BorneFlix<br />
-                  3 Av. des Orangers<br />
-                  94380 Bonneuil-sur-Marne, France
+                  2 Rue Lavoisier<br />
+                  91430 Igny, France
                 </p>
               </div>
             </motion.div>
@@ -431,7 +431,7 @@ const PolitiqueConfidentialite = () => {
                   </p>
                   <p className="text-gray-700">
                     Email : <strong>dpo@borneflix.fr</strong><br />
-                    Adresse : 3 Av. des Orangers, 94380 Bonneuil-sur-Marne, France
+                    Adresse : 2 Rue Lavoisier, 91430 Igny, France
                   </p>
                 </div>
                 

@@ -67,7 +67,7 @@ Ajouter ces questions pour chaque type d'événement :
 
 #### Messages automatiques
 - **Confirmation** : "Merci pour votre rendez-vous. Nous vous contacterons dans les 24h pour confirmer les détails."
-- **Rappel** : "Rappel : Votre rendez-vous BorneFlix dans 24h. Contact : 01 80 91 90 80"
+- **Rappel** : "Rappel : Votre rendez-vous BorneFlix dans 24h. Contact : 01 86 04 18 02"
 
 ### 6. Intégration avec le site
 
@@ -159,4 +159,4 @@ Pour une intégration avancée, configurer des webhooks pour :
 
 - **Calendly Support** : [help.calendly.com](https://help.calendly.com)
 - **Documentation API** : [developer.calendly.com](https://developer.calendly.com)
-- **BorneFlix Contact** : contact@borneflix.fr / 01 80 91 90 80 
+- **BorneFlix Contact** : contact@borneflix.fr / 01 86 04 18 02

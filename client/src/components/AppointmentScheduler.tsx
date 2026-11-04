@@ -216,7 +216,7 @@ const AppointmentScheduler = () => {
                       </div>
                       <div>
                         <h4 className="font-medium text-[#003566]">Contact direct</h4>
-                        <p className="text-sm text-gray-600">01 80 91 90 80</p>
+                        <p className="text-sm text-gray-600">01 86 04 18 02</p>
                       </div>
                     </div>
                     
@@ -242,7 +242,7 @@ const AppointmentScheduler = () => {
                     Fermer
                   </Button>
                   <Button
-                    onClick={() => window.open('tel:0180919080', '_self')}
+                    onClick={() => window.open('tel:0186041802', '_self')}
                     className="bg-[#ff6b35] hover:bg-[#e55a2b] text-white"
                   >
                     <Phone className="w-4 h-4 mr-2" />

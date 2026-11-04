@@ -385,7 +385,7 @@ const ConditionsUtilisation = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-[#003566]">Téléphone</p>
-                      <p className="text-gray-700">01 80 91 90 80</p>
+                      <p className="text-gray-700">01 86 04 18 02</p>
                     </div>
                   </div>
                   
@@ -395,7 +395,7 @@ const ConditionsUtilisation = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-[#003566]">Adresse</p>
-                      <p className="text-gray-700">3 Av. des Orangers<br />94380 Bonneuil-sur-Marne</p>
+                      <p className="text-gray-700">2 Rue Lavoisier<br />91430 Igny</p>
                     </div>
                   </div>
                 </div>

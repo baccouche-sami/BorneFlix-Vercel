@@ -80,8 +80,8 @@ const FAQPage = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      value: "3 Av. des Orangers",
-      description: "94380 Bonneuil-sur-Marne"
+      value: "2 Rue Lavoisier",
+      description: "91430 Igny"
     }
   ];
 

@@ -76,7 +76,7 @@ const Header = () => {
           <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-6">
-                <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
+                <a href="tel:0186041802" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-phone-alt mr-2"></i>
                   <span>01 86 04 18 02</span>
                 </a>

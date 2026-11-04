@@ -371,7 +371,7 @@ const SolutionsPage = () => {
                 </motion.a>
 
                 <motion.a
-                  href="tel:0123456789"
+                  href="tel:0186041802"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group inline-flex items-center text-[#003566] hover:text-[#8dc63f] transition-all duration-300 font-semibold bg-white/80 backdrop-blur-sm px-6 py-4 rounded-full border-2 border-[#003566]/20 hover:border-[#8dc63f]/40 hover:bg-[#8dc63f]/5"
@@ -783,7 +783,7 @@ const SolutionsPage = () => {
                         Devis personnalisé
                       </Button>
                     </a>
-                    <a href="tel:0123456789">
+                    <a href="tel:0186041802">
                       <Button
                         variant="outline"
                         className="border-2 border-[#003566] text-[#003566] hover:bg-[#003566] hover:text-white font-semibold py-4 px-8 rounded-full transition-all duration-300"
@@ -998,7 +998,7 @@ const SolutionsPage = () => {
                         </Button>
                       </a>
                       <a
-                        href="tel:0123456789"
+                        href="tel:0186041802"
                         className="inline-flex items-center text-[#003566] hover:text-[#8dc63f] transition-colors"
                       >
                         <i className="fas fa-phone-alt mr-2"></i>
@@ -1090,7 +1090,7 @@ const SolutionsPage = () => {
                       Devis gratuit en 2 min
                     </Button>
                   </a>
-                  <a href="tel:0123456789">
+                  <a href="tel:0186041802">
                     <Button
                       variant="outline"
                       className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-4 px-8 rounded-full transition-all duration-300"

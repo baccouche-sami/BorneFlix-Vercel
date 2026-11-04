@@ -184,7 +184,7 @@ const createContactEmailTemplate = (data: ContactFormData): string => {
         
         <div class="footer">
           <p><strong>BorneFlix</strong> - Solutions de recharge intelligentes</p>
-          <p>📧 <a href="mailto:contact@borneflix.fr">contact@borneflix.fr</a> | 📞 01 80 91 90 80</p>
+          <p>📧 <a href="mailto:contact@borneflix.fr">contact@borneflix.fr</a> | 📞 01 86 04 18 02</p>
           <p>🌐 <a href="https://borneflix.fr">borneflix.fr</a></p>
         </div>
       </div>
@@ -442,7 +442,7 @@ const createDevisEmailTemplate = (data: DevisFormData): string => {
         
         <div class="footer">
           <p><strong>BorneFlix</strong> - Solutions de recharge intelligentes</p>
-          <p>📧 <a href="mailto:contact@borneflix.fr">contact@borneflix.fr</a> | 📞 01 80 91 90 80</p>
+          <p>📧 <a href="mailto:contact@borneflix.fr">contact@borneflix.fr</a> | 📞 01 86 04 18 02</p>
           <p>🌐 <a href="https://borneflix.fr">borneflix.fr</a></p>
         </div>
       </div>

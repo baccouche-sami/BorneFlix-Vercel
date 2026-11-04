@@ -70,9 +70,9 @@ export const SEO_CONFIG = {
       description: 'Leader français de l\'installation de bornes de recharge IRVE pour copropriétés',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '3 Av. des Orangers',
-        addressLocality: 'Bonneuil-sur-Marne',
-        postalCode: '94380',
+        streetAddress: '2 Rue Lavoisier',
+        addressLocality: 'Igny',
+        postalCode: '91430',
         addressCountry: 'FR'
       },
       contactPoint: {
@@ -99,9 +99,9 @@ export const SEO_CONFIG = {
       email: 'contact@borneflix.fr',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '3 Av. des Orangers',
-        addressLocality: 'Bonneuil-sur-Marne',
-        postalCode: '94380',
+        streetAddress: '2 Rue Lavoisier',
+        addressLocality: 'Igny',
+        postalCode: '91430',
         addressCountry: 'FR'
       },
       geo: {

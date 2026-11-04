@@ -398,7 +398,7 @@ const AvantagesPage = () => {
                 <Button 
                   variant="outline"
                   className="border-2 border-white text-[#003566] hover:bg-white hover:text-[#003566] px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300"
-                  onClick={() => window.location.href = 'tel:0123456789'}
+                  onClick={() => window.location.href = 'tel:0186041802'}
                 >
                   <i className="fas fa-phone-alt mr-3"></i>
                   Appeler un expert
