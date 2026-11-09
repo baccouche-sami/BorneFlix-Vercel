@@ -48,10 +48,10 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
 
   // Afficher un chargement pendant la vérification
   const [loading, setLoading] = useState(true);
-  
+
   // Stocker les demandes de devis récupérées depuis PostgreSQL
   const [quotes, setQuotes] = useState<Quote[]>([]);
-  
+
   // Mémoriser le statut choisi dans le filtre du dashboard
   // "tous" signifie que toutes les demandes seront affichées
   const [statusFilter, setStatusFilter] = useState<string>("tous");
@@ -85,7 +85,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
       );
 
     // Afficher uniquement les demandes correspondant aux deux critères
-   return matchesStatus && matchesSearch;  
+   return matchesStatus && matchesSearch;
   }).sort((a, b) => {
   // Convertir les dates des demandes en valeurs numériques
   const dateA = new Date(a.createdAt).getTime();
@@ -100,7 +100,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
   return dateB - dateA;
   });
 
-  
+
   // Calculer les statistiques à partir des demandes chargées
   // Les valeurs se mettent à jour automatiquement lorsque quotes change
   const quoteStats = {
@@ -132,7 +132,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
   // Stocker la demande sélectionnée par l'administrateur
   // null signifie qu'aucune demande n'est sélectionnée
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
-  
+
   // Mémoriser la demande dont le statut est en cours de modification
   const [updatingQuoteId, setUpdatingQuoteId] = useState<number | null>(null);
 
@@ -186,7 +186,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
     // Nettoyer la requête lorsque le composant est démonté
     return () => controller.abort();
   }, []);
-  
+
   // Charger les demandes uniquement après validation de la session
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -246,7 +246,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
     // Annuler la requête lorsque le composant est démonté
     return () => controller.abort();
   }, [isAuthenticated]);
-  
+
   // Récupérer le jeton CSRF après vérification de la session admin
   useEffect(() => {
     // Ne rien demander tant que l'administrateur n'est pas authentifié
@@ -308,7 +308,7 @@ const [csrfToken, setCsrfToken] = useState<string | null>(null);
     return () => controller.abort();
   }, [isAuthenticated]);
 
-  
+
   // Modifier le statut d'une demande depuis le dashboard
   const handleStatusChange = async (id: number, statut: string) => {
     // Éviter plusieurs modifications simultanées
@@ -336,7 +336,7 @@ if (!csrfToken) {
         body: JSON.stringify({ statut }),
       });
 
-      
+
       // Rediriger uniquement si la session administrateur a expiré
       if (response.status === 401) {
         window.location.replace("/admin/login");
@@ -383,9 +383,9 @@ if (!csrfToken) {
       setUpdatingQuoteId(null);
     }
   };
-  
+
   // Déconnecter l'administrateur et supprimer sa session
-  
+
 const handleLogout = async () => {
   // Empêcher la déconnexion si le jeton CSRF n'est pas disponible
   if (!csrfToken) {
@@ -452,7 +452,7 @@ const handleLogout = async () => {
   }
 
   // Afficher le dashboard uniquement après validation
-  
+
   // Afficher le dashboard après validation de la session
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -474,7 +474,7 @@ const handleLogout = async () => {
         <p className="mt-2 text-gray-600">
           Gestion et suivi des demandes de devis
         </p>
-        
+
 {/* Cartes de statistiques des demandes de devis */}
 <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
 
@@ -546,7 +546,7 @@ const handleLogout = async () => {
   <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
     {filteredQuotes.length} résultat(s) sur {quotes.length}
   </span>
-        
+
 {/* Filtrer les demandes de devis selon leur statut */}
 <div className="mb-5 flex flex-wrap items-center gap-3">
   <label
@@ -570,10 +570,8 @@ const handleLogout = async () => {
     <option value="traite">Traité</option>
   </select>
 </div>
-
 {/* Menu permettant de trier les demandes selon leur date */}
 <div className="mb-5 flex flex-wrap items-center gap-3">
-
   {/* Libellé du menu de tri */}
   <label
     htmlFor="dateSort"
@@ -581,7 +579,6 @@ const handleLogout = async () => {
   >
     Trier par date :
   </label>
-
   {/* Choisir l'ordre d'affichage des demandes */}
   <select
     id="dateSort"
@@ -616,7 +613,7 @@ const handleLogout = async () => {
     placeholder="Nom, prénom, email ou téléphone..."
     className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 sm:max-w-md"
   />
-  
+
 {/* Bouton permettant de réinitialiser la recherche et le filtre */}
 {(searchTerm !== "" || statusFilter !== "tous") && (
   <div className="mb-5">
@@ -670,7 +667,7 @@ const handleLogout = async () => {
                 </thead>
 
                 <tbody>
-                  
+
 {/* Afficher un message si aucune demande ne correspond aux filtres */}
 {!quotesLoading && !quotesError && filteredQuotes.length === 0 && (
   <tr>
@@ -719,7 +716,7 @@ const handleLogout = async () => {
                       </td>
 
                       {/* Statut actuel de la demande */}
-                      
+
 {/* Menu déroulant permettant de modifier le statut d'une demande */}
 <td className="p-3">
   <select
@@ -765,7 +762,7 @@ const handleLogout = async () => {
             </div>
           )}
         </div>
-        
+
 {/* Fenêtre des détails de la demande sélectionnée */}
 {selectedQuote && (
   <div
