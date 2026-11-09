@@ -350,13 +350,14 @@ const DevisPage = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Envoyer les données au serveur
-      const response = await fetch('/api/devis', {
+      const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
+          puissanceRequise: formData.puissanceRequire,
           tracking: stepTracking,
           timestamp: new Date().toISOString()
         }),

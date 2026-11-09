@@ -2,7 +2,13 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendEmail, verifyEmailConfig } from "../server/mailService";
+import { db } from "./db";
+import { quotes } from "../shared/schema";
 
+import bcrypt from "bcrypt";
+// Limiter les tentatives de connexion pour réduire les attaques par force brute
+import { rateLimit } from "express-rate-limit";
+import { randomBytes, timingSafeEqual } from "node:crypto";
 // Format de devis pour le formulaire
 interface QuoteFormData {
   // Step 1: Information de base
@@ -32,7 +38,432 @@ interface NewsletterSubscription {
   email: string;
 }
 
+ // Middleware de sécurité pour les routes administrateur
+async function requireAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    // Récupérer l'identifiant administrateur depuis la session
+    const adminId = (
+      req.session as typeof req.session & { adminId?: number }
+    ).adminId;
+
+    // Refuser l'accès si aucune session administrateur n'existe
+    if (typeof adminId !== "number") {
+      res.status(401).json({
+        success: false,
+        message: "Vous devez vous connecter.",
+      });
+      return;
+    }
+
+    // Vérifier que le compte existe et possède toujours le rôle admin
+    const admin = await storage.getUser(adminId);
+
+    if (!admin || admin.role !== "admin") {
+      res.status(403).json({
+        success: false,
+        message: "Accès administrateur interdit.",
+      });
+      return;
+    }
+
+    // Autoriser la requête à continuer vers la route protégée
+    next();
+  } catch (error) {
+    // Ne pas exposer les détails techniques au navigateur
+    console.error("Erreur de vérification des droits administrateur.");
+
+    res.status(500).json({
+      success: false,
+      message: "Erreur lors de la vérification des autorisations.",
+    });
+  }
+}
+
+  // Définir les informations supplémentaires stockées dans la session
+  type AdminSession = Request["session"] & {
+    adminId?: number;
+    csrfToken?: string;
+  };
+
+  // Générer ou récupérer le jeton CSRF de la session actuelle
+  function getCsrfToken(req: Request): string {
+    const adminSession = req.session as AdminSession;
+
+    // Générer un jeton aléatoire uniquement s'il n'existe pas
+    if (!adminSession.csrfToken) {
+      adminSession.csrfToken = randomBytes(32).toString("hex");
+    }
+
+    return adminSession.csrfToken;
+  }
+
+  // Vérifier le jeton CSRF envoyé par le navigateur
+  function requireCsrf(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const adminSession = req.session as AdminSession;
+
+    // Récupérer le jeton transmis dans l'en-tête HTTP
+    const receivedToken = req.get("X-CSRF-Token");
+    const expectedToken = adminSession.csrfToken;
+
+    // Refuser les requêtes sans jeton valide
+    if (
+      !receivedToken ||
+      !expectedToken ||
+      !/^[a-f0-9]{64}$/.test(receivedToken)
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "Jeton CSRF manquant ou invalide.",
+      });
+    }
+
+    // Convertir les jetons en buffers pour une comparaison sécurisée
+    const receivedBuffer = Buffer.from(receivedToken, "hex");
+    const expectedBuffer = Buffer.from(expectedToken, "hex");
+
+    // Vérifier la longueur avant la comparaison
+    if (
+      receivedBuffer.length !== expectedBuffer.length ||
+      !timingSafeEqual(receivedBuffer, expectedBuffer)
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "Jeton CSRF invalide.",
+      });
+    }
+
+    // Autoriser la requête si les jetons correspondent
+    next();
+  }
+
+
+  // Limiter les tentatives de connexion administrateur
+  const adminLoginLimiter = rateLimit({
+    // Durée de la fenêtre : 15 minutes
+    windowMs: 15 * 60 * 1000,
+
+    // Autoriser au maximum 5 tentatives échouées par adresse IP
+    limit: 5,
+
+    // Ne pas comptabiliser les connexions réussies
+    skipSuccessfulRequests: true,
+
+    // Utiliser les en-têtes HTTP standard de limitation
+    standardHeaders: "draft-7",
+
+    // Désactiver les anciens en-têtes de limitation
+    legacyHeaders: false,
+
+    // Message envoyé lorsque la limite est atteinte
+    message: {
+      success: false,
+      message: "Trop de tentatives de connexion. Réessayez dans 15 minutes.",
+    },
+  });
+
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  // API de connexion au dashboard administrateur
+  app.post("/api/admin/login", adminLoginLimiter, async (req, res) =>{
+    try {
+      // Récupérer les identifiants envoyés par le formulaire
+      const { username, password } = req.body ?? {};
+
+      // Vérifier le format des données reçues
+      if (
+        typeof username !== "string" ||
+        typeof password !== "string" ||
+        !username.trim() ||
+        !password ||
+        username.length > 120 ||
+        password.length > 1024
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Identifiants invalides.",
+        });
+      }
+
+      // Rechercher l'utilisateur dans PostgreSQL
+      const user = await storage.getUserByUsername(username.trim());
+
+      // Vérifier le mot de passe haché avec bcrypt
+      // Le message reste identique si l'utilisateur n'existe pas
+      const passwordValid = user
+        ? await bcrypt.compare(password, user.password)
+        : false;
+
+      // Autoriser uniquement les utilisateurs ayant le rôle admin
+      if (!user || !passwordValid || user.role !== "admin") {
+        return res.status(401).json({
+          success: false,
+          message: "Nom d'utilisateur ou mot de passe incorrect.",
+        });
+      }
+
+      // Renouveler l'identifiant de session après la connexion
+      req.session.regenerate((error) => {
+        if (error) {
+          console.error("Erreur de création de session administrateur.");
+
+          return res.status(500).json({
+            success: false,
+            message: "Impossible de créer la session.",
+          });
+        }
+
+        // Enregistrer l'identifiant de l'administrateur dans la session
+        // Le typage TypeScript de cette propriété sera ajouté ensuite
+        (req.session as typeof req.session & { adminId?: number }).adminId =
+          user.id;
+
+        // Sauvegarder la session dans PostgreSQL avant de répondre
+        req.session.save((saveError) => {
+          if (saveError) {
+            console.error("Erreur d'enregistrement de session.");
+
+            return res.status(500).json({
+              success: false,
+              message: "Impossible d'enregistrer la session.",
+            });
+          }
+
+          // Confirmer la connexion sans transmettre le mot de passe
+          return res.status(200).json({
+            success: true,
+            message: "Connexion administrateur réussie.",
+            user: {
+              id: user.id,
+              username: user.username,
+              role: user.role,
+            },
+          });
+        });
+      });
+    } catch (error) {
+      // Ne pas exposer les détails internes au navigateur
+      console.error("Erreur lors de la connexion administrateur.");
+
+      return res.status(500).json({
+        success: false,
+        message: "Une erreur interne est survenue.",
+      });
+    }
+  })
+  
+  // Vérifier si une session administrateur est active
+  app.get("/api/admin/me", async (req, res) => {
+    try {
+      // Récupérer l'identifiant administrateur depuis la session
+      const adminId = (
+        req.session as typeof req.session & { adminId?: number }
+      ).adminId;
+
+      // Refuser l'accès si aucune session administrateur n'existe
+      if (typeof adminId !== "number") {
+        return res.status(401).json({
+          success: false,
+          message: "Vous devez vous connecter.",
+        });
+      }
+
+      // Vérifier que le compte existe toujours et possède le rôle admin
+      const admin = await storage.getUser(adminId);
+
+      if (!admin || admin.role !== "admin") {
+        return res.status(401).json({
+          success: false,
+          message: "Session administrateur invalide.",
+        });
+      }
+
+      // Confirmer la session sans exposer le mot de passe
+      return res.status(200).json({
+        success: true,
+        user: {
+          id: admin.id,
+          username: admin.username,
+          role: admin.role,
+        },
+      });
+    } catch (error) {
+      // Ne pas exposer les détails internes du serveur
+      console.error("Erreur de vérification de session administrateur.");
+
+      return res.status(500).json({
+        success: false,
+        message: "Impossible de vérifier la session.",
+      });
+    }
+  });
+  
+  // Fournir un jeton CSRF à l'administrateur connecté
+  app.get("/api/admin/csrf-token", requireAdmin, (req, res) => {
+    try {
+      // Récupérer ou générer le jeton lié à la session
+      const csrfToken = getCsrfToken(req);
+
+      // Sauvegarder le jeton dans la session PostgreSQL
+      req.session.save((error) => {
+        if (error) {
+          // Ne pas exposer les détails internes du serveur
+          console.error("Erreur d'enregistrement du jeton CSRF.");
+
+          return res.status(500).json({
+            success: false,
+            message: "Impossible de préparer la session sécurisée.",
+          });
+        }
+
+        // Empêcher la mise en cache du jeton
+        res.setHeader("Cache-Control", "no-store");
+
+        // Envoyer le jeton au navigateur authentifié
+        return res.status(200).json({
+          success: true,
+          csrfToken,
+        });
+      });
+    } catch {
+      // Gérer les erreurs sans exposer les informations internes
+      return res.status(500).json({
+        success: false,
+        message: "Impossible de générer le jeton CSRF.",
+      });
+    }
+  });
+
+  
+  // Déconnecter l'administrateur en détruisant sa session
+  app.post("/api/admin/logout", requireAdmin,requireCsrf, (req, res) => {
+    // Supprimer la session enregistrée côté serveur
+    req.session.destroy((error) => {
+      // Signaler un problème si la suppression échoue
+      if (error) {
+        return res.status(500).json({
+          success: false,
+          message: "Impossible de se déconnecter.",
+        });
+      }
+
+      // Supprimer le cookie de session du navigateur
+      res.clearCookie("connect.sid", {
+        path: "/",
+      });
+
+      // Confirmer la déconnexion
+      return res.status(200).json({
+        success: true,
+        message: "Déconnexion réussie.",
+      });
+    });
+  });
+
+  
+  // Récupérer les demandes de devis pour le dashboard administrateur
+  // requireAdmin vérifie la session et le rôle avant d'autoriser l'accès
+  app.get("/api/admin/quotes", requireAdmin, async (req, res) => {
+    try {
+      // Récupérer les demandes de devis depuis PostgreSQL
+      const allQuotes = await storage.getAllQuotes();
+
+      // Envoyer les demandes au dashboard
+      return res.status(200).json({
+        success: true,
+        quotes: allQuotes,
+      });
+    } catch (error) {
+      // Ne pas exposer les détails techniques ou les données clients
+      console.error("Erreur lors de la récupération des devis.");
+
+      return res.status(500).json({
+        success: false,
+        message: "Impossible de récupérer les demandes de devis.",
+      });
+    }
+  });
+  
+  // Modifier le statut d'une demande de devis
+  // Seul un administrateur authentifié peut accéder à cette API
+  app.patch("/api/admin/quotes/:id/status", requireAdmin,requireCsrf, async (req, res) => {
+    try {
+      // Récupérer l'identifiant de la demande depuis l'URL
+      const id = Number(req.params.id);
+
+      // Vérifier que l'identifiant est un entier positif valide
+      if (!Number.isSafeInteger(id) || id <= 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Identifiant de demande invalide.",
+        });
+      }
+
+      // Définir les quatre statuts autorisés
+      const allowedStatuses = [
+        "nouveau",
+        "en_cours",
+        "devis_envoye",
+        "traite",
+      ] as const;
+
+      // Récupérer le statut envoyé par le dashboard
+      const { statut } = req.body ?? {};
+
+      // Refuser les statuts inconnus ou invalides
+      if (
+        typeof statut !== "string" ||
+        !allowedStatuses.some((value) => value === statut)
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Statut de demande invalide.",
+        });
+      }
+
+      // Mettre à jour le statut dans PostgreSQL
+      const updatedQuote = await storage.updateQuoteStatus(id, statut);
+
+      // Vérifier que la demande existe
+      if (!updatedQuote) {
+        return res.status(404).json({
+          success: false,
+          message: "Demande de devis introuvable.",
+        });
+      }
+
+      // Confirmer la modification sans renvoyer les données personnelles
+      return res.status(200).json({
+        success: true,
+        message: "Statut mis à jour avec succès.",
+        quote: {
+          id: updatedQuote.id,
+          statut: updatedQuote.statut,
+        },
+      });
+    } catch (error) {
+      // Ne pas exposer les détails internes du serveur
+      console.error("Erreur lors de la modification du statut.");
+
+      return res.status(500).json({
+        success: false,
+        message: "Impossible de modifier le statut de la demande.",
+      });
+    }
+  });
+
+
+
+
+  
   // API route for contact form submissions
   app.post("/api/contact", async (req, res) => {
     try {
@@ -219,6 +650,36 @@ Ce message a été généré automatiquement. Merci de ne pas y répondre.
           message: "Adresse email invalide"
         });
       }
+      
+      // Enregistrement de la demande dans PostgreSQL
+      await db.insert(quotes).values({
+        nom: formData.nom,
+        prenom: formData.prenom,
+        email: formData.email,
+        telephone: formData.telephone,
+        typeLogement: formData.typeLogement,
+        adresse: formData.adresse,
+        codePostal: formData.codePostal,
+        ville: formData.ville,
+        nombrePlacesParking: formData.nombrePlacesParking,
+        nombreResidents: formData.nombreResidents,
+        typeInstallation: formData.typeInstallation,
+        nombreBornes: formData.nombreBornes,
+        puissanceRequise: formData.puissanceRequise,
+        statutDemandeur: formData.statutDemandeur,
+        dateProjet: formData.dateProjet,
+        commentaires: formData.commentaires,
+      });
+      
+      // Mode développement : ne pas envoyer d'e-mails réels
+      if (process.env.NODE_ENV === "development") {
+        return res.status(201).json({
+          success: true,
+          message: "Demande de devis enregistrée en base de données (mode développement).",
+        });
+      }
+
+
 
       // Préparation du contenu de l'email
       const emailHtml = generateQuoteEmailHtml(formData);

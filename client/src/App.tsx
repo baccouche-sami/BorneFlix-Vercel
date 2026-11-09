@@ -11,6 +11,9 @@ import RealisationsPage from "@/pages/Realisations";
 import FAQPage from "@/pages/FAQ";
 import DevisPage from "@/pages/Devis";
 import ContactPage from "@/pages/Contact";
+// Pages de l'espace administrateur BorneFlix
+import AdminLogin from "@/pages/AdminLogin";
+import Dashboard from "@/pages/Dashboard";
 import MentionsLegales from "@/pages/MentionsLegales";
 import PolitiqueConfidentialite from "@/pages/PolitiqueConfidentialite";
 import ConditionsUtilisation from "@/pages/ConditionsUtilisation";
@@ -34,6 +37,11 @@ function Router() {
       <Route path="/mentions-legales" component={MentionsLegales} />
       <Route path="/politique-confidentialite" component={PolitiqueConfidentialite} />
       <Route path="/conditions-utilisation" component={ConditionsUtilisation} />
+      {/* Route du formulaire de connexion administrateur */}
+      <Route path="/admin/login" component={AdminLogin} />
+
+{/* Route du tableau de bord administrateur */}
+      <Route path="/admin/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );
