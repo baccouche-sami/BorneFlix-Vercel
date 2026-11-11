@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { insertQuote } from './_lib/db';
 
 interface DevisFormData {
   // Step 1: Information de base
@@ -372,6 +373,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ 
         error: 'RGPD consent is required' 
       });
+    }
+
+    try {
+      await insertQuote({
+        nom: formData.nom,
+        prenom: formData.prenom,
+        email: formData.email,
+        telephone: formData.telephone,
+        typeLogement: formData.typeLogement,
+        adresse: formData.adresse,
+        codePostal: formData.codePostal,
+        ville: formData.ville,
+        nombrePlacesParking: formData.nombrePlacesParking,
+        nombreResidents: formData.nombreResidents,
+        typeInstallation: formData.typeInstallation,
+        nombreBornes: formData.nombreBornes,
+        puissanceRequise: formData.puissanceRequire,
+        statutDemandeur: formData.statutDemandeur,
+        dateProjet: formData.dateProjet,
+        commentaires: formData.commentaires,
+      });
+    } catch (error) {
+      console.error("Demande de devis non enregistrée.", error);
     }
 
     const subject = `📋 Nouvelle demande de devis - ${formData.prenom} ${formData.nom}`;

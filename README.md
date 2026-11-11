@@ -38,9 +38,14 @@ nano client/.env
 Créez un fichier `.env` à la racine du projet avec les variables suivantes (pour Vercel) :
 
 ```bash
+DATABASE_URL=postgresql://user:password@host/borneflix?sslmode=require
+SESSION_SECRET=une-chaine-aleatoire-d-au-moins-32-caracteres
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=mot-de-passe-administrateur
+BREVO_API_KEY=your_brevo_api_key
 BREVO_SENDER_EMAIL=noreply@borneflix.fr
 BREVO_SENDER_NAME=BorneFlix
-BREVO_RECIPIENT_EMAIL=your_email@example.com
+BREVO_RECIPIENT_EMAIL=contact@borneflix.fr
 ```
 
 **Important** : Ces variables sont maintenant sécurisées côté serveur et ne sont plus exposées dans le navigateur.
