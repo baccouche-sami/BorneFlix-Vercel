@@ -77,7 +77,7 @@ export const SEO_CONFIG = {
       },
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+33-1-80-91-90-80',
+        telephone: '+33-1-86-04-18-02',
         contactType: 'customer service',
         areaServed: 'FR',
         availableLanguage: 'French'
@@ -95,7 +95,7 @@ export const SEO_CONFIG = {
       name: 'BorneFlix',
       description: 'Leader français de l\'installation de bornes de recharge IRVE pour copropriétés',
       url: 'https://borneflix.fr',
-      telephone: '+33-1-80-91-90-80',
+      telephone: '+33-1-86-04-18-02',
       email: 'contact@borneflix.fr',
       address: {
         '@type': 'PostalAddress',

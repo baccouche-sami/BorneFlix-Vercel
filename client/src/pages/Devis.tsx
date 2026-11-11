@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Calculator, Calendar, FileText, CheckCircle, ArrowRight, Clock, Users, Zap, AlertCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { sendDevisEmail } from "@/lib/brevoService";
 
 const DevisPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -346,24 +347,9 @@ const DevisPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Simuler l'envoi du formulaire
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Envoyer les données au serveur
-      const response = await fetch('/api/quote', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          puissanceRequise: formData.puissanceRequire,
-          tracking: stepTracking,
-          timestamp: new Date().toISOString()
-        }),
-      });
+      const success = await sendDevisEmail(formData);
 
-      if (response.ok) {
+      if (success) {
         toast({
           title: "Devis envoyé avec succès !",
           description: "Nous vous recontacterons dans les 24h avec votre devis personnalisé.",

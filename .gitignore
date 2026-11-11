@@ -104,4 +104,9 @@ uploads/
 sessions/
 
 # Drizzle
-drizzle/ 
+drizzle/
+
+# Archives
+*.zip
+*.tar.gz
+*.rar

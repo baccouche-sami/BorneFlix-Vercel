@@ -178,7 +178,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
         },
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: '+33-1-80-91-90-80',
+          telephone: '+33-1-86-04-18-02',
           contactType: 'customer service',
           areaServed: 'FR',
           availableLanguage: 'French'

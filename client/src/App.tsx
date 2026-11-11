@@ -39,8 +39,6 @@ function Router() {
       <Route path="/conditions-utilisation" component={ConditionsUtilisation} />
       {/* Route du formulaire de connexion administrateur */}
       <Route path="/admin/login" component={AdminLogin} />
-
-{/* Route du tableau de bord administrateur */}
       <Route path="/admin/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
