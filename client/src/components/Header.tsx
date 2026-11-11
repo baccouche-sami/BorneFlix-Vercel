@@ -8,6 +8,30 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
+  // Indique si un administrateur est actuellement connecté
+const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+
+
+  // Vérifier si un administrateur possède une session active
+  useEffect(() => {
+    const checkAdminSession = async () => {
+      try {
+        // Interroger le serveur pour vérifier l'authentification
+        const response = await fetch("/api/admin/me", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        // Si la session est valide, l'administrateur est connecté
+        setIsAdminAuthenticated(response.ok);
+      } catch (error) {
+        // En cas d'erreur, considérer l'utilisateur comme non connecté
+        setIsAdminAuthenticated(false);
+      }
+    };
+
+    checkAdminSession();
+  }, []);
 
   // Handle scroll event to change header style
   useEffect(() => {
@@ -20,10 +44,10 @@ const Header = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     // Initial check
     handleScroll();
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -57,10 +81,10 @@ const Header = () => {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
     document.body.style.overflow = '';
-    
+
     // Scroll vers le haut immédiatement
     window.scrollTo(0, 0);
-    
+
     // Double vérification après un court délai
     setTimeout(() => {
       window.scrollTo(0, 0);
@@ -76,9 +100,9 @@ const Header = () => {
           <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-6">
-                <a href="tel:0123456789" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
+                <a href="tel:0186041802" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-phone-alt mr-2"></i>
-                  <span>01 23 45 67 89</span>
+                  <span>01 86 04 18 02</span>
                 </a>
                 <a href="mailto:contact@borneflix.fr" className="flex items-center text-white hover:text-[#8dc63f] transition-colors text-sm">
                   <i className="fas fa-envelope mr-2"></i>
@@ -102,7 +126,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Main navigation bar */}
         <div className={`w-full bg-white shadow-sm transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
           <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-4">
@@ -140,6 +164,23 @@ const Header = () => {
                     Devis gratuit
                   </Button>
                 </Link>
+
+{/* Accès à la page de connexion du dashboard administrateur */}
+
+{/* Afficher le bouton uniquement si l'administrateur n'est pas connecté */}
+{!isAdminAuthenticated && (
+  <Link
+    href="/admin/login"
+    onClick={handleLinkClick}
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-[#003566] text-[#003566] text-sm font-medium hover:bg-[#003566] hover:text-white transition-colors"
+  >
+    {/* Icône de connexion */}
+    <i className="fas fa-sign-in-alt"></i>
+    <span>Connexion Admin</span>
+  </Link>
+)}
+
+
               </nav>
 
               {/* Mobile menu button */}
@@ -170,7 +211,7 @@ const Header = () => {
                     Devis gratuit
                   </Button>
                 </Link>
-                <a href="tel:0123456789" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
+                <a href="tel:0186041802" className="text-white hover:text-[#8dc63f] text-sm transition-colors">
                   <i className="fas fa-phone-alt mr-1"></i>
                   Appeler
                 </a>
@@ -180,46 +221,46 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div 
+        <div
           className={`md:hidden fixed top-[120px] left-0 right-0 bottom-0 bg-white shadow-lg px-6 pt-6 pb-32 overflow-y-auto transition-transform duration-300 z-40 ${
             isMobileMenuOpen ? 'translate-y-0' : 'translate-y-full pointer-events-none'
           }`}
         >
           <nav className="flex flex-col space-y-4">
-            <Link 
-              href="/solutions" 
+            <Link
+              href="/solutions"
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
               <i className="fas fa-plug text-[#8dc63f] mr-3"></i>
               <span>Solutions</span>
             </Link>
-            <Link 
-              href="/avantages" 
+            <Link
+              href="/avantages"
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
               <i className="fas fa-star text-[#8dc63f] mr-3"></i>
               <span>Avantages</span>
             </Link>
-            <Link 
-              href="/realisations" 
+            <Link
+              href="/realisations"
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
               <i className="fas fa-trophy text-[#8dc63f] mr-3"></i>
               <span>Réalisations</span>
             </Link>
-            <Link 
-              href="/faq" 
+            <Link
+              href="/faq"
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
               <i className="fas fa-question-circle text-[#8dc63f] mr-3"></i>
               <span>FAQ</span>
             </Link>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="flex items-center font-medium text-[#003566] hover:text-[#8dc63f] transition-colors py-3 border-b border-gray-100"
               onClick={handleLinkClick}
             >
@@ -233,10 +274,29 @@ const Header = () => {
                 </Button>
               </Link>
             </div>
+
+{/* Bouton de connexion au dashboard dans le menu mobile */}
+
+{/* Masquer le bouton mobile si l'administrateur est connecté */}
+{!isAdminAuthenticated && (
+  <div className="pt-2">
+    <Link
+      href="/admin/login"
+      onClick={handleLinkClick}
+      className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-md border border-[#003566] text-[#003566] font-medium hover:bg-[#003566] hover:text-white transition-colors"
+    >
+      {/* Icône de connexion */}
+      <i className="fas fa-sign-in-alt"></i>
+      <span>Connexion Admin</span>
+    </Link>
+  </div>
+)}
+
+
           </nav>
         </div>
       </header>
-      
+
       {/* Spacer to prevent content from being hidden behind fixed header */}
       <div className="h-[120px]"></div>
     </>

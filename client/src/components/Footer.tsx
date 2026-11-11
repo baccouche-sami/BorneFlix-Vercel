@@ -111,11 +111,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center text-gray-300">
                 <i className="fas fa-map-marker-alt text-[#8dc63f] mr-3 w-5"></i>
-                <span>3 Av. des Orangers, 94380 Bonneuil-sur-Marne</span>
+                <span>2 Rue Lavoisier, 91430 Igny</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <i className="fas fa-phone text-[#8dc63f] mr-3 w-5"></i>
-                <span>01 23 45 67 89</span>
+                <span>01 86 04 18 02</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <i className="fas fa-envelope text-[#8dc63f] mr-3 w-5"></i>

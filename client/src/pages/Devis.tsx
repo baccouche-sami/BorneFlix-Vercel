@@ -347,7 +347,6 @@ const DevisPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Envoyer l'email via Brevo
       const success = await sendDevisEmail(formData);
 
       if (success) {
@@ -623,7 +622,7 @@ const DevisPage = () => {
                 <div className="inline-flex items-center bg-[#003566]/10 text-[#003566] px-4 py-2 rounded-full text-sm font-medium">
                   <span className="w-2 h-2 bg-[#003566] rounded-full mr-2 animate-pulse"></span>
                   Étape {currentStep} sur 4 - {currentStep === 1 ? "Informations personnelles" : 
-                    currentStep === 2 ? "Informations sur le projet" :
+                    currentStep === 2 ? "Informations sur la copropriété" :
                     currentStep === 3 ? "Besoins en recharge" : "Validation du projet"}
                 </div>
               </div>
@@ -739,7 +738,7 @@ const DevisPage = () => {
 
                   {currentStep === 2 && (
                     <div className="space-y-6">
-                      <h3 className="text-2xl font-bold text-[#003566] mb-6">Informations sur le projet</h3>
+                      <h3 className="text-2xl font-bold text-[#003566] mb-6">Informations sur la copropriété</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1110,7 +1109,6 @@ const DevisPage = () => {
                             <option value="syndic">Syndic</option>
                             <option value="coproprietaire">Copropriétaire</option>
                             <option value="gestionnaire">Gestionnaire</option>
-                            <option value="demandeur-professionnel">Demandeur professionnel</option>
                             <option value="autre">Autre</option>
                           </select>
                         </div>

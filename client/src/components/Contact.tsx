@@ -101,7 +101,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-medium text-[#003566]">Adresse</p>
-                      <p className="text-gray-600">3 Av. des Orangers,<br />94380 Bonneuil-sur-Marne, France</p>
+                      <p className="text-gray-600">2 Rue Lavoisier,<br />91430 Igny, France</p>
                     </div>
                   </motion.div>
                   
@@ -115,7 +115,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-medium text-[#003566]">Téléphone</p>
-                      <p className="text-gray-600">01 80 91 90 80</p>
+                      <p className="text-gray-600">01 86 04 18 02</p>
                     </div>
                   </motion.div>
                   
@@ -242,7 +242,7 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8dc63f] focus:border-transparent transition-all duration-300" 
-                        placeholder="01 23 45 67 89"
+                        placeholder="01 86 04 18 02"
                       />
                     </div>
                   </div>

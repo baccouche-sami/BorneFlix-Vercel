@@ -27,7 +27,7 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      value: "01 80 91 90 80",
+      value: "01 86 04 18 02",
       description: "Lun-Ven 9h-18h",
       color: "text-blue-600"
     },
@@ -41,8 +41,8 @@ const ContactPage = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      value: "3 Av. des Orangers",
-      description: "94380 Bonneuil-sur-Marne",
+      value: "2 Rue Lavoisier",
+      description: "91430 Igny",
       color: "text-purple-600"
     },
     {
@@ -74,31 +74,27 @@ const ContactPage = () => {
     setIsSubmitting(true);
     
     try {
-      // Envoyer l'email via Brevo
       const success = await sendContactEmail(formData);
-      
+
       if (success) {
-        // Réinitialiser le formulaire
         setFormData({
           name: "",
           email: "",
           phone: "",
           message: ""
         });
-        
-        // Afficher une notification de succès
+
         toast({
-          title: "✅ Message envoyé avec succès !",
+          title: "Message envoyé avec succès",
           description: "Nous vous contacterons dans les plus brefs délais.",
-          variant: "default",
         });
       } else {
-        throw new Error('Erreur lors de l\'envoi');
+        throw new Error("Erreur lors de l'envoi");
       }
     } catch (error) {
-      console.error('Erreur lors de l\'envoi du message:', error);
+      console.error("Erreur lors de l'envoi du message:", error);
       toast({
-        title: "❌ Erreur lors de l'envoi",
+        title: "Erreur lors de l'envoi",
         description: "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement par téléphone.",
         variant: "destructive",
       });

@@ -178,16 +178,16 @@ const SEOHead: React.FC<SEOHeadProps> = ({
         },
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: '+33-1-80-91-90-80',
+          telephone: '+33-1-86-04-18-02',
           contactType: 'customer service',
           areaServed: 'FR',
           availableLanguage: 'French'
         },
         address: {
           '@type': 'PostalAddress',
-          streetAddress: '3 Av. des Orangers',
-          addressLocality: 'Bonneuil-sur-Marne',
-          postalCode: '94380',
+          streetAddress: '2 Rue Lavoisier',
+          addressLocality: 'Igny',
+          postalCode: '91430',
           addressCountry: 'FR'
         }
       },

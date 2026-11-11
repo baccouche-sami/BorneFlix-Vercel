@@ -68,7 +68,7 @@ const FAQPage = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      value: "01 80 91 90 80",
+      value: "01 86 04 18 02",
       description: "Lun-Ven 9h-18h"
     },
     {
@@ -80,8 +80,8 @@ const FAQPage = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      value: "3 Av. des Orangers",
-      description: "94380 Bonneuil-sur-Marne"
+      value: "2 Rue Lavoisier",
+      description: "91430 Igny"
     }
   ];
 
