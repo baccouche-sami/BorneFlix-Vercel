@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin, requireCsrf } from "../../../_lib/admin";
-import { isQuoteStatus, updateQuoteStatus } from "../../../_lib/db";
+import { requireAdmin, requireCsrf } from "../../../lib/admin";
+import { isQuoteStatus, updateQuoteStatus } from "../../../lib/db";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "PATCH") {

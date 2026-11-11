@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "../../_lib/admin";
-import { listQuotes } from "../../_lib/db";
+import { requireAdmin } from "../../lib/admin";
+import { listQuotes } from "../../lib/db";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {

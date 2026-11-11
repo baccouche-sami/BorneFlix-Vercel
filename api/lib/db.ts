@@ -1,3 +1,4 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import bcrypt from "bcryptjs";
 import pg from "pg";
 
@@ -278,6 +279,10 @@ export type QuoteStatus = (typeof ALLOWED_STATUSES)[number];
 
 export function isQuoteStatus(value: string): value is QuoteStatus {
   return ALLOWED_STATUSES.some((status) => status === value);
+}
+
+export default function handler(_req: VercelRequest, res: VercelResponse) {
+  res.status(404).json({ success: false });
 }
 
 export async function updateQuoteStatus(

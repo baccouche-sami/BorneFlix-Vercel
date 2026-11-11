@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin, requireCsrf } from "../_lib/admin";
-import { clearSessionCookie } from "../_lib/session";
+import { requireAdmin, requireCsrf } from "../lib/admin";
+import { clearSessionCookie } from "../lib/session";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {

@@ -2,6 +2,10 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { findUserById } from "./db";
 import { csrfMatches, readSession } from "./session";
 
+export default function handler(_req: VercelRequest, res: VercelResponse) {
+  res.status(404).json({ success: false });
+}
+
 export async function requireAdmin(req: VercelRequest, res: VercelResponse) {
   let session;
   try {
