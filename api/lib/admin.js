@@ -1,12 +1,9 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { findUserById } from "./db";
-import { csrfMatches, readSession } from "./session";
-
-export default function handler(_req: VercelRequest, res: VercelResponse) {
+import { findUserById } from "./db.js";
+import { csrfMatches, readSession } from "./session.js";
+function handler(_req, res) {
   res.status(404).json({ success: false });
 }
-
-export async function requireAdmin(req: VercelRequest, res: VercelResponse) {
+async function requireAdmin(req, res) {
   let session;
   try {
     session = readSession(req);
@@ -14,43 +11,40 @@ export async function requireAdmin(req: VercelRequest, res: VercelResponse) {
     console.error("Session administrateur indisponible.", error);
     res.status(500).json({
       success: false,
-      message: "La session administrateur n'est pas configurée.",
+      message: "La session administrateur n'est pas configur\xE9e."
     });
     return null;
   }
-
   if (!session) {
     res.status(401).json({
       success: false,
-      message: "Vous devez vous connecter.",
+      message: "Vous devez vous connecter."
     });
     return null;
   }
-
   const admin = await findUserById(session.sub);
   if (!admin || admin.role !== "admin") {
     res.status(401).json({
       success: false,
-      message: "Session administrateur invalide.",
+      message: "Session administrateur invalide."
     });
     return null;
   }
-
   return { session, admin };
 }
-
-export function requireCsrf(
-  res: VercelResponse,
-  csrf: string,
-  received: string | string[] | undefined,
-): boolean {
+function requireCsrf(res, csrf, received) {
   const token = Array.isArray(received) ? received[0] : received;
   if (!csrfMatches(csrf, token)) {
     res.status(403).json({
       success: false,
-      message: "Jeton CSRF manquant ou invalide.",
+      message: "Jeton CSRF manquant ou invalide."
     });
     return false;
   }
   return true;
 }
+export {
+  handler as default,
+  requireAdmin,
+  requireCsrf
+};

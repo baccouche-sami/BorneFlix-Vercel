@@ -1,57 +1,6 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
 import bcrypt from "bcryptjs";
 import pg from "pg";
-
 const { Client } = pg;
-
-export interface AdminUser {
-  id: number;
-  username: string;
-  password: string;
-  role: string;
-}
-
-export interface QuoteRecord {
-  id: number;
-  nom: string;
-  prenom: string;
-  email: string;
-  telephone: string;
-  typeLogement: string;
-  adresse: string;
-  codePostal: string;
-  ville: string;
-  nombrePlacesParking: string;
-  nombreResidents: string;
-  typeInstallation: string;
-  nombreBornes: string;
-  puissanceRequise: string;
-  statutDemandeur: string;
-  dateProjet: string;
-  commentaires: string | null;
-  statut: string;
-  createdAt: string;
-}
-
-export interface NewQuote {
-  nom: string;
-  prenom: string;
-  email: string;
-  telephone: string;
-  typeLogement?: string;
-  adresse?: string;
-  codePostal?: string;
-  ville?: string;
-  nombrePlacesParking?: string;
-  nombreResidents?: string;
-  typeInstallation?: string;
-  nombreBornes?: string;
-  puissanceRequise?: string;
-  statutDemandeur?: string;
-  dateProjet?: string;
-  commentaires?: string;
-}
-
 const SCHEMA_SQL = `
 CREATE TABLE IF NOT EXISTS users (
   id serial PRIMARY KEY,
@@ -88,26 +37,22 @@ CREATE TABLE IF NOT EXISTS login_attempts (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 `;
-
-let ready: Promise<void> | null = null;
-
-function connectionString(): string {
+let ready = null;
+function connectionString() {
   const value = process.env.DATABASE_URL;
   if (!value) {
     throw new Error("DATABASE_URL manquante");
   }
   return value;
 }
-
-function needsSsl(url: string): boolean {
+function needsSsl(url) {
   return !url.includes("localhost") && !url.includes("127.0.0.1");
 }
-
-export async function withDb<T>(run: (client: pg.Client) => Promise<T>): Promise<T> {
+async function withDb(run) {
   const url = connectionString();
   const client = new Client({
     connectionString: url,
-    ssl: needsSsl(url) ? { rejectUnauthorized: false } : undefined,
+    ssl: needsSsl(url) ? { rejectUnauthorized: false } : void 0
   });
   await client.connect();
   try {
@@ -116,48 +61,39 @@ export async function withDb<T>(run: (client: pg.Client) => Promise<T>): Promise
     await client.end();
   }
 }
-
-async function migrateAndSeed(): Promise<void> {
+async function migrateAndSeed() {
   await withDb(async (client) => {
     await client.query(SCHEMA_SQL);
-
     const username = process.env.ADMIN_USERNAME?.trim();
     const configuredHash = process.env.ADMIN_PASSWORD_HASH?.trim();
     const configuredPassword = process.env.ADMIN_PASSWORD;
-    if (!username || (!configuredHash && !configuredPassword)) {
+    if (!username || !configuredHash && !configuredPassword) {
       return;
     }
-
-    const passwordHash = configuredHash || (await bcrypt.hash(configuredPassword, 12));
-
+    const passwordHash = configuredHash || await bcrypt.hash(configuredPassword, 12);
     await client.query(
       `INSERT INTO users (username, password, role)
        SELECT $1, $2, 'admin'
        WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = $1)`,
-      [username, passwordHash],
+      [username, passwordHash]
     );
   });
 }
-
-export function ensureDatabase(): Promise<void> {
+function ensureDatabase() {
   if (!ready) {
-    ready = migrateAndSeed().catch((error: unknown) => {
+    ready = migrateAndSeed().catch((error) => {
       ready = null;
       throw error;
     });
   }
   return ready;
 }
-
-function text(value: unknown): string {
+function text(value) {
   return typeof value === "string" ? value : "";
 }
-
-function mapQuote(row: Record<string, unknown>): QuoteRecord {
+function mapQuote(row) {
   const created = row.created_at;
-  const createdAt =
-    created instanceof Date ? created.toISOString() : text(created);
-
+  const createdAt = created instanceof Date ? created.toISOString() : text(created);
   return {
     id: Number(row.id),
     nom: text(row.nom),
@@ -177,68 +113,62 @@ function mapQuote(row: Record<string, unknown>): QuoteRecord {
     dateProjet: text(row.date_projet),
     commentaires: typeof row.commentaires === "string" ? row.commentaires : null,
     statut: text(row.statut) || "nouveau",
-    createdAt,
+    createdAt
   };
 }
-
-export async function findUserByUsername(username: string): Promise<AdminUser | null> {
+async function findUserByUsername(username) {
   await ensureDatabase();
   return withDb(async (client) => {
     const result = await client.query(
       "SELECT id, username, password, role FROM users WHERE username = $1",
-      [username],
+      [username]
     );
-    const row = result.rows[0] as AdminUser | undefined;
+    const row = result.rows[0];
     return row ?? null;
   });
 }
-
-export async function findUserById(id: number): Promise<AdminUser | null> {
+async function findUserById(id) {
   await ensureDatabase();
   return withDb(async (client) => {
     const result = await client.query(
       "SELECT id, username, password, role FROM users WHERE id = $1",
-      [id],
+      [id]
     );
-    const row = result.rows[0] as AdminUser | undefined;
+    const row = result.rows[0];
     return row ?? null;
   });
 }
-
-export async function countRecentLoginFailures(ip: string): Promise<number> {
+async function countRecentLoginFailures(ip) {
   await ensureDatabase();
   return withDb(async (client) => {
     const result = await client.query(
       `SELECT count(*)::int AS total
        FROM login_attempts
        WHERE ip = $1 AND created_at > now() - interval '15 minutes'`,
-      [ip],
+      [ip]
     );
     return Number(result.rows[0]?.total ?? 0);
   });
 }
-
-export async function recordLoginFailure(ip: string): Promise<void> {
+async function recordLoginFailure(ip) {
   await ensureDatabase();
   await withDb(async (client) => {
     await client.query("INSERT INTO login_attempts (ip) VALUES ($1)", [ip]);
     await client.query(
-      "DELETE FROM login_attempts WHERE created_at < now() - interval '1 day'",
+      "DELETE FROM login_attempts WHERE created_at < now() - interval '1 day'"
     );
   });
 }
-
-export async function listQuotes(): Promise<QuoteRecord[]> {
+async function listQuotes() {
   await ensureDatabase();
   return withDb(async (client) => {
     const result = await client.query(
-      "SELECT * FROM quotes ORDER BY created_at DESC",
+      "SELECT * FROM quotes ORDER BY created_at DESC"
     );
-    return result.rows.map((row) => mapQuote(row as Record<string, unknown>));
+    return result.rows.map((row) => mapQuote(row));
   });
 }
-
-export async function insertQuote(quote: NewQuote): Promise<void> {
+async function insertQuote(quote) {
   await ensureDatabase();
   await withDb(async (client) => {
     await client.query(
@@ -267,35 +197,39 @@ export async function insertQuote(quote: NewQuote): Promise<void> {
         quote.puissanceRequise ?? null,
         quote.statutDemandeur ?? null,
         quote.dateProjet ?? null,
-        quote.commentaires ?? null,
-      ],
+        quote.commentaires ?? null
+      ]
     );
   });
 }
-
-const ALLOWED_STATUSES = ["nouveau", "en_cours", "devis_envoye", "traite"] as const;
-
-export type QuoteStatus = (typeof ALLOWED_STATUSES)[number];
-
-export function isQuoteStatus(value: string): value is QuoteStatus {
+const ALLOWED_STATUSES = ["nouveau", "en_cours", "devis_envoye", "traite"];
+function isQuoteStatus(value) {
   return ALLOWED_STATUSES.some((status) => status === value);
 }
-
-export default function handler(_req: VercelRequest, res: VercelResponse) {
+function handler(_req, res) {
   res.status(404).json({ success: false });
 }
-
-export async function updateQuoteStatus(
-  id: number,
-  statut: QuoteStatus,
-): Promise<{ id: number; statut: string } | null> {
+async function updateQuoteStatus(id, statut) {
   await ensureDatabase();
   return withDb(async (client) => {
     const result = await client.query(
       "UPDATE quotes SET statut = $1 WHERE id = $2 RETURNING id, statut",
-      [statut, id],
+      [statut, id]
     );
-    const row = result.rows[0] as { id: number; statut: string } | undefined;
+    const row = result.rows[0];
     return row ?? null;
   });
 }
+export {
+  countRecentLoginFailures,
+  handler as default,
+  ensureDatabase,
+  findUserById,
+  findUserByUsername,
+  insertQuote,
+  isQuoteStatus,
+  listQuotes,
+  recordLoginFailure,
+  updateQuoteStatus,
+  withDb
+};

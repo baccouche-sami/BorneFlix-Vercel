@@ -4,8 +4,8 @@ import {
   countRecentLoginFailures,
   findUserByUsername,
   recordLoginFailure,
-} from "../lib/db";
-import { clientIp, createSessionToken, setSessionCookie } from "../lib/session";
+} from "../lib/db.js";
+import { clientIp, createSessionToken, setSessionCookie } from "../lib/session.js";
 
 const LOGIN_LIMIT = 5;
 

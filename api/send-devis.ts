@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { insertQuote } from './lib/db';
+import { insertQuote } from './lib/db.js';
 
 interface DevisFormData {
   // Step 1: Information de base
